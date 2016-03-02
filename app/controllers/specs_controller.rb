@@ -10,8 +10,8 @@ class SpecsController < ApplicationController
     @selected_project_id = params[:project_id] || Project.first.id
     
   
-    @specs = Spec.roots.for_project(@selected_project_id)
-    
+    @specs = Spec.for_project(@selected_project_id).arrange
+    puts "specs = #{@specs}"
     @tag_types = TagType.all
     
   end
