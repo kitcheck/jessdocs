@@ -7,6 +7,7 @@ class Spec < ActiveRecord::Base
     belongs_to :project
     has_many :tags, dependent: :destroy
     has_many :tickets, dependent: :destroy
+    has_many :comments, dependent: :destroy
     
     alias_attribute :name, :description
     

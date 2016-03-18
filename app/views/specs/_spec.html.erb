@@ -1,10 +1,18 @@
 <span class="spec"  id="<%=spec[:id]%>">
    
     <div class="spec-data">
-        <% if @can_edit %>
-         <button class="btn btn-xs edit-button glyphicon glyphicon-edit"></button>
-        <% end %>
-        
+        <span class="side-buttons btn-group">
+            
+                <%= link_to  '', 
+                            new_comment_path(:spec_id => spec[:id]),
+                            remote: true,
+                            class: "btn btn-xs comment-button glyphicon glyphicon-comment",
+                            :rel => 'popover' %>
+            <% if @can_edit %>
+                 <button class="btn btn-xs edit-button side-button glyphicon glyphicon-edit"></button>
+            <% end %>
+                 
+        </span>
         <%= render partial: "data", object: spec, as: :spec %>
     </div>
     <div class="spec-buttons editable collapse">

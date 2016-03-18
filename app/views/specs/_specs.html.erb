@@ -1,7 +1,7 @@
 <span class="spec-list s<%=spec[:id]%>">
     <ul>      
         <% if (@filtered_spec_ids.nil? || @filtered_spec_ids.include?(spec[:id])) %>
-            <li>
+            <li id="li<%=spec[:id]%>">
                 <%= render partial: "spec", object: spec %>
                 <% if (spec[:children]) %>
 

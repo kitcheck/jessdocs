@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   
   belongs_to :role
   has_one :request, dependent: :destroy
+  has_many :comments, dependent: :destroy
   
   before_create :set_default_role
   

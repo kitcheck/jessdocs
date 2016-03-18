@@ -1,0 +1,10 @@
+$(function(){
+    $('.comment-button').popover({ 
+        html : true,
+        placement : 'left',
+        title : 'comments',
+        content: function() {
+          return "<%= j(render 'comments/form') %>";
+        }
+    })
+});

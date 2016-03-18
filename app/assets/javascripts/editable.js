@@ -1,15 +1,15 @@
 $(document).ready(function () {
     $(document).on('mouseenter','.spec', function(){
-      $('.edit-button', this).css('visibility','visible');
+      $('.side-buttons', this).css('visibility','visible');
     }).on('mouseleave', '.spec', function() {
-        $('.edit-button', this).css('visibility','hidden');
+        $('.side-buttons', this).css('visibility','hidden');
     });  
     
     
     
     $(document).on('click','.edit-button', function(){
 
-        var btnElem = $(this).parent().next('.spec-buttons').first();
+        var btnElem = $(this).parent().parent().next('.spec-buttons').first();
         $('.spec-buttons').not(btnElem).hide();
         
         btnElem.toggle('fast');
@@ -22,8 +22,6 @@ $(document).ready(function () {
         tagElem.toggle('fast');
         ticketElem.toggle('fast');
     });
-    
-
     
 });
 

@@ -252,6 +252,7 @@ class SpecsController < ApplicationController
     def initialize_tags
       @tag_hash = tag_hash
       @ticket_hash = ticket_hash
+      @comment_hash = comment_hash
     end
     
     def can_view
@@ -403,5 +404,27 @@ class SpecsController < ApplicationController
         end
       end
       ticket_hash
+    end
+    
+    def comment_hash
+      comment_hash = Hash.new { |h,k| h[k] = [] }
+      Comment.pluck(:spec_id, :id, :text, :user_id, :updated_at).map do |comment| 
+        if comment_hash[comment.first]
+          comment_hash[comment.first] << {
+            :id => comment[1],
+            :text => comment[2],
+            :user_id => comment[3],
+            :updated_at => comment[4]
+          }
+        else
+          comment_hash.merge( [comment.first,  {
+            :id => comment[1],
+            :text => comment[2],
+            :user_id => comment[3],
+            :updated_at => comment[4]
+          } ] ) 
+        end
+      end
+      comment_hash
     end
 end
