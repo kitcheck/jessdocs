@@ -15,6 +15,10 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @spec_id = params[:spec_id]
+    @spec = Spec.find(@spec_id)
+    @user_id = current_user.id
+    @comments = Comment.where(:spec_id => @spec_id)
   end
 
   # GET /comments/1/edit
@@ -69,6 +73,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params[:comment]
+      params.require(:comment).permit(:user_id, :text, :spec_id)
     end
 end

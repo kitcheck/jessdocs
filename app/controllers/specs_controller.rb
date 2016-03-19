@@ -252,7 +252,7 @@ class SpecsController < ApplicationController
     def initialize_tags
       @tag_hash = tag_hash
       @ticket_hash = ticket_hash
-      @comment_hash = comment_hash
+      # @comment_hash = comment_hash
     end
     
     def can_view
@@ -413,14 +413,14 @@ class SpecsController < ApplicationController
           comment_hash[comment.first] << {
             :id => comment[1],
             :text => comment[2],
-            :user_id => comment[3],
+            :user => User.find(comment[3]).email,
             :updated_at => comment[4]
           }
         else
           comment_hash.merge( [comment.first,  {
             :id => comment[1],
             :text => comment[2],
-            :user_id => comment[3],
+            :user => User.find(comment[3]).email,
             :updated_at => comment[4]
           } ] ) 
         end

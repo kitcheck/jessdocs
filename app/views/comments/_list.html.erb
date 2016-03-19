@@ -1,0 +1,10 @@
+<div class="comments">
+    <% if comments.any? %>
+        <% comments.each do |comment| %>
+        
+        <%= render partial: "comments/show", 
+                    object: comment, 
+                    as: :comment %>
+        <% end %>
+    <% end %>
+</div>
