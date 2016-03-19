@@ -5,10 +5,9 @@
     <div class="panel-footer">
         <span class="text-left">
             <span class="comment-user"><%= comment.user.email %></span>
-        <span><%=comment.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+            <span><%=comment.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
         </span> 
         <span class="pull-right">
-            <% puts "resolved? #{comment.resolved}" %>
             <% if comment.resolved? %>
                 <span class="label label-success">resolved</span>
             <% else %>
