@@ -2,8 +2,25 @@
     <div class="panel-body">
         <%= comment.text %>
     </div>
-    <div class="panel-footer text-right"> 
-        <span class="comment-user"><%= comment.user.email %></span>
+    <div class="panel-footer">
+        <span class="text-left">
+            <span class="comment-user"><%= comment.user.email %></span>
         <span><%=comment.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+        </span> 
+        <span class="pull-right">
+            <% puts "resolved? #{comment.resolved}" %>
+            <% if comment.resolved? %>
+                <span class="label label-success">resolved</span>
+            <% else %>
+                <% if current_user.can_edit? && current_user != comment.user %>
+                    <%= link_to 'resolve', 
+                            comment_resolve_path(:comment_id => comment.id), 
+                            method: :put,
+                            remote: true, 
+                            class: "btn btn-default"%>
+                <% end %>
+            <% end %>
+        </span>
+        <div class='clearfix'></div>
     </div>
 </div>

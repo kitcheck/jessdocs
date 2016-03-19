@@ -1,0 +1,4 @@
+$('.comment-text-box').val('');
+var commentsElem = $('.comments');
+var btn = $('.comment-btn').prop('disabled', false);
+commentsElem.replaceWith('<%= j(render partial: 'list', object: @comments, as: :comments) %>')

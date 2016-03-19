@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   
-  resources :comments
+  
   devise_for :users
   root 'specs#index'
   
   scope "/admin" do
     resources :users
+  end
+  
+  resources :comments do
+    put 'resolve'
   end
   
   resources :requests do

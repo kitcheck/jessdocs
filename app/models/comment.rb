@@ -5,4 +5,6 @@ class Comment < ActiveRecord::Base
     validates_presence_of :spec_id
     validates_presence_of :user_id
     validates_presence_of :text
+    
+    default_scope { order(created_at: :asc) }
 end

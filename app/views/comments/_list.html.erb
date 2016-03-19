@@ -1,10 +1,12 @@
-<div class="comments">
-    <% if comments.any? %>
-        <% comments.each do |comment| %>
-        
-        <%= render partial: "comments/show", 
-                    object: comment, 
-                    as: :comment %>
+<div class="comments pre-scrollable">
+    <div class="container-fluid">
+        <% if comments.any? %>
+            <% comments.each do |comment| %>
+            
+            <%= render partial: "comments/show", 
+                        object: comment, 
+                        as: :comment %>
+            <% end %>
         <% end %>
-    <% end %>
+    </div>
 </div>

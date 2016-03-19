@@ -1,6 +1,9 @@
 <span class="spec"  id="<%=spec[:id]%>">
    
     <div class="spec-data">
+        <% if @comment_array[spec[:id]] > 0 %>
+            <span class="label label-success label-as-badge"><%=@comment_array[spec[:id]] %></span>
+        <% end %>
         <span class="side-buttons btn-group">
             
                 <%= link_to  '', 
