@@ -5,7 +5,6 @@
     </div>
     <div class="modal-body">
         <ul class="errors"></ul>
-        <% puts "comments = #{@comments}"%>
         <%= render partial: 'list', object: @comments, as: :comments %>
         <%= render partial: 'form' %>
     </div>

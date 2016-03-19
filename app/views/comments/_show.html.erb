@@ -4,6 +4,6 @@
     </div>
     <div class="panel-footer text-right"> 
         <span class="comment-user"><%= comment.user.email %></span>
-        <span><%=comment.updated_at %></span>
+        <span><%=comment.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
     </div>
 </div>
