@@ -9,18 +9,16 @@ $(document).ready(function () {
     
     $(document).on('click','.edit-button', function(){
 
-        var btnElem = $(this).parent().parent().next('.spec-buttons').first();
+        var btnElem = $(this).parents('.spec').find('.spec-buttons');
         $('.spec-buttons').not(btnElem).hide();
         
         btnElem.toggle('fast');
         btnElem.find('[data-toggle="tooltip"]').tooltip();
         
-        var tagElem = $(this).siblings('.tags').find('.delete_tag');
-        var ticketElem = $(this).siblings('.tickets').find('.delete_tag');
+        var deleteElem = $(this).parents('.spec-data').find('.delete_tag');
+        $('.delete_tag').not(deleteElem).hide();
+        deleteElem.toggle('fast');
         
-        $('.delete_tag').not(tagElem.add(ticketElem)).hide();
-        tagElem.toggle('fast');
-        ticketElem.toggle('fast');
     });
     
 });

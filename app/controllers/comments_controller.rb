@@ -32,11 +32,12 @@ class CommentsController < ApplicationController
   
   def resolve
     @comment = Comment.find(params[:comment_id])
-    @comment.toggle!(:resolved)
+    
+    @comment.update!(:resolved => true, :updated_by_id => current_user.id)
     
     if @comment.has_children?
       @comment.children.each do |child|
-        child.toggle!(:resolved)
+        child.update!(:resolved => true, :updated_by_id => current_user.id)
       end
     end
     
@@ -113,6 +114,6 @@ class CommentsController < ApplicationController
     end
     
     def comment_hash(comment_scope)
-      comment_scope.arrange_serializable
+      comment_scope.order(:resolved).arrange_serializable
     end
 end
