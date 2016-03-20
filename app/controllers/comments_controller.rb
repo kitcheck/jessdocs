@@ -114,6 +114,6 @@ class CommentsController < ApplicationController
     end
     
     def comment_hash(comment_scope)
-      comment_scope.order(:resolved).arrange_serializable
+      comment_scope.arrange_serializable(:order => :resolved)
     end
 end
