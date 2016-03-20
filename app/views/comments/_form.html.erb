@@ -2,15 +2,16 @@
   <%= form_for @comment, remote: true do |f| %>
     
     <div class="input-group">
+      
       <%= f.text_field 'text', {class: "form-control comment-text-box"}%>
-      <span class="input-group-btn">
+      <div class="input-group-btn">
         
         <%= f.submit button_text, class: "form-control btn btn-primary comment-btn"%>
         <% if parent_id %>
           <button class= "btn btn-default cancel-btn">x</button>
         <% end %>
         
-      </span>
+      </div>
     </div><!-- /input-group -->
    
     
