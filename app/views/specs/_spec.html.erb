@@ -16,7 +16,7 @@
             
         </span>
         <% if @comment_array[spec[:id]] > 0 %>
-            <span class="label label-success label-as-badge"><%=@comment_array[spec[:id]] %><%= link_to  '', 
+            <span class="label label-success label-as-badge"><%= link_to  '', 
                             comments_path(:spec_id => spec[:id]),
                             remote: true,
                             class: "btn btn-xs comment-button label-button side-button glyphicon glyphicon-comment"%></span>

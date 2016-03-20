@@ -5,5 +5,6 @@ parentElem.find('.comment-btns').after('<%= j(render partial: 'form', locals: {p
 $('.cancel-btn').on('click', function() {
     var parentElem = $(this).parents().find('.comment')
     parentElem.find('.comment-btns').show()
-    parentElem.find('.comment-form').hide();
+    parentElem.find('.comment-form').remove();
+    event.preventDefault();
 });
