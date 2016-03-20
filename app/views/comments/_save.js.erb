@@ -1,7 +1,9 @@
 $('.comment-text-box').val('');
 var commentsElem = $('.comments');
 var btn = $('.comment-btn').prop('disabled', false);
-<% if @comment.root? %>
+<% if @comment.resolved? %>
+    commentsElem.replaceWith('<%= j(render partial: 'list', object: @comment_hash, as: :comments) %>')
+<% elsif @comment.root? %>
     commentsElem.append('<%= j(render partial: 'show', object: @comment_hash, as: :comment) %>')
 <% else %>
     var parentElem = $('#comment<%= @parent_id %>')
