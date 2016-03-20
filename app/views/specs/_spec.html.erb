@@ -9,7 +9,7 @@
             <% end %>
             <% unless @comment_array[spec[:id]] > 0 %>
                 <%= link_to  '', 
-                            new_comment_path(:spec_id => spec[:id]),
+                            comments_path(:spec_id => spec[:id]),
                             remote: true,
                             class: "btn btn-default comment-button side-button glyphicon glyphicon-comment"%>
             <% end %>
@@ -17,7 +17,7 @@
         </span>
         <% if @comment_array[spec[:id]] > 0 %>
             <span class="label label-success label-as-badge"><%=@comment_array[spec[:id]] %><%= link_to  '', 
-                            new_comment_path(:spec_id => spec[:id]),
+                            comments_path(:spec_id => spec[:id]),
                             remote: true,
                             class: "btn btn-xs comment-button label-button side-button glyphicon glyphicon-comment"%></span>
             

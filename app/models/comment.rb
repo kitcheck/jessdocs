@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+    
+    has_ancestry
+    
     belongs_to :spec
     belongs_to :user
     

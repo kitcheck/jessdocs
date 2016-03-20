@@ -1,23 +1,29 @@
-<div class="panel panel-default comment">
+<div class="panel panel-default comment" id="comment<%= comment["id"] %>">
     <div class="panel-body">
-        <%= comment.text %>
+        <%= comment["text"] %>
+        <div class="text-right small">
+            <span class="comment-user"><%= User.find(comment["user_id"]).email %></span>
+            <span><%=comment["updated_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+        </div> 
+        
     </div>
+    <%= render partial: 'children', object: comment["children"] %>
     <div class="panel-footer">
-        <span class="text-left">
-            <span class="comment-user"><%= comment.user.email %></span>
-            <span><%=comment.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
-        </span> 
-        <span class="pull-right">
-            <% if comment.resolved? %>
+        
+        <span class="pull-right comment-btns">
+            <% if comment["resolved"] == true %>
                 <span class="label label-success">resolved</span>
             <% else %>
-                <% if current_user.can_edit? && current_user != comment.user %>
-                    <%= link_to 'resolve', 
-                            comment_resolve_path(:comment_id => comment.id), 
-                            method: :put,
-                            remote: true, 
-                            class: "btn btn-default"%>
-                <% end %>
+                
+                <%= link_to 'reply', 
+                        new_comment_path(:parent_id => comment["id"]), 
+                        remote: true, 
+                        class: "btn btn-default"%>
+                <%= link_to 'resolve', 
+                        comment_resolve_path(:comment_id => comment["id"]), 
+                        method: :put,
+                        remote: true, 
+                        class: "btn btn-default"%>
             <% end %>
         </span>
         <div class='clearfix'></div>

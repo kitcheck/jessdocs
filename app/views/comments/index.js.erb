@@ -1,0 +1,8 @@
+$("#spec-modal").html("<%= j(render 'modal') %>")
+$("#spec-modal").modal("show")
+
+$('.comment-btn').on('click', function() {
+    var btn = $('.comment-btn').prop('disabled', true);
+    $(this.form).submit();
+});
+

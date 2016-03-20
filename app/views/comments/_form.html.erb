@@ -1,21 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid comment-form">
   <%= form_for @comment, remote: true do |f| %>
-    <% if @comment.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-  
-        <ul>
-        <% @comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
     
     <div class="input-group">
       <%= f.text_field 'text', {class: "form-control comment-text-box"}%>
       <span class="input-group-btn">
-         <%= f.submit 'comment', class: "form-control btn btn-default comment-btn"%>
+        
+        <%= f.submit button_text, class: "form-control btn btn-default comment-btn"%>
       </span>
     </div><!-- /input-group -->
    
@@ -23,6 +13,7 @@
     <%= fields_for @comment do |c| %>
       <%= c.hidden_field :user_id, value: @user_id %>
       <%= c.hidden_field :spec_id, value: @spec_id %>
+      <%= c.hidden_field :parent_id, value: parent_id %>
     <% end %>
     
   

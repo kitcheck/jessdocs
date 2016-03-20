@@ -5,8 +5,8 @@
     </div>
     <div class="modal-body">
         <ul class="errors"></ul>
-        <%= render partial: 'list', object: @comments, as: :comments %>
-        <%= render partial: 'form' %>
+        <%= render partial: 'list', object: @comment_hash, as: :comments %>
+        <%= render partial: 'form', locals: {parent_id: nil, button_text: 'comment'} %>
     </div>
       
       <div class="modal-footer">

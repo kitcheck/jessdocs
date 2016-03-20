@@ -1,4 +1,12 @@
 $('.comment-text-box').val('');
 var commentsElem = $('.comments');
 var btn = $('.comment-btn').prop('disabled', false);
-commentsElem.replaceWith('<%= j(render partial: 'list', object: @comments, as: :comments) %>')
+<% if @comment.root? %>
+    commentsElem.append('<%= j(render partial: 'show', object: @comment_hash, as: :comment) %>')
+<% else %>
+    var parentElem = $('#comment<%= @parent_id %>')
+    commentsElem = parentElem.find('.comment-children');
+    commentsElem.replaceWith('<%= j(render partial: 'children', object: @comment_hash, as: :children) %>')
+    parentElem.find('.comment-form').remove();
+    parentElem.find('.comment-btns').show();
+<% end %>

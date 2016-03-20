@@ -1,0 +1,13 @@
+<ul class="list-group comment-children">
+    <% if children %>
+        <% children.each do |child| %>
+            <li class="list-group-item">
+                <%= child["text"] %>
+                <div class="text-right small">
+                    <span class="comment-user"><%= User.find(child["user_id"]).email %></span>
+                    <span><%=child["updated_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+                </div> 
+            </li>
+        <% end %>
+    <% end %>
+</ul>

@@ -4,7 +4,11 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comment = Comment.new
+    @spec_id = params[:spec_id]
+    @spec = Spec.find(@spec_id)
+    @user_id = current_user.id
+    @comment_hash = comment_hash(Comment.where(:spec_id => @spec_id))
   end
 
   # GET /comments/1
@@ -15,10 +19,11 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
-    @spec_id = params[:spec_id]
+    @parent = Comment.find(params[:parent_id])
+    @spec_id = @parent.spec_id
     @spec = Spec.find(@spec_id)
     @user_id = current_user.id
-    @comments = Comment.where(:spec_id => @spec_id)
+    # @comment_hash = comment_hash(Comment.where(:spec_id => @spec_id))
   end
 
   # GET /comments/1/edit
@@ -29,9 +34,15 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:comment_id])
     @comment.toggle!(:resolved)
     
+    if @comment.has_children?
+      @comment.children.each do |child|
+        child.toggle!(:resolved)
+      end
+    end
+    
     respond_to do |format|
       if @comment.save
-        @comments = Comment.where(:spec_id => @comment.spec_id)
+        @comment_hash = comment_hash(Comment.where(:spec_id => @comment.spec_id))
         format.html { redirect_to @comment, notice: 'Comment was successfully saved.' }
         format.json { render :show, status: :created, location: @comment }
         format.js   { render :layout => false}
@@ -49,15 +60,21 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        @comments = Comment.where(:spec_id => comment_params[:spec_id])
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+        if @comment.root?
+          @comment_hash = @comment.serializable_hash
+        else
+          @parent_id = @comment.parent_id
+          @comment_hash = comment_hash(@comment.siblings)
+        end
+        format.html { render :new }
+        format.json { render :new }
         format.js {render :layout => false}
       else
         format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PATCH/PUT /comments/1
@@ -92,6 +109,10 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:user_id, :text, :spec_id)
+      params.require(:comment).permit(:user_id, :text, :spec_id, :parent_id)
+    end
+    
+    def comment_hash(comment_scope)
+      comment_scope.arrange_serializable
     end
 end

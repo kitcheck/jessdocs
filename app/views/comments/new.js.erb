@@ -1,8 +1,3 @@
-$("#spec-modal").html("<%= j(render 'modal') %>")
-$("#spec-modal").modal("show")
-
-$('.comment-btn').on('click', function() {
-    var btn = $('.comment-btn').prop('disabled', true);
-    $(this.form).submit();
-});
-
+var parentElem = $('#comment<%=@parent.id%>')
+parentElem.find('.comment-btns').hide()
+parentElem.find('.comment-btns').after('<%= j(render partial: 'form', locals: {parent_id: @parent.id, button_text: 'reply'} ) %>')
