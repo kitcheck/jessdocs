@@ -1,3 +1,9 @@
 var parentElem = $('#comment<%=@parent.id%>')
 parentElem.find('.comment-btns').hide()
 parentElem.find('.comment-btns').after('<%= j(render partial: 'form', locals: {parent_id: @parent.id, button_text: 'reply'} ) %>')
+
+$('.cancel-btn').on('click', function() {
+    var parentElem = $(this).parents().find('.comment')
+    parentElem.find('.comment-btns').show()
+    parentElem.find('.comment-form').hide();
+});

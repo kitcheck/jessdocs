@@ -5,7 +5,11 @@
       <%= f.text_field 'text', {class: "form-control comment-text-box"}%>
       <span class="input-group-btn">
         
-        <%= f.submit button_text, class: "form-control btn btn-default comment-btn"%>
+        <%= f.submit button_text, class: "form-control btn btn-primary comment-btn"%>
+        <% if parent_id %>
+          <%= f.button "x", class: "btn btn-default cancel-btn"%>
+        <% end %>
+        
       </span>
     </div><!-- /input-group -->
    
