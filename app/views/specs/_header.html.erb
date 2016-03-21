@@ -33,11 +33,11 @@
     </div>  
 </nav>  
         
-<div class="container">
+<div class="row">
     
     <%= form_tag filter_tag_specs_path, method: :get, class: "form-inline", id: 'tag-form', remote: true do %>
         
-        <div>
+        <div class="col s10">
             <div class="chip tag ticket tag-checkbox">
                 
                 <%= check_box_tag 'ticketed', 'true', @ticketed, {onclick: 'filter()'} %>
@@ -50,7 +50,7 @@
             </span>
             
         </div>
-        <div class="project-select-div right">
+        <div class="project-select-div input-field right col s2">
             
             
             <%= collection_select(  :projects, 
@@ -59,10 +59,9 @@
                                     :id, 
                                     :name,
                                     {:selected => @selected_project_id},
-                                    {class: "input-field right",
+                                    {class: "",
                                     id: "project-select",
                                     onchange: 'filter()'}) %>
-        
         </div>
     <% end %>
 </div>
