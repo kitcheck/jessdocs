@@ -5,7 +5,7 @@
                 <%= child["text"] %>
                 <div class="text-right small text-muted">
                     <span class="comment-user"><%= User.find(child["user_id"]).email %></span>
-                    <span><%=child["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+                    <span><%=child["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p") %></span>
                 </div> 
             </li>
         <% end %>
