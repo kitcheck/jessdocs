@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $(document).on('mouseenter','.spec', function(){
-      $('.side-buttons', this).css('visibility','visible');
+      $('.side-button.active-btn', this).css('visibility','visible');
     }).on('mouseleave', '.spec', function() {
-        $('.side-buttons', this).css('visibility','hidden');
+        $('.side-button.active-btn', this).css('visibility','hidden');
     });  
     
     

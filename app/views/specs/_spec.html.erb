@@ -1,28 +1,29 @@
 <span class="spec"  id="<%=spec[:id]%>">
    
+   
     <div class="spec-data">
         
         <span class="side-buttons btn-group btn-group-xs">
             
             <% if @can_edit %>
-                 <button class="btn btn-xs edit-button side-button glyphicon glyphicon-edit"></button>
+                 <button class="btn btn-xs edit-button active-btn side-button glyphicon glyphicon-edit"></button>
             <% end %>
-            <% unless @comment_array.include? spec[:id] %>
-                <%= link_to  '', 
-                            comments_path(:spec_id => spec[:id]),
-                            remote: true,
-                            class: "btn btn-default comment-button side-button glyphicon glyphicon-comment"%>
-            <% end %>
+            <% css_class = (@comment_array.include? spec[:id]) ? "hidden" : "active-btn" %>
+            <%= link_to  '', 
+                        comments_path(:spec_id => spec[:id]),
+                        remote: true,
+                        class: "btn btn-default comment-button side-button glyphicon glyphicon-comment #{css_class}"%>
+            
             
         </span>
-        <% if @comment_array.include? spec[:id] %>
-            <span class="label label-success label-as-badge"><%= link_to  '', 
+            <% css_class = (@comment_array.include? spec[:id]) ? "" : "hidden" %>
+            <span class="label label-success label-as-badge <%=css_class%>"><%= link_to  '', 
                             comments_path(:spec_id => spec[:id]),
                             remote: true,
                             class: "btn btn-xs comment-button label-button side-button glyphicon glyphicon-comment"%></span>
             
             
-        <% end %>
+        
         <%= render partial: "data", object: spec, as: :spec %>
     </div>
     <div class="spec-buttons editable collapse">
