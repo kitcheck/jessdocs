@@ -44,7 +44,6 @@ class Spec < ActiveRecord::Base
         {   :id => self.id,
             :description => self.description,
             :project_id => self.project_id,
-            :bottom => self.bottom?,
             :can_indent => self.can_indent?,
             :is_root => self.root?
         }

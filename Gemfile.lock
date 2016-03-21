@@ -51,8 +51,6 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.2.0.2)
-      sass (~> 3.2)
     builder (3.2.2)
     byebug (8.2.1)
     coffee-rails (4.1.1)
@@ -94,6 +92,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    materialize-sass (0.97.5)
+      sass (~> 3.3)
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -195,16 +195,13 @@ PLATFORMS
 DEPENDENCIES
   ancestry!
   autoprefixer-rails
-  bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails (~> 4.1.0)
   devise
   font-awesome-sass (~> 4.5.0)
   jbuilder (~> 2.0)
   jquery-rails
-  jwt (~> 1.5, >= 1.5.4)
-  omniauth
-  omniauth-google-oauth2
+  materialize-sass
   pg
   puma
   rails (= 4.2.5)

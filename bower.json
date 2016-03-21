@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "SpinKit": "spinkit#^1.2.5",
+    "Materialize": "materialize#^0.97.5"
     "bootstrap-social": "^4.12.0"
   }
 }
