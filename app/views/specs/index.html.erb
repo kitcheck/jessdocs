@@ -11,14 +11,15 @@
         <div class="sk-cube sk-cube2"></div>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="col-xs-4 col-md-3 col-lg-2 sidebar">
-        <% if current_user.can_edit? || @bookmarks.any? %>
-            <%= render partial: "sidebarbtns" %>
-        <% end %>
+<div class="row">
+    <div class="col s4 m2 sidebar">
+       
+        <div class="bookmarks">
+            <%= render partial: "bookmarks", object: @bookmarks, as: :bookmarks %>
+        </div>
     </div>
     
-    <div class="full-spec-list col-xs-8 col-md-9 col-lg-10 main">
+    <div class="full-spec-list col s8 m10 main">
         
         <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
             <p>There are no specs currently in the system</p>
@@ -26,20 +27,14 @@
             <%= render partial: "specs", collection: @specs, as: :spec %>
         <% end %>
     </div>
-</div>
 
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large red">
-        <i class="large mdi-navigation-menu"></i>
-    </a>
-    <ul>
-        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="20" data-tooltip="add specs"><i class="material-icons">add</i></a></li>
-        <li><a class="btn-floating green tooltipped" data-position="left" data-delay="20" data-tooltip="add tag"><i class="material-icons">label</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="20" data-tooltip="edit tags"><i class="material-icons">mode_edit</i></a></li>
-    </ul>
-</div>
 
-<div id="spec-modal" class="modal fade"></div>
+    <% if current_user.can_edit? %>
+        <%= render partial: "sidebarbtns" %>
+    <% end %>
+    
+    <div id="spec-modal" class="modal modal-fixed-footer fade"></div>
+</div>
 <% else %>
     <div class="container-fluid">
         <p>this is my crappy 'you don't have access' page</p>

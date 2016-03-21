@@ -1,65 +1,81 @@
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">mass-add specs</h4>
-    </div>
-    <%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form") do |f| %>
-      <div class="modal-body">
-        <ul class="errors"></ul>
-        
+<div class="modal-content">
+  <div class="modal-header">
+   
+    <h5 class="modal-title">mass-add specs</h5>
     
+  </div>
+  <%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form") do |f| %>
+    <div class="modal-body">
+      <ul class="errors"></ul>
+      
+  
+      
+      <div class="row">
         
-        <div class="form-group">
+        <div class="col s8">
+          <p class="flow-text">
+          Enter multiple specs at a time. Each line denotes a new spec. Nest specs 
+            either by using tabs or -'s.
+          </p>
           
-          <div id="helpBlock" class="help-block">
-            Enter multiple specs at a time. Each line denotes a new spec. Nest specs 
-            either by using tabs or -'s. Specs that start with 'should' are assumed
-            to be it blocks and all others are assumed to be describe blocks</div>
-            <div class="panel panel-default">
-              <div class="panel-heading">example</div>
-              <div class="panel-body">
-                someone really cool<br />
-                -should be jess <br />
-                --level 3 <br />
-                back to level 1
-              </div>
-            </div>
-          
-          
-        <% if @parent.nil? %>
-          <div class="form-group">
-             <%= collection_select( :projects, 
-                                    :project_id, 
-                                    @projects, 
-                                    :id, 
-                                    :name, 
-                                    {:selected => 1},
-                                    { class: "form-control project-select"}) %>
-          </div>
-        <% else %>
-          <div class="well well-sm">
-            <%= render partial: "data", object: @print_specs_hash, as: :spec %>
-          </div>
-        <% end %>
-          
-          
-          <%= text_area_tag :text, '', rows: 15, class:"form-control mass-add-text" %>
-          
-          <% if !@parent.nil? %>
-            
-            <%= fields_for :projects, @spec do |p| %>
-              <%= p.hidden_field :parent_id, value: @parent.id %>
-              <%= p.hidden_field :project_id, value: @parent.project_id %>
-            <% end %>
-          <% end %>
         </div>
         
+        <div class="card teal col s4">
+          <div class="card-content white-text">
+            <span class="card-title">example</span>
+            <p>
+              someone really cool<br />
+              -should be jess <br />
+              --level 3 <br />
+              back to level 1
+            </p>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        
+      <% if @parent.nil? %>
+        <div class="col s8">
+          <%= label_tag 'modal-project-select', 'create in project:' %>
+           <%= collection_select( :projects, 
+                                  :project_id, 
+                                  @projects, 
+                                  :id, 
+                                  :name, 
+                                  {:selected => 1},
+                                  { class: "project-select",
+                                    id: "modal-project-select" }) %>
+          
+        </div>
+      <% else %>
+        <div class="well well-sm">
+          <%= render partial: "data", object: @print_specs_hash, as: :spec %>
+        </div>
+      <% end %>
+        
+        <div class="input-field col s12">
+          <%= text_area_tag :text, '', rows: 15, class:"materialize-textarea mass-add-text", id: "mass-text-area" %>
+          <label for="mass-text-area">add your specs here:</label>
+        </div>
+        
+        
+        <% if !@parent.nil? %>
+          
+          <%= fields_for :projects, @spec do |p| %>
+            <%= p.hidden_field :parent_id, value: @parent.id %>
+            <%= p.hidden_field :project_id, value: @parent.project_id %>
+          <% end %>
+        <% end %>
       </div>
       
-      <div class="modal-footer">
-        <%= link_to "cancel", "#", class: "btn", data: {dismiss: "modal"} %>
-        <%= button_tag('submit', id: 'mass-submit', class: "btn btn-primary") %>
-      </div>
-    <% end %>
-  </div>
+    </div>
+    
+    
+  
 </div>
+<div class="modal-footer">
+   
+  <%= button_tag('submit', id: 'mass-submit', class: "btn btn-primary") %>
+  <a href="#" class="modal-close btn-flat" data-dismiss="modal">cancel</a>
+</div>
+<% end %>

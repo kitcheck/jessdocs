@@ -1,33 +1,35 @@
-<div class="list-group">
-        <% if current_user.can_edit? %>
-            <%= link_to "add new top-level spec", 
-                        new_spec_path(:project_id => @selected_project_id), 
-                        remote: true, 
-                        class: "list-group-item" %>
-            <button type="button" 
-                    class="btn btn-default hidden"
-                    data-toggle="collapse"
-                    data-target=".editable"
-                    onclick="toggleTagEdit()">
-                 edit specs
-            </button>
-            <%= link_to "mass add specs", 
-                        mass_add_view_specs_path(:projects =>{:project_id => @selected_project_id}),
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+        <i class="large mdi-navigation-menu"></i>
+    </a>
+    <ul>
+        <li>
+            <%= link_to mass_add_view_specs_path(:projects =>{:project_id => @selected_project_id}),
                         remote:true,
-                        class: "list-group-item" %>
+                        class: "btn-floating yellow darken-1 tooltipped",
+                        data: {position: "left", delay: "20", tooltip: "add specs" } do %>
+                <i class="material-icons">add</i>
+            <% end %>
+        </li>
+        <li>
+            <%= link_to new_tag_type_path,
+                        remote:true,
+                        class: "btn-floating green tooltipped",
+                        data: {position: "left", delay: "20", tooltip: "add tag type" } do %>
+                <i class="material-icons">label</i>
+            <% end %>
+        </li>
+        <li>
+            <%= link_to tag_types_path,
+                        remote:true,
+                        class: "btn-floating blue tooltipped",
+                        data: {position: "left", delay: "20", tooltip: "edit tag types" } do %>
+                <i class="material-icons">mode_edit</i>
+            <% end %>
             
-            <%= link_to "add new tag type", 
-                        new_tag_type_path,
-                        remote: true,
-                        class: "list-group-item" %>
-            <%= link_to "edit tag types", 
-                        tag_types_path,
-                        remote: true,
-                        class: "list-group-item"%>
-        <% end %>
-        <div class="bookmarks">
-            <%= render partial: "bookmarks", object: @bookmarks, as: :bookmarks %>
-        </div>
+        </li>
+    </ul>
 </div>
+       
        
       
