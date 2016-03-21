@@ -7,7 +7,7 @@
             <% if @can_edit %>
                  <button class="btn btn-xs edit-button side-button glyphicon glyphicon-edit"></button>
             <% end %>
-            <% unless @comment_array[spec[:id]] > 0 %>
+            <% unless @comment_array.include? spec[:id] %>
                 <%= link_to  '', 
                             comments_path(:spec_id => spec[:id]),
                             remote: true,
@@ -15,7 +15,7 @@
             <% end %>
             
         </span>
-        <% if @comment_array[spec[:id]] > 0 %>
+        <% if @comment_array.include? spec[:id] %>
             <span class="label label-success label-as-badge"><%= link_to  '', 
                             comments_path(:spec_id => spec[:id]),
                             remote: true,

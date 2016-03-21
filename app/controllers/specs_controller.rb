@@ -283,7 +283,7 @@ class SpecsController < ApplicationController
       @project = Project.find(@selected_project_id)
       
       @bookmarks = Spec.for_project(@selected_project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
-      @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).pluck(:spec_id).inject(Hash.new(0)) { |total, e| total[e] += 1 ;total}
+      @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).select{ |c| (c.root? && c.is_childless?) || (!c.root? && c.created_at == c.siblings.pluck(:created_at).max)}.map(&:spec_id)
       
       @specs = get_spec_hash(Spec.for_project(@selected_project_id))
       

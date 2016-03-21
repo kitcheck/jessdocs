@@ -18,7 +18,7 @@
             <% if comment["resolved"] == true %>
                 <span class="label label-success">resolved by
                     <span class="comment-user"><%= User.find(comment["updated_by_id"]).email %></span>
-                    <span><%=comment["updated_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+                    <span><%=comment["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
                 </span>
             <% else %>
                 
