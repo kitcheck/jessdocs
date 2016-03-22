@@ -1,5 +1,5 @@
 $("#spec-modal").html("<%= j(render 'modal') %>")
-$("#spec-modal").modal("show")
+$("#spec-modal").openModal();
 
 $('.comment-btn').on('click', function() {
     var btn = $('.comment-btn').prop('disabled', true);

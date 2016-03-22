@@ -1,6 +1,6 @@
 $("#spec-modal").html("<%= j(render 'new') %>")
 $('.project-select').val($('#project-select').val());
-$("#spec-modal").modal("show")
+$("#spec-modal").openModal();
 
 $('#submit').on('click', function() {
     var btn = $('#submit').prop('disabled', true);
