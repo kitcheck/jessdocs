@@ -8,12 +8,13 @@ $(document).ready(function () {
     
     
     $(document).on('click','.edit-button', function(){
-
+        
         var btnElem = $(this).parents('.spec').find('.spec-buttons');
         $('.spec-buttons').not(btnElem).hide();
         
         btnElem.toggle('fast');
-        btnElem.find('[data-toggle="tooltip"]').tooltip();
+        
+        
         
         var deleteElem = $(this).parents('.spec-data').find('.delete_tag');
         $('.delete_tag').not(deleteElem).hide();

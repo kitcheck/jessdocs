@@ -1,6 +1,11 @@
-<span class="label label-default tag ticket <%=ticket[:id]%>">
+<span class="chip tag ticket <%=ticket[:id]%> small-chip">
     <%= link_to ticket[:name], ticket[:url], :target => '_blank' %>
     
-    <%= link_to 'x', ticket_path(:id => ticket[:id]), method: :delete, :remote => true, :class => 'delete_tag' %>
+    <%= link_to ticket_path(:id => ticket[:id]), 
+                method: :delete, 
+                :remote => true, 
+                :class => 'delete_tag' do %>
+        <i class="material-icons small-chip-icon">close</i>
+    <% end %>
     
 </span>

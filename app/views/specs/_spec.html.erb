@@ -6,27 +6,33 @@
         <span class="side-buttons btn-group btn-group-xs">
             
             <% if @can_edit %>
-                 <button class="btn btn-xs edit-button active-btn side-button glyphicon glyphicon-edit"></button>
+            
+                <a class="btn-floating red edit-button active-btn side-button">
+                    <i class="material-icons tiny-icon">mode_edit</i>
+                </a>
             <% end %>
             <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "hidden" : "active-btn" %>
             <%= link_to  '', 
                         comments_path(:spec_id => spec[:id]),
                         remote: true,
-                        class: "btn btn-default comment-button side-button glyphicon glyphicon-comment #{css_class}"%>
+                        class: "btn-floating yellow darken-1 comment-button side-button #{css_class}" do %>
+                <i class="material-icons">comment</i>
+            <% end %>
             
             
         </span>
-            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "" : "hidden" %>
-            <span class="label label-success label-as-badge <%=css_class%>"><%= link_to  '', 
-                            comments_path(:spec_id => spec[:id]),
-                            remote: true,
-                            class: "btn btn-xs comment-button label-button side-button glyphicon glyphicon-comment"%></span>
+            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) )  ? "" : "hide" %>
+            <%= link_to comments_path(:spec_id => spec[:id]),
+                        remote: true,
+                        class: "btn-floating yellow darken-1 comment-button side-button label-button #{css_class}" do %>
+                <i class="material-icons">comment</i>
+            <% end %>
             
             
         
         <%= render partial: "data", object: spec, as: :spec %>
     </div>
-    <div class="spec-buttons editable collapse">
+    <div class="spec-buttons editable">
         <%= render partial: "buttons", object: spec, as: :spec %>
     </div>
 </span>
