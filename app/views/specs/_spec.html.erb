@@ -7,7 +7,7 @@
             
             <% if @can_edit %>
             
-                <a class="btn-floating red edit-button active-btn side-button">
+                <a class="btn-flat btn-square edit-button active-btn side-button">
                     <i class="material-icons tiny-icon">mode_edit</i>
                 </a>
             <% end %>
@@ -15,7 +15,7 @@
             <%= link_to  '', 
                         comments_path(:spec_id => spec[:id]),
                         remote: true,
-                        class: "btn-floating yellow darken-1 comment-button side-button #{css_class}" do %>
+                        class: "btn-flat btn-square comment-button side-button #{css_class}" do %>
                 <i class="material-icons">comment</i>
             <% end %>
             
