@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324021418) do
+ActiveRecord::Schema.define(version: 20160324232144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,19 @@ ActiveRecord::Schema.define(version: 20160324021418) do
 
   add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
 
-  create_table "projects", force: :cascade do |t|
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "role_id"
+    t.string   "domain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "name"
+    t.integer  "created_by_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -109,6 +118,8 @@ ActiveRecord::Schema.define(version: 20160324021418) do
     t.integer  "role_id"
     t.string   "provider"
     t.string   "uid"
+    t.string   "name"
+    t.integer  "organization_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

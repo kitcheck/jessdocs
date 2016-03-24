@@ -7,10 +7,13 @@ class User < ActiveRecord::Base
   devise :omniauthable
   
   belongs_to :role
+  belongs_to :organization
+  
   has_one :request, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :projects
   
-  before_create :set_default_role
+  before_create :set_org_and_default_role
   
   def can_view?
     self.role_id != Role.none.id
@@ -25,28 +28,31 @@ class User < ActiveRecord::Base
   end
   
   private
-    def set_default_role
-      self.role ||= Role.none
+    def set_org_and_default_role
+      domain = self.email.split('@')
+      org = Organization.find_by(:domain => domain)
+      self.organization_id = org ? org.id : nil
+      self.role = org ? org.role : Role.none
     end
     
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
-    user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
-    if user
-      return user
-    else
-      registered_user = User.where(:email => access_token.info.email).first
-      if registered_user
-        return registered_user
+    def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+      data = access_token.info
+      user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
+      if user
+        return user
       else
-        user = User.create(name: data["name"],
-          provider:access_token.provider,
-          email: data["email"],
-          uid: access_token.uid ,
-          password: Devise.friendly_token[0,20],
-        )
+        registered_user = User.where(:email => access_token.info.email).first
+        if registered_user
+          return registered_user
+        else
+          user = User.create(name: data["name"],
+            provider:access_token.provider,
+            email: data["email"],
+            uid: access_token.uid,
+            password: Devise.friendly_token[0,20]
+          )
+        end
       end
     end
-  end
   
 end

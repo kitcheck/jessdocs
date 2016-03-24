@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(project_params.merge(:created_by_id => current_user.id))
 
     if @project.save
       # redirect_to '/specs'
