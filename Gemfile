@@ -25,6 +25,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'ancestry', :github => "stefankroes/ancestry", :branch => "2-1-stable"
 gem 'devise'
+gem "omniauth-google-oauth2"
+gem 'omniauth'
 
 gem 'puma'
 
