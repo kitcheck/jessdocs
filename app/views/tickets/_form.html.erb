@@ -1,32 +1,34 @@
-<%= form_for @ticket, remote: true do |f| %>
-<div class="modal-content">
-  
-  
-    <div class="modal-body">
-      
-      <% if @ticket.errors.any? %>
-        <div class="alert alert-danger form-group" role="alert">
-          <ul>
-          <% @ticket.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="form-group form-inline">
+<div id="modal" class="modal-xs modal modal-fixed-footer fade">
+  <%= form_for @ticket, remote: true do |f| %>
+  <div class="modal-content">
+    
+    
+      <div class="modal-body">
         
-        <%= f.text_field 'name', {class: "form-control", placeholder: '#000000000'}%>
-        <%= f.hidden_field :spec_id, value: @spec.id %>
+        <% if @ticket.errors.any? %>
+          <div class="alert alert-danger form-group" role="alert">
+            <ul>
+            <% @ticket.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+  
+        <div class="form-group form-inline">
+          
+          <%= f.text_field 'name', {class: "form-control", placeholder: '#000000000'}%>
+          <%= f.hidden_field :spec_id, value: @spec.id %>
+        </div>
+        
       </div>
       
-    </div>
-    
-    
+      
+  </div>
+  <div class="modal-footer">
+      
+      <%= f.submit "associate ticket", class: "btn" %>
+      <%= link_to "cancel", "#", class: "modal-close btn-flat" %>
+  </div>
+  <% end %>
 </div>
-<div class="modal-footer">
-    
-    <%= f.submit "associate ticket", class: "btn" %>
-    <%= link_to "cancel", "#", class: "btn modal-close btn-flat" %>
-</div>
-<% end %>

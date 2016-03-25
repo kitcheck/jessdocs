@@ -1,2 +1,2 @@
-$("#spec-modal").html("<%= escape_javascript(render 'new') %>")
-$("#spec-modal").openModal();
+$("#modal").replaceWith("<%= escape_javascript(render 'new') %>")
+$("#modal").openModal();
