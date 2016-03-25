@@ -26,9 +26,11 @@
     <% end %>
   </div>
   <div class='sign-up'>
-    <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
-    <div>
-      <%= render "devise/shared/links" %>
-    </div>
+    
+    <%= link_to user_omniauth_authorize_path(:google_oauth2),
+                class: "btn btn-block btn-social btn-lg btn-google" do %>
+      <span class="fa fa-google"></span> Sign in with Google
+    <% end %>
+    
   </div>
 </div>
