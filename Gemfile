@@ -27,6 +27,7 @@ gem 'ancestry', :github => "stefankroes/ancestry", :branch => "2-1-stable"
 gem 'devise'
 gem "omniauth-google-oauth2"
 gem 'omniauth'
+gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 gem 'puma'
 
