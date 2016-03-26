@@ -1,9 +1,11 @@
-<div id="modal" class="modal-xs modal modal-fixed-footer fade">
+<div id="modal" style="height:250px" class="modal-thin modal modal-fixed-footer fade">
   <%= form_for @ticket, remote: true do |f| %>
   <div class="modal-content">
     
     
       <div class="modal-body">
+        
+        <h4>associate ticket</h4>
         
         <% if @ticket.errors.any? %>
           <div class="alert alert-danger form-group" role="alert">
@@ -15,9 +17,9 @@
           </div>
         <% end %>
   
-        <div class="form-group form-inline">
+        <div>
           
-          <%= f.text_field 'name', {class: "form-control", placeholder: '#000000000'}%>
+          <%= f.text_field 'name', {class: "validate", placeholder: '#000000000'}%>
           <%= f.hidden_field :spec_id, value: @spec.id %>
         </div>
         
@@ -27,7 +29,7 @@
   </div>
   <div class="modal-footer">
       
-      <%= f.submit "associate ticket", class: "btn" %>
+      <%= f.submit "associate ticket", class: "btn submit-btn"%>
       <%= link_to "cancel", "#", class: "modal-close btn-flat" %>
   </div>
   <% end %>

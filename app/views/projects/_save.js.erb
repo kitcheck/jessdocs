@@ -1,4 +1,4 @@
 <% unless @project.errors.any? %>
-    $("#spec-modal").modal("hide");
+    $('#spec-modal').closeModal();
     $('#project-select').append('<option value="<%=@project.id%>"><%=@project.name%></option>');
 <% end %>

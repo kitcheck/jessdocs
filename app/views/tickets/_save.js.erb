@@ -1,11 +1,4 @@
-$("ul.errors").html("")
-<% if @ticket.errors.any? %>
-  <% @ticket.errors.full_messages.each do |message| %>
-    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
-  <% end %>
-<% else %>
-  var ticketElem = $("#<%=@ticket.spec.id%> span.tickets");
-  $("#spec-modal").modal("hide");
-  ticketElem.append("<%= j(render partial: "tickets/show", object: @ticket.to_hash, as: :ticket) %>");
-  $('#<%=@ticket.spec.id%> .<%=@ticket.id%> .delete_tag').show();
-<% end %>
+var ticketElem = $("#<%=@ticket.spec.id%> span.tickets");
+$('#modal').closeModal();
+ticketElem.append("<%= j(render partial: "tickets/show", object: @ticket.to_hash, as: :ticket) %>");
+$('#<%=@ticket.spec.id%> .<%=@ticket.id%> .delete_tag').show();

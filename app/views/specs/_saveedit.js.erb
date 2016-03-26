@@ -4,7 +4,7 @@ $("ul.errors").html("");
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
   <% end %>
 <% else %>
-  $("#spec-modal").modal("hide");
+  $('#spec-modal').closeModal();
 
   $('#<%=@spec.id %> .spec-words').html("<%= @spec.description %>");
 
