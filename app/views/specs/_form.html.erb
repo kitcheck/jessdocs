@@ -1,9 +1,6 @@
 <div class="modal-dialog">
+  <%= form_for @spec, remote: true, :html => {class: "spec-form"} do |f| %>
   <div class="modal-content">
-    <!--<div class="modal-header">-->
-    <!--  <h4 class="modal-title">add new top-level spec</h4>-->
-    <!--</div>-->
-    <%= form_for @spec, remote: true, :html => {class: "spec-form"} do |f| %>
       <div class="modal-body">
         
         <% if @spec.errors.any? %>
@@ -56,10 +53,12 @@
         <% end %>
         
       </div>
-      <div class="modal-footer">
-        <%= link_to "cancel", "#", class: "btn", data: {dismiss: "modal"} %>
-        <%= f.submit class: "btn btn-primary", id: "submit" %>
-      </div>
-    <% end %>
+      
   </div>
+    <div class="modal-footer">
+      <%= f.submit class: "btn btn-submit", id: "submit" %>
+      <%= link_to "cancel", "#", class: "btn-flat modal-close"%>
+      
+    </div>
+  <% end %>
 </div>
