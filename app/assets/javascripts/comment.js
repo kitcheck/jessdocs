@@ -3,14 +3,18 @@ $(document).ready(function () {
     $(document).on('click','.comment-card-clickable', function(){
         var activeElem = $('.comment-card-active');
         if (activeElem.length > 0) {
-            removeActive(activeElem)
+            removeActive(activeElem);
         }
+        var button = $(this).find('.resolve-btn');
+        var card = $(this);
         $.ajax({
             url: $(this).attr('ajax_path'),  
             data: { },
             dataType: 'script'
+          }).done(function() {
+              button.show();
+              card.find('input').focus();
           });
-        $(this).find('.resolve-btn').show();
         return false;
     });
     
