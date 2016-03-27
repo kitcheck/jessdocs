@@ -1,19 +1,14 @@
-<div class="comment-form">
+<div class="comment-form card-action">
   <%= form_for @comment, remote: true, html: {class: "marginless"} do |f| %>
     
     <div class="marginless row">
-      <div class="col s10">
+      <div class="col s11">
         <%= f.text_field 'text', {class: "marginless comment-text-box"}%>
       </div>
-      <div class="col s2">
+      <div class="col s1">
         
         <%= f.button class: "form-control btn btn-primary comment-btn" do %>
           <i class="material-icons"><%=button_text%></i>
-        <% end %>
-        <% if parent_id %>
-          <button class= "btn btn-default cancel-btn">
-            <i class="material-icons">cancel</i>
-          </button>
         <% end %>
         
       </div>

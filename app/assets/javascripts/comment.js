@@ -29,6 +29,5 @@ function removeActive(elem){
     elem.addClass('comment-card-clickable');
     elem.removeClass('comment-card-active');
     elem.find('.comment-form').remove();
-    elem.find('.comment-btns').show();
     elem.find('.resolve-btn').hide();
 }

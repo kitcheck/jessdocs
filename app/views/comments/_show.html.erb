@@ -21,27 +21,18 @@
     
         <%= render partial: 'children', object: comment["children"] %>
     </div>
-    <div class="card-action">
-        
-        <span class="pull-right comment-btns">
-            <% if comment["resolved"] == true %>
-                <span>resolved by
-                    <span class="comment-user"><%= User.find(comment["updated_by_id"]).email %></span>
-                    <span><%=comment["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
-                </span>
-            <% else %>
+    <% if comment["resolved"] == true %>
+        <div class="card-action">
+            
+            <span class="right comment-btns">
                 
-                <%= link_to 'reply', 
-                        new_comment_path(:parent_id => comment["id"]), 
-                        remote: true, 
-                        class: "btn btn-default"%>
-                <%= link_to 'resolve', 
-                        comment_resolve_path(:comment_id => comment["id"]), 
-                        method: :put,
-                        remote: true, 
-                        class: "btn btn-default"%>
-            <% end %>
-        </span>
-        <div class='clearfix'></div>
-    </div>
+                    <span>resolved by
+                        <span class="comment-user"><%= User.find(comment["updated_by_id"]).email %></span>
+                        <span><%=comment["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
+                    </span>
+               
+            </span>
+            <div class='clearfix'></div>
+        </div>
+    <% end %>
 </div>
