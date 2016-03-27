@@ -1,4 +1,5 @@
 var parentElem = $('#comment<%=@parent.id%>')
+parentElem.removeClass('comment-card-clickable')
 parentElem.find('.comment-btns').hide()
 parentElem.find('.comment-btns').after('<%= j(render partial: 'form', locals: {parent_id: @parent.id, button_text: 'reply'} ) %>')
 

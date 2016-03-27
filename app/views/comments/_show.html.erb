@@ -1,22 +1,31 @@
 <% if comment["resolved"] == false %>
-<div class="panel panel-primary comment" id="comment<%= comment["id"] %>">
+<div class="card hoverable comment-card-clickable" id="comment<%= comment["id"] %>" ajax_path=<%=new_comment_path(:parent_id => comment["id"]) %> >
 <% else %>
-<div class="panel panel-default comment" id="comment<%= comment["id"] %>">
+<div class="card blue-grey lighten-4" id="comment<%= comment["id"] %>">
 <% end %>
-    <div class="panel-heading">
+    <div class="card-content">
         <%= comment["text"] %>
-        <div class="text-right small">
+        <div class="right">
+            <%= link_to 'resolve', 
+                            comment_resolve_path(:comment_id => comment["id"]), 
+                            method: :put,
+                            remote: true, 
+                            class: "btn resolve-btn"%>
+        </div>
+        <div class='clearfix'></div>
+        <div class="right-align grey-text darken-1 comment-info">
             <span class="comment-user"><%= User.find(comment["user_id"]).email %></span>
             <span><%=comment["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
         </div> 
         
+    
+        <%= render partial: 'children', object: comment["children"] %>
     </div>
-    <%= render partial: 'children', object: comment["children"] %>
-    <div class="panel-footer">
+    <div class="card-action">
         
         <span class="pull-right comment-btns">
             <% if comment["resolved"] == true %>
-                <span class="label label-success">resolved by
+                <span>resolved by
                     <span class="comment-user"><%= User.find(comment["updated_by_id"]).email %></span>
                     <span><%=comment["created_at"].in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%S%p") %></span>
                 </span>
