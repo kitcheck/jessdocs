@@ -7,9 +7,13 @@
       </div>
       <div class="col s2">
         
-        <%= f.submit button_text, class: "form-control btn btn-primary comment-btn"%>
+        <%= f.button class: "form-control btn btn-primary comment-btn" do %>
+          <i class="material-icons"><%=button_text%></i>
+        <% end %>
         <% if parent_id %>
-          <button class= "btn btn-default cancel-btn">x</button>
+          <button class= "btn btn-default cancel-btn">
+            <i class="material-icons">cancel</i>
+          </button>
         <% end %>
         
       </div>
