@@ -8,7 +8,7 @@
             <% if @can_edit %>
                  <button class="btn btn-xs edit-button active-btn side-button glyphicon glyphicon-edit"></button>
             <% end %>
-            <% css_class = (@comment_array.include? spec[:id]) ? "hidden" : "active-btn" %>
+            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "hidden" : "active-btn" %>
             <%= link_to  '', 
                         comments_path(:spec_id => spec[:id]),
                         remote: true,
@@ -16,7 +16,7 @@
             
             
         </span>
-            <% css_class = (@comment_array.include? spec[:id]) ? "" : "hidden" %>
+            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "" : "hidden" %>
             <span class="label label-success label-as-badge <%=css_class%>"><%= link_to  '', 
                             comments_path(:spec_id => spec[:id]),
                             remote: true,
