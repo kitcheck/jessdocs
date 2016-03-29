@@ -31,7 +31,7 @@ gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 gem 'puma'
 
-gem 'materialize-sass'
+gem 'materialize-sass', :github => "mkhairi/materialize-sass", :branch => "master"
 gem 'font-awesome-sass', '~> 4.5.0'
 
 gem 'autoprefixer-rails'

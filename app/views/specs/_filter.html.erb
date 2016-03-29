@@ -1,0 +1,34 @@
+<div class="container">
+    <%= form_tag filter_tag_specs_path, method: :get, class: "form-inline", id: 'tag-form', remote: true do %>
+        <div class="project-select-div input-field">
+            
+            
+            <%= collection_select(  :projects, 
+                                    :project_id, 
+                                    @projects, 
+                                    :id, 
+                                    :name,
+                                    {:selected => @selected_project_id},
+                                    {class: "",
+                                    id: "project-select",
+                                    onchange: 'filter()'}) %>
+        </div>
+        <div>
+            <div class="tag-checkbox valign-wrapper">
+                
+                <%= check_box_tag 'ticketed', 'true', @ticketed, {onclick: 'filter()'} %>
+                <%= label_tag 'ticketed', class:"ticket" do %>
+                    ticketed 
+                <% end %>
+                <i class="material-icons ticket valign">label</i> 
+            </div>  
+            
+            <span class="filterspecs navbar-btn">
+                
+                <%= render partial: "tag_types/filter", object: @tag_types, as: :tag_types %>
+            </span>
+            
+        </div>
+        
+    <% end %>
+</div>

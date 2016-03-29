@@ -20,6 +20,9 @@
 @import 'SpinKit/css/spinkit'
 @import 'bootstrap-social/bootstrap-social'
 
+.side-nav li
+    line-height: 1px
+
 .marginless
     margin: 0px !important
 
@@ -32,10 +35,15 @@
 .comment-card-clickable:hover
     cursor: pointer
 
+.header, .main
+    padding-left: 240px
+
 .comment-info
     padding-top: 20px
     
-
+.spec
+    padding: 0px
+    
 li.spec-li
     margin-left: 40px
 
@@ -51,10 +59,17 @@ li.spec-li
     
 .ticket
     background-color: midnightblue
+
+i.ticket, label.ticket
+    color: midnightblue
+    background-color: inherit
     
+label.checkbox-label
+    color: inherit !important
+
 .tag-checkbox
     font-size: small
-    margin: 10px 2px 10px 2px
+    margin: 0px
 
 .small-chip
     height: 22px

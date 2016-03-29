@@ -1,45 +1,53 @@
+    
+          
+
 <% if @can_view %>
-
-    <%= render partial: "header" %>
-
-
-<p class="notice hidden"><%= notice %></p>
-<p class="alert hidden"><%= alert %></p>
-<div class="center">
-    <div class="sk-wandering-cubes spinner">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
+    <div class="header">
+        <%= render partial: "header" %>
     </div>
-</div>
+    
+    <ul id="slide-out" class="side-nav fixed">
+      <li><%= render 'filter' %></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 
-<div class="row">
-    <div class="col s4 m2 sidebar">
-       
-        <div class="bookmarks">
-            <%= render partial: "bookmarks", object: @bookmarks, as: :bookmarks %>
+    <p class="notice hidden"><%= notice %></p>
+    <p class="alert hidden"><%= alert %></p>
+    <!--<div class="center">-->
+    <!--    <div class="sk-wandering-cubes spinner">-->
+    <!--        <div class="sk-cube sk-cube1"></div>-->
+    <!--        <div class="sk-cube sk-cube2"></div>-->
+    <!--    </div>-->
+    <!--</div>-->
+    
+    <div class="row main">
+        
+        
+        <div class="full-spec-list col s8 m10 main">
+            
+            <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
+                <p>There are no specs currently in the system</p>
+            <% else %>
+                <%= render partial: "specs", collection: @specs, as: :spec %>
+            <% end %>
         </div>
-    </div>
+        <div class="col s4 m2 sidebar">
+           
+            <div class="bookmarks">
+                <%= render partial: "bookmarks", object: @bookmarks, as: :bookmarks %>
+            </div>
+        </div>
     
-    <div class="full-spec-list col s8 m10 main">
-        
-        <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
-            <p>There are no specs currently in the system</p>
-        <% else %>
-            <%= render partial: "specs", collection: @specs, as: :spec %>
+        <% if current_user.can_edit? %>
+            <%= render partial: "sidebarbtns" %>
         <% end %>
-    </div>
-
-
-    <% if current_user.can_edit? %>
-        <%= render partial: "sidebarbtns" %>
-    <% end %>
-    
-
         
     
-    <div id="spec-modal" class="modal modal-fixed-footer fade"></div>
-    <div id="modal"></div>
-</div>
+            
+        
+        <div id="spec-modal" class="modal modal-fixed-footer fade"></div>
+        <div id="modal"></div>
+    </div>
 <% else %>
     <div class="container-fluid">
         <p>this is my crappy 'you don't have access' page</p>
