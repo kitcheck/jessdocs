@@ -16,7 +16,7 @@
         <div>
             <div class="tag-checkbox valign-wrapper">
                 
-                <%= check_box_tag 'ticketed', 'true', @ticketed, {onclick: 'filter()'} %>
+                <%= check_box_tag 'ticketed', 'true', @ticketed, {class: "filled-in checkbox", onclick: 'filter()'} %>
                 <%= label_tag 'ticketed', class:"ticket" do %>
                     ticketed 
                 <% end %>

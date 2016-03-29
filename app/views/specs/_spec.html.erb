@@ -24,7 +24,7 @@
             <% css_class = (@comment_array && @comment_array.include?(spec[:id]) )  ? "" : "hide" %>
             <%= link_to comments_path(:spec_id => spec[:id]),
                         remote: true,
-                        class: "btn-floating yellow darken-1 comment-button side-button label-button #{css_class}" do %>
+                        class: "btn-floating deep-purple darken-2 comment-button side-button label-button #{css_class}" do %>
                 <i class="material-icons">comment</i>
             <% end %>
             

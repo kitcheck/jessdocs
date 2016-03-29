@@ -1,25 +1,22 @@
-    
-          
-
 <% if @can_view %>
     <div class="header">
         <%= render partial: "header" %>
     </div>
     
-    <ul id="slide-out" class="side-nav fixed">
+    <ul id="slide-out" class="side-nav fixed deep-purple lighten-4">
       <li><%= render 'filter' %></li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 
     <p class="notice hidden"><%= notice %></p>
     <p class="alert hidden"><%= alert %></p>
-    <!--<div class="center">-->
-    <!--    <div class="sk-wandering-cubes spinner">-->
-    <!--        <div class="sk-cube sk-cube1"></div>-->
-    <!--        <div class="sk-cube sk-cube2"></div>-->
-    <!--    </div>-->
-    <!--</div>-->
-    
+    <div class="center">
+        <div class="sk-wandering-cubes spinner">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+        </div>
+    </div>
+
     <div class="row main">
         
         

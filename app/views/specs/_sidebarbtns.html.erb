@@ -1,12 +1,12 @@
 <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large red">
+    <a class="btn-floating btn-large cyan">
         <i class="material-icons">menu</i>
     </a>
     <ul>
         <li>
             <%= link_to mass_add_view_specs_path(:projects =>{:project_id => @selected_project_id}),
                         remote:true,
-                        class: "btn-floating yellow darken-1 tooltipped",
+                        class: "btn-floating deep-purple tooltipped",
                         data: {position: "top", delay: "20", tooltip: "add specs" } do %>
                 <i class="material-icons">add</i>
             <% end %>
@@ -14,7 +14,7 @@
         <li>
             <%= link_to new_tag_type_path,
                         remote:true,
-                        class: "btn-floating green tooltipped",
+                        class: "btn-floating deep-purple tooltipped",
                         data: {position: "top", delay: "20", tooltip: "add tag type" } do %>
                 <i class="material-icons">label</i>
             <% end %>
@@ -22,7 +22,7 @@
         <li>
             <%= link_to tag_types_path,
                         remote:true,
-                        class: "btn-floating blue tooltipped",
+                        class: "btn-floating deep-purple tooltipped",
                         data: {position: "top", delay: "20", tooltip: "edit tag types" } do %>
                 <i class="material-icons">mode_edit</i>
             <% end %>

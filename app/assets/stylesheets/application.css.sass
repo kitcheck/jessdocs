@@ -20,8 +20,44 @@
 @import 'SpinKit/css/spinkit'
 @import 'bootstrap-social/bootstrap-social'
 
+.checkbox[type="checkbox"].filled-in:checked + label:after
+    border: 2px solid #00BCD4
+    background-color: #00BCD4
+
+.table-of-contents a:hover 
+    color: #B6B6B6
+    border-left: 1px solid #512DA8
+
+.table-of-contents a.active
+    border-left: 2px solid #512DA8
+
+.table-of-contents a
+    color: #727272
+
+.btn, .btn:hover
+    background-color: #00BCD4
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
+    border-bottom: 1px solid #512DA8
+    box-shadow: 0 1px 0 0 #512DA8
+    
+body
+    color: #212121
+
+.header a
+    color: white
+    
+.dropdown-content li > a, .dropdown-content li > span
+    color: #512DA8
+    
+.dropdown-content li > .badge
+    background-color: #00BCD4
+    
 .side-nav li
     line-height: 1px
+    
+.brand-logo
+    padding-left: 20px !important
 
 .marginless
     margin: 0px !important
