@@ -4,6 +4,5 @@ $("#spec-modal").openModal();
 
 $('#submit').on('click', function() {
     var btn = $('#submit').prop('disabled', true);
-    btn.button('loading');
     $(this.form).submit();
 });
