@@ -207,7 +207,10 @@ DEPENDENCIES
   font-awesome-sass (~> 4.5.0)
   jbuilder (~> 2.0)
   jquery-rails
+  jwt (~> 1.5, >= 1.5.4)
   materialize-sass!
+  omniauth
+  omniauth-google-oauth2
   pg
   puma
   rails (= 4.2.5)

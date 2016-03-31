@@ -1,3 +1,2 @@
-$('.delete_tag').bind('ajax:success', function() {
-   $(this).closest('span').fadeOut();
-});
+   $('#tag<%=@tag_id %>').fadeOut();
+   $('#tag<%=@tag_id %>').remove();

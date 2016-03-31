@@ -62,6 +62,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.json
   def destroy
+    @tag_id = @tag.id
     @tag.destroy
     respond_to do |format|
       format.html { redirect_to '/specs', notice: 'Tag was successfully destroyed.' }

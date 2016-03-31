@@ -3,7 +3,7 @@
    
     <div class="spec-data">
         
-        <span class="side-buttons btn-group btn-group-xs">
+        <span class="side-buttons">
             
             <% if @can_edit %>
             
@@ -11,9 +11,8 @@
                     <i class="material-icons tiny-icon">mode_edit</i>
                 </a>
             <% end %>
-            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "hidden" : "active-btn" %>
-            <%= link_to  '', 
-                        comments_path(:spec_id => spec[:id]),
+            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "hide" : "active-btn" %>
+            <%= link_to comments_path(:spec_id => spec[:id]),
                         remote: true,
                         class: "btn-flat btn-square comment-button side-button #{css_class}" do %>
                 <i class="material-icons">comment</i>
@@ -24,8 +23,8 @@
             <% css_class = (@comment_array && @comment_array.include?(spec[:id]) )  ? "" : "hide" %>
             <%= link_to comments_path(:spec_id => spec[:id]),
                         remote: true,
-                        class: "btn-floating deep-purple darken-2 comment-button side-button label-button #{css_class}" do %>
-                <i class="material-icons">comment</i>
+                        class: "btn-flat btn-square comment-button side-button label-button #{css_class}" do %>
+                <i class="material-icons deep-purple-text darken-2">comment</i>
             <% end %>
             
             

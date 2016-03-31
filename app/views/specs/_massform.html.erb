@@ -54,8 +54,13 @@
       <% end %>
         
         <div class="input-field col s12">
-          <%= text_area_tag :text, '', rows: 15, class:"materialize-textarea mass-add-text", id: "mass-text-area" %>
-          <label for="mass-text-area">add your specs here:</label>
+          <%= text_area_tag :text, 
+                            '', 
+                            rows: 15, 
+                            class:"materialize-textarea mass-add-text", 
+                            id: "mass-text-area",
+                            placeholder: "your specs..." %>
+          <label for="mass-text-area"></label>
         </div>
         
         
