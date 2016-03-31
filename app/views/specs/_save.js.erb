@@ -3,5 +3,6 @@ $("ul.errors").html("");
   <% @spec.errors.full_messages.each do |message| %>
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
   <% end %>
-
+<% else %>
+  Materialize.toast('spec created', 4000)
 <% end %>

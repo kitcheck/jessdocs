@@ -1,10 +1,12 @@
+<div id="spec-modal" class="modal modal-fixed-footer fade">
+<%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form") do |f| %>
 <div class="modal-content">
   <div class="modal-header">
    
     <h5 class="modal-title">mass-add specs</h5>
     
   </div>
-  <%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form") do |f| %>
+  
     <div class="modal-body">
       <ul class="errors"></ul>
       
@@ -79,8 +81,8 @@
   
 </div>
 <div class="modal-footer">
-   
-  <%= button_tag('submit', id: 'mass-submit', class: "btn btn-primary") %>
+   <%= submit_tag 'submit', class: "btn btn-submit", id: 'mass-submit' %>
   <a href="#" class="modal-close btn-flat" data-dismiss="modal">cancel</a>
 </div>
 <% end %>
+</div>

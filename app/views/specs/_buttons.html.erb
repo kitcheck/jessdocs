@@ -24,13 +24,13 @@
                     remote: true,
                     :data => {:tooltip => 'add parent', :position => 'bottom', :delay => '20'},
                     class: "tooltipped btn btn-square" do %>
-            + p
+            p
         <% end %>
         <%= link_to mass_add_view_specs_path(:id =>spec[:id]),
                     remote:true,
                     :data => {:tooltip => 'add children', :position => 'bottom', :delay => '20'},
                     class: "tooltipped btn btn-square" do %>
-            + c
+            c
         <% end %>
 
         <%= link_to edit_spec_path(:id => spec[:id]), 

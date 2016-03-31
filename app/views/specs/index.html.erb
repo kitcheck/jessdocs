@@ -20,14 +20,14 @@
     <div class="row main">
         
         
-        <div class="full-spec-list col s8 m10 main">
-            
+        <div class="full-spec-list col s8 m10">
             <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
                 <p>There are no specs currently in the system</p>
             <% else %>
                 <%= render partial: "specs", collection: @specs, as: :spec %>
             <% end %>
         </div>
+        
         <div class="col s4 m2 sidebar">
            
             <div class="bookmarks">

@@ -1,4 +1,4 @@
-$("#spec-modal").html("<%= j(render 'mass_add_view') %>")
+$("#spec-modal").replaceWith("<%= j(render 'mass_add_view') %>")
 
 $('.project-select').val($('#project-select').val());
 $('select').material_select();
@@ -14,7 +14,6 @@ $('#mass-submit').on('click', function() {
     else{
         $('.alert').remove();
         var btn = $('#mass-submit').prop('disabled', true);
-        btn.button('loading');
         $(this.form).submit();
     }
 });
