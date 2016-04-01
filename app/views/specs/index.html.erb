@@ -1,3 +1,18 @@
+<div class="center valign-wrapper spinner">
+        <div class="center-spinner preloader-wrapper big active valign">
+            <div class="spinner-layer">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
 <% if @can_view %>
     <div class="header">
         <%= render partial: "header" %>
@@ -10,13 +25,8 @@
 
     <p class="notice hide"><%= notice %></p>
     <p class="alert hide"><%= alert %></p>
-    <div class="center">
-        <div class="sk-wandering-cubes spinner">
-            <div class="sk-cube sk-cube1"></div>
-            <div class="sk-cube sk-cube2"></div>
-        </div>
-    </div>
-
+   
+    
     <div class="row main">
         
         
