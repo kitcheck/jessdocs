@@ -33,6 +33,7 @@ gem 'puma'
 
 gem 'materialize-sass', :github => "mkhairi/materialize-sass", :branch => "master"
 gem 'font-awesome-sass', '~> 4.5.0'
+gem "jquery-validation-rails"
 
 gem 'autoprefixer-rails'
 # Use ActiveModel has_secure_password

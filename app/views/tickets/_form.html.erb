@@ -1,5 +1,5 @@
 <div id="modal" style="height:250px" class="modal-thin modal modal-fixed-footer fade">
-  <%= form_for @ticket, remote: true do |f| %>
+  <%= form_for @ticket, remote: true, :html=>{novalidate:""} do |f| %>
   <div class="modal-content">
     
     
@@ -18,8 +18,10 @@
         <% end %>
   
         <div>
-          
-          <%= f.text_field 'name', {class: "validate", placeholder: '#000000000'}%>
+          <div class="input-field">
+            <%= f.text_field 'name', {class: "validate", placeholder: '#000000000', required: "" }%>
+            <%= f.label :name, '&nbsp;'.html_safe %>
+          </div>
           <%= f.hidden_field :spec_id, value: @spec.id %>
         </div>
         
@@ -34,3 +36,13 @@
   </div>
   <% end %>
 </div>
+
+<script>
+  
+   $("#new_ticket").validate({
+      rules: {
+          ticket_name: "required"
+      }
+  });
+  
+</script>
