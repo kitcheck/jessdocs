@@ -1,5 +1,5 @@
-<div id="spec-modal" class="modal modal-fixed-footer fade">
-<%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form") do |f| %>
+<div id="modal" class="modal modal-fixed-footer fade">
+<%= form_tag('/specs/mass_add', method:'post', remote:true, class: "spec-form", id: "mass-form", novalidate: "") do |f| %>
 <div class="modal-content">
   <div class="modal-header">
    
@@ -59,8 +59,9 @@
           <%= text_area_tag :text, 
                             '', 
                             rows: 15, 
-                            class:"materialize-textarea mass-add-text", 
+                            class:"materialize-textarea mass-add-text validate", 
                             id: "mass-text-area",
+                            required: "",
                             placeholder: "your specs..." %>
           <label for="mass-text-area"></label>
         </div>

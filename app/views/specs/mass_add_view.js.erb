@@ -1,15 +1,15 @@
-$("#spec-modal").replaceWith("<%= j(render 'mass_add_view') %>")
+$("#modal").replaceWith("<%= j(render 'mass_add_view') %>")
 
 $('.project-select').val($('#project-select').val());
 $('select').material_select();
-$("#spec-modal").openModal();
+$("#mass-form").validate();
+$("#modal").openModal();
 
 $('#mass-submit').on('click', function() {
     
     var textBox = $('.mass-add-text');
     if(textBox.val() == ""){
-        textBox.before("<div class='alert alert-danger' role='alert'>Text box is blank</div>");
-        event.preventDefault();
+       
     }
     else{
         $('.alert').remove();

@@ -1,8 +1,6 @@
-$("#spec-modal").html("<%= j(render 'new') %>")
-$('.project-select').val($('#project-select').val());
-$("#spec-modal").openModal();
+$("#modal").replaceWith("<%= j(render 'new') %>")
 
-$('#submit').on('click', function() {
-    var btn = $('#submit').prop('disabled', true);
-    $(this.form).submit();
-});
+$('.project-select').val($('#project-select').val());
+$('#new_spec').validate();
+$("#modal").openModal();
+
