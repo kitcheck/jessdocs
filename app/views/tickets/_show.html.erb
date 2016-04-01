@@ -1,4 +1,4 @@
-<span class="chip tag ticket <%=ticket[:id]%> small-chip">
+<span class="chip tag ticket small-chip" id="ticket<%=ticket[:id]%>">
     <%= link_to ticket[:name], ticket[:url], :target => '_blank' %>
     
     <%= link_to ticket_path(:id => ticket[:id]), 

@@ -1,4 +1,4 @@
-<div id="modal" class="modal-thin modal modal-fixed-footer fade">
+<div id="modal" style="height: 200px" class="modal-thin modal modal-fixed-footer fade">
   <%= form_for @tag_type, remote: true do |f| %>
     <div class="modal-content">
       
@@ -15,14 +15,14 @@
             </div>
           <% end %>
   
-          <div>
-            <div>
-              <%= label_tag 'tag_color', 'tag color' %>
-              <%= color_field(:tag_type, :color, options={class: "form-control", id: 'tag_color'})  %>
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <%= label_tag 'tag_color', '' %>
+              <%= color_field(:tag_type, :color, options={class: "btn-square", id: 'tag_color'})  %>
             </div>
-            <div class="input-field">
-              <%= label_tag 'tag_name', 'tag name' %>
-              <%= f.text_field 'name', {class: "form-control", id: 'tag_name'}%>
+            <div class="input-field col s10">
+              <%= label_tag 'tag_name', '' %>
+              <%= f.text_field 'name', {class: "form-control", id: 'tag_name', placeholder: 'tag name'}%>
             </div>
             
           </div>

@@ -1,3 +1,2 @@
-$('.delete_tag').bind('ajax:success', function() {
-   $(this).closest('span').fadeOut();
-});
+$('#ticket<%=@ticket_id %>').fadeOut();
+$('#ticket<%=@ticket_id %>').remove();

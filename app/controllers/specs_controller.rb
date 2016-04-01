@@ -176,8 +176,8 @@ class SpecsController < ApplicationController
   
   def bookmark
     @spec = Spec.find(params[:spec_id])
-    bookmarked = @spec.bookmarked
-    @spec.update!(:bookmarked => !bookmarked)
+    @bookmarked = @spec.bookmarked
+    @spec.update!(:bookmarked => !@bookmarked)
     project_id = @spec.project_id
     @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
   end
