@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
     $(document).on("ajax:success", ".spec-form", function() {
-        $('#spec-modal').closeModal();
+        $('#modal').closeModal();
         updateState();
     });
     

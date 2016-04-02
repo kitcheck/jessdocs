@@ -4,16 +4,3 @@ $('.project-select').val($('#project-select').val());
 $('select').material_select();
 $("#mass-form").validate();
 $("#modal").openModal();
-
-$('#mass-submit').on('click', function() {
-    
-    var textBox = $('.mass-add-text');
-    if(textBox.val() == ""){
-       
-    }
-    else{
-        $('.alert').remove();
-        var btn = $('#mass-submit').prop('disabled', true);
-        $(this.form).submit();
-    }
-});

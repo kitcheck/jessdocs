@@ -1,10 +1,6 @@
 $("#spec-modal").html("<%= j(render 'modal') %>")
 $('.resolve-btn').hide();
+$('#new_comment').validate();
 $("#spec-modal").openModal();
-
-$('.comment-btn').on('click', function() {
-    var btn = $('.comment-btn').prop('disabled', true);
-    $(this.form).submit();
-});
 
 
