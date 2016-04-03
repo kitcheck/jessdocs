@@ -16,6 +16,7 @@ class TicketsController < ApplicationController
   def new
     @ticket = Ticket.new
     @spec = Spec.find(params[:id])
+    puts "we did this bit"
   end
 
   # GET /tickets/1/edit
@@ -25,11 +26,13 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(:name => params[:ticket][:name], :spec_id => params[:ticket][:spec_id])
+    @spec_id = params[:ticket][:spec_id]
+    @ticket = Ticket.new(:name => params[:ticket][:name], :spec_id => @spec_id)
 
     if @ticket.save
       # redirect_to '/specs'
     else
+      @spec = Spec.find(@spec_id)
       render :action => 'new'
     end
   end

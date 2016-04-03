@@ -1,4 +1,3 @@
-<div id="modal" style="height:250px" class="modal-thin modal modal-fixed-footer fade">
   <%= form_for @ticket, remote: true, :html=>{novalidate:""} do |f| %>
   <div class="modal-content">
     
@@ -8,18 +7,25 @@
         <h4>associate ticket</h4>
         
         <% if @ticket.errors.any? %>
-          <div class="alert alert-danger form-group" role="alert">
-            <ul>
-            <% @ticket.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
+          <div class="alert card-panel red white-text">
+              <div class="row valign-wrapper marginless">
+                <div class="col s1 valign">
+                <i class="material-icons">error</i>
+                </div>
+                <div class="col s11 valign">
+                <ul>
+                <% @ticket.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+                </div>
+              </div>
+            </div>
         <% end %>
   
         <div>
           <div class="input-field">
-            <%= f.text_field 'name', {class: "validate", placeholder: '#000000000', required: "" }%>
+            <%= f.text_field 'name', {class: "validate marginless", placeholder: '#000000000', required: "" }%>
             <%= f.label :name, '&nbsp;'.html_safe %>
           </div>
           <%= f.hidden_field :spec_id, value: @spec.id %>
@@ -35,4 +41,3 @@
       <%= link_to "cancel", "#", class: "modal-close btn-flat" %>
   </div>
   <% end %>
-</div>

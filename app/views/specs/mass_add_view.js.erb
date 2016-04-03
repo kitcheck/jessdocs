@@ -1,6 +1,6 @@
-$("#modal").replaceWith("<%= j(render 'mass_add_view') %>")
+$("#spec-modal").html("<%= j(render 'mass_add_view') %>")
 
 $('.project-select').val($('#project-select').val());
 $('select').material_select();
 $("#mass-form").validate();
-$("#modal").openModal();
+$("#spec-modal").openModal();

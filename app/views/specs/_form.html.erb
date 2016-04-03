@@ -1,17 +1,6 @@
-<div id="modal" style="height:250px" class="modal modal-fixed-footer fade">
   <%= form_for @spec, remote: true, :html => {class: "spec-form", novalidate: ""} do |f| %>
   <div class="modal-content">
       <div class="modal-body">
-        
-        <% if @spec.errors.any? %>
-          <div class="alert alert-danger form-group" role="alert">
-            <ul>
-            <% @spec.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
         
         <% if @parent.nil? && @child.nil? && new_spec %>
           <div class="form-group">
@@ -64,4 +53,3 @@
       
     </div>
   <% end %>
-</div>

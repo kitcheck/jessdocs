@@ -32,7 +32,7 @@
         
         <div class="full-spec-list col s8 m10">
             <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
-                <p>There are no specs currently in the system</p>
+                <p>No results</p>
             <% else %>
                 <%= render partial: "specs", collection: @specs, as: :spec %>
             <% end %>
@@ -54,7 +54,7 @@
         
         <div id="spec-modal" class="modal modal-fixed-footer fade"></div>
         <div id="small-modal" class="modal-thin modal-short modal modal-fixed-footer fade"></div>
-        <div id="modal"></div>
+        <div id="short-modal" class="modal-short modal modal-fixed-footer fade"></div>
     </div>
 <% else %>
     <div class="container-fluid">

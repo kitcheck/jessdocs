@@ -1,3 +1,5 @@
-$("#modal").replaceWith("<%= escape_javascript(render 'new') %>")
+$("#small-modal").html("<%= escape_javascript(render 'new') %>")
 $("#new_ticket").validate();
-$("#modal").openModal();
+<% unless @ticket.errors.any? %>
+    $("#small-modal").openModal();
+<% end %>
