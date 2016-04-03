@@ -2,5 +2,8 @@ $("#modal").replaceWith("<%= j(render 'new') %>")
 
 $('.project-select').val($('#project-select').val());
 $('#new_spec').validate();
-$("#modal").openModal();
+
+<% unless @spec.errors.any? %>
+    $("#modal").openModal();
+<% end %>
 

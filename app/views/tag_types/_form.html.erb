@@ -1,4 +1,3 @@
-<div id="modal" style="height: 200px" class="modal-thin modal modal-fixed-footer fade">
   <%= form_for @tag_type, remote: true, :html=>{novalidate: ""} do |f| %>
     <div class="modal-content">
       
@@ -6,16 +5,23 @@
         <div class="modal-body">
           
           <% if @tag_type.errors.any? %>
-            <div class="alert alert-danger form-group" role="alert">
-              <ul>
-              <% @tag_type.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
+            <div class="alert card-panel red white-text">
+              <div class="row valign-wrapper marginless">
+                <div class="col s1 valign">
+                <i class="material-icons">error</i>
+                </div>
+                <div class="col s11 valign">
+                <ul>
+                <% @tag_type.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+                </div>
+              </div>
             </div>
           <% end %>
   
-          <div class="row valign-wrapper">
+          <div class="row marginless valign-wrapper">
             <div class="col s2">
               <%= f.label :color, '&nbsp;'.html_safe %>
               <%= color_field(:tag_type, :color, options={class: "btn-square"})  %>
@@ -37,4 +43,3 @@
       
     </div>
   <% end %>
-</div>

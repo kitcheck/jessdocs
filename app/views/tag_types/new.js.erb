@@ -1,3 +1,6 @@
-$("#modal").replaceWith("<%= j(render 'new') %>")
+$("#small-modal").html("<%= j(render 'new') %>")
 $("#new_tag_type").validate();
-$("#modal").openModal();
+
+<% unless @tag_type.errors.any? %>
+    $("#small-modal").openModal();
+<% end %>

@@ -12,7 +12,7 @@ $(document).ready(function () {
     },
     submitHandler: function (form) {
         $(form).find('[type=submit]').prop('disabled', true);
-        $(form).ajaxSubmit();
+        $.rails.handleRemote( $(form) );
     }
   });
 

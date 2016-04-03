@@ -1,3 +1,5 @@
 $("#modal").closeModal();
-$("#modal").replaceWith("<%= j(render 'edit') %>")
-$("#modal").openModal();
+$("#small-modal").html("<%= j(render 'edit') %>")
+<% unless @tag_type.errors.any? %>
+    $("#small-modal").openModal();
+<% end %>
