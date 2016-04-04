@@ -5,4 +5,6 @@
 <% else %>
     $('.full-spec-list').html('<%= j (render partial: 'specs', collection: @specs, as: :spec) %>')
     $('.bookmarks').html("<%= j(render partial: "bookmarks", object: @bookmarks, as: :bookmarks) %>")
+    $('.tooltipped').tooltip({delay: 50});
+    $('.scrollspy').scrollSpy();
 <% end %>
