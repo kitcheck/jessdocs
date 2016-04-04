@@ -14,10 +14,11 @@
     </div>
 
 <% if @can_view %>
-    <div class="header">
+    <header>
         <%= render partial: "header" %>
-    </div>
+    </header>
     
+    <main>
     <ul id="slide-out" class="side-nav fixed deep-purple lighten-4">
       <li><%= render 'filter' %></li>
     </ul>
@@ -58,17 +59,12 @@
         <div id="small-modal" class="modal-thin modal-short modal modal-fixed-footer fade"></div>
         <div id="short-modal" class="modal-short modal modal-fixed-footer fade"></div>
     </div>
-    
-<% else %>
-    <div class="container-fluid">
-        <p>this is my crappy 'you don't have access' page</p>
-        <div class="roleless-user-action">
-            <% if current_user.request.nil? %>
-                <%= link_to 'request access', requests_path(:request => {:user_id => current_user.id}), :method => :post, remote: true, class: "btn btn-primary request-btn" %>
-            <% else %>
-                <p>Your request for access is pending.</p>
-            <% end %>
+    </main>
+
+    <footer class="page-footer deep-purple darken-2">
+        <div class="container">
+            
         </div>
-        <%= link_to 'log out', destroy_user_session_path, :method => :delete, class: "btn btn-default" %>
-    </div>
+    </footer>
+
 <% end %>

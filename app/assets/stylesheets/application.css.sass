@@ -85,10 +85,19 @@ $spinner-default-color: $primary-color-dark !default
 body
     color: #212121
 
-.header
+header
     height: 100px
-.header a
-    color: white
+
+footer
+    height: 50px
+    
+body
+    display: flex
+    min-height: 100vh
+    flex-direction: column
+
+main
+    flex: 1 0 auto
     
 .dropdown-content li > a, .dropdown-content li > span
     color: #512DA8
@@ -117,7 +126,7 @@ body
 .comment-card-clickable:hover
     cursor: pointer
 
-.header, .main
+header, .main
     padding-left: 240px
 
 .comment-info
