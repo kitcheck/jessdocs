@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     $(document).on('mouseenter','.spec', function(){
       $('.side-button.active-btn', this).css('visibility','visible');
     }).on('mouseleave', '.spec', function() {
