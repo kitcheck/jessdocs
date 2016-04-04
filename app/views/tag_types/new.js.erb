@@ -4,3 +4,7 @@ $("#new_tag_type").validate();
 <% unless @tag_type.errors.any? %>
     $("#small-modal").openModal();
 <% end %>
+
+$('.modal-close').on('click', function() {
+    $('#small-modal').closeModal();
+});

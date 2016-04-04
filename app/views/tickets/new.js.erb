@@ -3,3 +3,7 @@ $("#new_ticket").validate();
 <% unless @ticket.errors.any? %>
     $("#small-modal").openModal();
 <% end %>
+
+$('.modal-close').on('click', function() {
+    $('#small-modal').closeModal();
+});
