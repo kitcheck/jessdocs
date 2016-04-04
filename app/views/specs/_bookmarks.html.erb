@@ -1,14 +1,12 @@
 <% if bookmarks.any? %>
-    <div class="list-group-item">
-        <h5 class="list-group-item-heading">bookmarks</h5>
-        <div class="list-group-item-text">
-            <ul>
+    <div class="pinned">
+        <ul class="section table-of-contents">
+            <li><h6>bookmarks</h6></li>
             <% bookmarks.each do |spec| %>
                 <% if (@filtered_spec_ids.nil? || @filtered_spec_ids.include?(spec["id"])) %>
-                    <li class="hanging-indent"><a href="#<%= spec["id"] %>"><%= spec["description"] %></a></li>
+                    <li id="bookmark_<%= spec["id"] %>"><a href="#<%= spec["id"] %>"><%= spec["description"] %></a></li>
                 <% end %>
             <% end %>
-            </ul>
-        </div>
+        </ul>
     </div>
 <% end %>

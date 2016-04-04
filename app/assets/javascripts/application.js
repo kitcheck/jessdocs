@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.validate
+//= require jquery.validate.additional-methods
+//= require jquery.form
+//= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require_tree .

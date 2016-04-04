@@ -1,18 +1,6 @@
 $("#spec-modal").html("<%= j(render 'mass_add_view') %>")
-$('.project-select').val($('#project-select').val());
-$("#spec-modal").modal("show")
 
-$('#mass-submit').on('click', function() {
-    
-    var textBox = $('.mass-add-text');
-    if(textBox.val() == ""){
-        textBox.before("<div class='alert alert-danger' role='alert'>Text box is blank</div>");
-        event.preventDefault();
-    }
-    else{
-        $('.alert').remove();
-        var btn = $('#mass-submit').prop('disabled', true);
-        btn.button('loading');
-        $(this.form).submit();
-    }
-});
+$('.project-select').val($('#project-select').val());
+$('select').material_select();
+$("#mass-form").validate();
+$("#spec-modal").openModal();

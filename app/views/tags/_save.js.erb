@@ -1,4 +1,4 @@
 var tagElem = $("#<%=@spec.id%> span.tags");
-$("#spec-modal").modal("hide");
+$('#spec-modal').closeModal();
 tagElem.html("<%= j(render partial: "tags/show", collection: @new_tags_hash, as: :tag) %>");
-$('#<%=@spec.id%> .delete_tag').show();
+$('#<%=@spec.id%> .delete_tag').css('display', 'inline-block');

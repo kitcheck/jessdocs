@@ -13,95 +13,195 @@
  *= require_tree .
  *= require_self
  */
+ 
+@import "materialize/components/color"
+@import "materialize/components/variables"
+$primary-color: color("materialize-deep-purple", "lighten-2") !default
+$primary-color-light: lighten($primary-color, 15%) !default
+$primary-color-dark: darken($primary-color, 15%) !default
+
+$secondary-color: color("cyan", "lighten-1") !default
+$success-color: color("green", "base") !default
+$error-color: color("red", "base") !default
+$link-color: color("cyan", "darken-1") !default
+
+$spinner-default-color: $primary-color-dark !default
 
 @import "font-awesome-sprockets"
 @import "font-awesome"
-@import "bootstrap-sprockets"
-@import "bootstrap"
+@import "materialize"
 @import 'SpinKit/css/spinkit'
 @import 'bootstrap-social/bootstrap-social'
 
-.tag a, a:hover, a:focus 
-    text-decoration: none
-    background-color: transparent
 
-a:hover
-    background-color: transparent
-    text-decoration: none
+.modal .side-buttons
+    display: none !important
 
-.label-button, .label-button:hover
+.alert
+    padding: 0px
+    
+.spinner-layer
+    border-color: #512DA8
+
+.full-spec-list
+    margin-top: 20px
+
+.center-spinner
+    margin: 0 auto
+
+.spinner
+    background-color: #D1C4E9
+    opacity: 0.5
+
+.checkbox[type="checkbox"].filled-in:checked + label:after
+    border: 2px solid #00BCD4
+    background-color: #00BCD4
+
+.table-of-contents a:hover 
+    color: #B6B6B6
+    border-left: 1px solid #512DA8
+
+.table-of-contents a.active
+    border-left: 2px solid #512DA8
+
+.table-of-contents a
+    color: #727272
+
+.btn, .btn:hover
+    background-color: #00BCD4
+
+
+.input-field input[type=text]:focus + label 
+    color: #512DA8
+    
+.input-field input[type=text]:focus
+    border-bottom: 1px solid #512DA8
+    box-shadow: 0 1px 0 0 #512DA8
+
+.input-field input[type=text].invalid
+    border-bottom: 1px solid #F44336
+    box-shadow: 0 1px 0 0 #F44336
+    
+body
+    color: #212121
+
+header
+    height: 100px
+
+footer
+    height: 50px
+    
+body
+    display: flex
+    min-height: 100vh
+    flex-direction: column
+
+main
+    flex: 1 0 auto
+    
+.dropdown-content li > a, .dropdown-content li > span
+    color: #512DA8
+    
+.dropdown-content li > .badge
+    background-color: #00BCD4
+    
+.side-nav li
+    line-height: 1px
+    
+.brand-logo
+    padding-left: 20px !important
+
+.marginless
+    margin: 0px !important
+
+.tag, .tag label
     color: white
     
-.comment-button:hover
-    background-color: transparent
+.tag > a
+    color: white
 
-ul
-    list-style-type: none
+.comment-children
+    border: 0px
+    
+.comment-card-clickable:hover
+    cursor: pointer
 
+header, .main
+    padding-left: 240px
 
+.comment-info
+    padding-top: 20px
+    
+.spec
+    padding: 2px
+    
+li.spec-li
+    margin-left: 40px
+
+.spec-list > ul
+    margin: 0px
+
+.btn-square
+    padding-left: 5px
+    padding-right: 5px
+    height: 30px
+    width: 30px
+    line-height: 30px
+    
+.btn-square > i
+    font-size: 1.0rem
+
+.modal-thin
+    width: 400px !important
+    
+.modal-short
+    height: 275px !important
     
 .ticket
     background-color: midnightblue
+
+i.ticket, label.ticket
+    color: midnightblue
+    background-color: inherit
     
+label.checkbox-label
+    color: inherit !important
+
 .tag-checkbox
     font-size: small
-    margin: 10px 2px 10px 2px
-    
-.side-button
-    -webkit-appearance: none
-    outline: none
-    border: 0
-    background: transparent
+    margin: 0px
 
+.small-chip
+    height: 20px
+    line-height: 20px
+    display: inline
+    padding: 2px 10px 2px 10px
+
+.chip i.small-chip-icon
+    line-height: 10px
+
+.side-button
+    height: 10px
+    line-height: 10px
+    
 .side-buttons
     visibility: hidden
     
 .spec-buttons
-    margin-left: 40px
+    padding: 10px
     
 .delete_tag
     display: none
 
 .form-signin
-    max-width: 330px
+    max-width: 400px
     padding: 15px
     margin: 0 auto
-    
-.form-signin .form-signin-heading, .form-signin .checkbox
-    margin-bottom: 10px
-    
-.form-signin .form-control
-    position: relative
-    font-size: 16px
-    height: auto
-    padding: 10px
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-
-.form-signin-heading
-    color: #555
-    font-size: 20px
-    font-weight: 400
-    display: block
-    text-align: center
-    
-.account-wall
-    margin-top: 20px
-    padding: 40px 0px 20px 0px
-    background-color: #f7f7f7
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3)
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3)
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3)
-    
-.sign-up
-    display: block
-    margin-top: 10px
-    text-align: center
 
 .center
     position: fixed
     width: 100%
+    height: 100%
     
 .sidebar-header
     font-weight: bold

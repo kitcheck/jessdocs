@@ -31,8 +31,10 @@ gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 gem 'puma'
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'materialize-sass', :github => "mkhairi/materialize-sass", :branch => "master"
 gem 'font-awesome-sass', '~> 4.5.0'
+gem "jquery-validation-rails"
+gem 'jquery-form-rails'
 
 gem 'autoprefixer-rails'
 # Use ActiveModel has_secure_password

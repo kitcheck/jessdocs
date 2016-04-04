@@ -1,82 +1,69 @@
-<div class="btn-toolbar">
-    <span class="btn-group btn-group-xs" role="group">
-        <%= link_to '', 
-                    spec_bookmark_path(:spec_id => spec[:id]), 
+<div>
+    
+        <%= link_to spec_bookmark_path(:spec_id => spec[:id]), 
                     method: :post,
                     remote:true, 
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    class: "btn btn-default fa fa-bookmark",
-                    :title => 'bookmark'%>
-        <%= link_to '', 
-                    new_tag_path(:id => spec[:id]), 
+                    :data => {:tooltip => 'bookmark', :position => 'bottom', :delay => '20'},
+                    class: "tooltipped btn btn-square" do %>
+            <i class="material-icons">bookmark</i>
+        <% end %>
+        <%= link_to new_tag_path(:id => spec[:id]), 
                     remote:true, 
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    class: "btn btn-default fa fa-tag",
-                    :title => 'add tag'%>
-        <%= link_to '', 
-                    new_ticket_path(:id => spec[:id]), 
+                    :data => {:tooltip => 'add tag', :position => 'bottom', :delay => '20'},
+                    class: "tooltipped btn btn-square" do %>
+            <i class="material-icons">label</i>       
+        <% end %>
+        <%= link_to new_ticket_path(:id => spec[:id]), 
                     remote: true,
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    :title => 'add ticket',
-                    class: "btn btn-default fa fa-ticket" %>
-    </span>
-    <span class="btn-group btn-group-xs" role="group">
-         
-        <div class="btn-group btn-group-xs" role="group" data-toggle="tooltip", data-placement="left", data-container="body",
-                    title="add relative">
-            
-            <button type="button" 
-                    class="btn btn-default dropdown-toggle fa fa-plus" 
-                    data-toggle="dropdown">
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <%= link_to '+ parent', 
-                                new_spec_path(:id => spec[:id]), 
-                                remote: true %>
-                </li>
-               <% if !spec[:is_bottom] %>
-               <li>
-                    <%= link_to '+ children', 
-                                mass_add_view_specs_path(:id =>spec[:id]),
-                                remote:true %>
-                </li>
-                <% end %>
-            </ul>
-            
-        </div>
+                    :data => {:tooltip => 'add ticket', :position => 'bottom', :delay => '20'},
+                    class: "tooltipped btn btn-square" do %>
+            <i class="material-icons">insert_link</i>
+        <% end %>
+    
+        <%= link_to new_spec_path(:id => spec[:id]), 
+                    remote: true,
+                    :data => {:tooltip => 'add parent', :position => 'bottom', :delay => '20'},
+                    class: "tooltipped btn btn-square" do %>
+            p
+        <% end %>
+        <%= link_to mass_add_view_specs_path(:id =>spec[:id]),
+                    remote:true,
+                    :data => {:tooltip => 'add children', :position => 'bottom', :delay => '20'},
+                    class: "tooltipped btn btn-square" do %>
+            c
+        <% end %>
 
-        <%= link_to '', 
-                    edit_spec_path(:id => spec[:id]), 
+        <%= link_to edit_spec_path(:id => spec[:id]), 
                     remote:true, 
-                    class: "btn btn-default fa fa-pencil",
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    :title => 'edit'%>
+                    class: "btn btn-square tooltipped",
+                    :data => {:tooltip => 'edit', :position => 'bottom', :delay => '20'} do %>
+            <i class="material-icons">edit</i>
+        <% end %>
                     
         <% if spec[:can_indent] %>
-            <%= link_to '', 
-                        spec_indent_url(  :spec_id =>spec[:id]),
+            <%= link_to spec_indent_url(  :spec_id =>spec[:id]),
                         method: :post,
                         remote:true,
-                        :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                        :title => 'indent',
-                        class: "indent_spec btn btn-default fa fa-indent" %>
+                        :data => {:tooltip => 'indent', :position => 'bottom', :delay => '20'},
+                        class: "indent_spec btn btn-square tooltipped" do %>
+                <i class="material-icons">format_indent_increase</i>
+            <% end %>
         <% end %>
         <% if !(spec[:is_root]==true) %>
-            <%= link_to '', 
-                    spec_dedent_url(  :spec_id => spec[:id]),
+            <%= link_to spec_dedent_url(  :spec_id => spec[:id]),
                     method: :post,
                     remote:true,
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    :title => 'dedent',
-                    class: "indent_spec btn btn-default fa fa-outdent" %>
+                    :data => {:tooltip => 'dedent', :position => 'bottom', :delay => '20'},
+                    class: "indent_spec btn btn-square tooltipped" do %>
+                <i class="material-icons">format_indent_decrease</i>
+            <% end %>
         <% end %>
         
-        <%= link_to '', 
-                    spec_delete_path(:spec_id => spec[:id]),
-                    class: "delete_spec btn btn-default fa fa-trash-o",
-                    :data => {:toggle => "tooltip", :placement => 'bottom', :container => 'body'},
-                    :title => 'delete',
-                    :remote => true %>
-    </span>
+        <%= link_to spec_delete_path(:spec_id => spec[:id]),
+                    class: "delete_spec btn btn-square tooltipped",
+                    :data => {:tooltip => 'delete', :position => 'bottom', :delay => '20'},
+                    :remote => true do %>
+            <i class="material-icons">delete</i>
+        <% end %>
 </div>
+

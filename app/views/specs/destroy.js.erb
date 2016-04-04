@@ -1,3 +1,6 @@
-$("#spec-modal").modal("hide");
+$('#spec-modal').closeModal();
 $('.s<%=deleted_id%>').fadeOut();
 $('.s<%=deleted_id%>').remove();
+Materialize.toast('spec successfully deleted', 8000)
+$('.bookmarks').html("<%= j(render partial: "bookmarks", object: @bookmarks, as: :bookmarks) %>")
+$('.scrollspy').scrollSpy();

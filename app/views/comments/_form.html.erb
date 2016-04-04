@@ -1,14 +1,14 @@
-<div class="container-fluid comment-form">
-  <%= form_for @comment, remote: true do |f| %>
+<div class="comment-form card-action">
+  <%= form_for @comment, remote: true, html: {class: "marginless"} do |f| %>
     
-    <div class="input-group">
-      
-      <%= f.text_field 'text', {class: "form-control comment-text-box"}%>
-      <div class="input-group-btn">
+    <div class="marginless row">
+      <div class="col s11">
+        <%= f.text_field 'text', {class: "marginless comment-text-box validate", required: ""}%>
+      </div>
+      <div class="col s1">
         
-        <%= f.submit button_text, class: "form-control btn btn-primary comment-btn"%>
-        <% if parent_id %>
-          <button class= "btn btn-default cancel-btn">x</button>
+        <%= f.button class: "form-control btn btn-primary comment-btn" do %>
+          <i class="material-icons"><%=button_text%></i>
         <% end %>
         
       </div>

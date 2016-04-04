@@ -1,42 +1,70 @@
+<div class="center valign-wrapper spinner">
+        <div class="center-spinner preloader-wrapper big active valign">
+            <div class="spinner-layer">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
 <% if @can_view %>
-<div class="header">
-    <%= render partial: "header" %>
-</div>
-<p class="notice hidden"><%= notice %></p>
-<p class="alert hidden"><%= alert %></p>
-<div class="center">
-    <div class="sk-wandering-cubes spinner">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="col-xs-4 col-md-3 col-lg-2 sidebar">
-        <% if current_user.can_edit? || @bookmarks.any? %>
-            <%= render partial: "sidebarbtns" %>
-        <% end %>
-    </div>
+    <header>
+        <%= render partial: "header" %>
+    </header>
     
-    <div class="full-spec-list col-xs-8 col-md-9 col-lg-10 main">
+    <main>
+    <ul id="slide-out" class="side-nav fixed deep-purple lighten-4">
+      <li><%= render 'filter' %></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+
+    <p class="notice hide"><%= notice %></p>
+    <p class="alert hide"><%= alert %></p>
+   
+    
+    <div class="row main">
         
-        <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
-            <p>There are no specs currently in the system</p>
-        <% else %>
-            <%= render partial: "specs", collection: @specs, as: :spec %>
-        <% end %>
-    </div>
-</div>
-<div id="spec-modal" class="modal fade"></div>
-<% else %>
-    <div class="container-fluid">
-        <p>this is my crappy 'you don't have access' page</p>
-        <div class="roleless-user-action">
-            <% if current_user.request.nil? %>
-                <%= link_to 'request access', requests_path(:request => {:user_id => current_user.id}), :method => :post, remote: true, class: "btn btn-primary request-btn" %>
+        
+        <div class="full-spec-list col s8 m10">
+            <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
+                <p>No results</p>
             <% else %>
-                <p>Your request for access is pending.</p>
+                <%= render partial: "specs", collection: @specs, as: :spec %>
             <% end %>
         </div>
-        <%= link_to 'log out', destroy_user_session_path, :method => :delete, class: "btn btn-default" %>
+        
+        <div class="col s4 m2 sidebar">
+           
+            <div class="bookmarks">
+                <%= render partial: "bookmarks", object: @bookmarks, as: :bookmarks %>
+            </div>
+        </div>
+    
+        <% if current_user.can_edit? %>
+            <%= render partial: "sidebarbtns" %>
+        <% end %>
+        
+       
+        
+    
+            
+        
+        <div id="spec-modal" class="modal modal-fixed-footer fade"></div>
+        <div id="small-modal" class="modal-thin modal-short modal modal-fixed-footer fade"></div>
+        <div id="short-modal" class="modal-short modal modal-fixed-footer fade"></div>
     </div>
+    </main>
+
+    <footer class="page-footer deep-purple darken-2">
+        <div class="container">
+            
+        </div>
+    </footer>
+
 <% end %>

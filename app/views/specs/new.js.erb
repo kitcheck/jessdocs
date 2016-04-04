@@ -1,9 +1,9 @@
-$("#spec-modal").html("<%= j(render 'new') %>")
-$('.project-select').val($('#project-select').val());
-$("#spec-modal").modal("show")
+$("#short-modal").html("<%= j(render 'new') %>")
 
-$('#submit').on('click', function() {
-    var btn = $('#submit').prop('disabled', true);
-    btn.button('loading');
-    $(this.form).submit();
-});
+$('.project-select').val($('#project-select').val());
+$('#new_spec').validate();
+
+<% unless @spec.errors.any? %>
+    $("#short-modal").openModal();
+<% end %>
+

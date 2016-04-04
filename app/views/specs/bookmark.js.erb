@@ -1,1 +1,3 @@
+<% text = (@bookmarked == true) ? "bookmark removed" : "bookmark added" %>
+Materialize.toast("<%=text%>", 8000)
 $('.bookmarks').html("<%= j(render partial: "bookmarks", object: @bookmarks, as: :bookmarks) %>")

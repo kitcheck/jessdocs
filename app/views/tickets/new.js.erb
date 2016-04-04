@@ -1,2 +1,9 @@
-$("#spec-modal").html("<%= escape_javascript(render 'new') %>")
-$("#spec-modal").modal("show")
+$("#small-modal").html("<%= escape_javascript(render 'new') %>")
+$("#new_ticket").validate();
+<% unless @ticket.errors.any? %>
+    $("#small-modal").openModal();
+<% end %>
+
+$('.modal-close').on('click', function() {
+    $('#small-modal').closeModal();
+});

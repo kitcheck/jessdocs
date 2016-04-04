@@ -1,33 +1,43 @@
-<div class="modal-dialog modal-sm">
-
+  <%= form_for @ticket, remote: true, :html=>{novalidate:""} do |f| %>
   <div class="modal-content">
     
-    <%= form_for @ticket, remote: true do |f| %>
+    
       <div class="modal-body">
         
+        <h4>associate ticket</h4>
+        
         <% if @ticket.errors.any? %>
-          <div class="alert alert-danger form-group" role="alert">
-            <ul>
-            <% @ticket.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
+          <div class="alert card-panel red white-text">
+              <div class="row valign-wrapper marginless">
+                <div class="col s1 valign">
+                <i class="material-icons">error</i>
+                </div>
+                <div class="col s11 valign">
+                <ul>
+                <% @ticket.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+                </div>
+              </div>
+            </div>
         <% end %>
-
-        <div class="form-group form-inline">
-          
-          <%= f.text_field 'name', {class: "form-control", placeholder: '#000000000'}%>
+  
+        <div>
+          <div class="input-field">
+            <%= f.text_field 'name', {class: "validate marginless", placeholder: '#000000000', required: "" }%>
+            <%= f.label :name, '&nbsp;'.html_safe %>
+          </div>
           <%= f.hidden_field :spec_id, value: @spec.id %>
         </div>
         
       </div>
       
-      <div class="modal-footer">
-        <%= link_to "cancel", "#", class: "btn", data: {dismiss: "modal"} %>
-        <%= f.submit "associate ticket", class: "btn btn-primary" %>
-        
-      </div>
-    <% end %>
+      
   </div>
-</div>
+  <div class="modal-footer">
+      
+      <%= f.submit "associate ticket", class: "btn submit-btn"%>
+      <%= link_to "cancel", "#!", class: "modal-action modal-close btn-flat" %>
+  </div>
+  <% end %>

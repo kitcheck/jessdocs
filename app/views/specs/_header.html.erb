@@ -1,73 +1,40 @@
-<nav class="navbar navbar-default">
-    <div class="navbar-header">
-        <span class="navbar-brand">jessdocs 2.0</span>
-    </div>
-    <div class="container-fluid">
-        
-        <div class="pull-right navbar-btn">
-            <% if user_signed_in? %>
-                <div class="dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                    <%= current_user.email %>
-                    <% if current_user.admin? %>
-                        <span class="requests-badge label label-danger label-as-badge"><%= @request_count %></span>
-                    <% end %>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <% if current_user.admin? %>
-                        <li class="dropdown-header">admin stuff</li>
-                        <li><%= link_to users_path, remote: true do %>
-                            manage users <span class="requests-badge label label-danger label-as-badge"><%= @request_count %></span>
-                            <% end %>
-                        </li>
-                        <li><%= link_to "add project", 
-                                    new_project_path,
-                                    remote: true %></li>
-                        <li role="separator" class="divider"></li>
-                    <% end %>
-                    <li><%= link_to('log out', destroy_user_session_path, :method => :delete) %></li>
-                    
-                  </ul>
-                </div>
+
+
+<!-- Dropdown Structure -->
+<ul id="dropdownMenu1" class="dropdown-content">
+      <% if current_user.admin? %>
+       
+        <li><%= link_to users_path, remote: true do %>
+            manage users <span class="new badge cyan"><%= @request_count %></span>
             <% end %>
-            
+        </li>
+        <li><%= link_to "add project", 
+                    new_project_path,
+                    remote: true %></li>
+        <li class="divider"></li>
+    <% end %>
+  
+  <li><%= link_to('log out', destroy_user_session_path, :method => :delete) %></li>
+</ul>
+
+<nav class="deep-purple">
+    <div class="nav-wrapper">
+        <div class="brand-logo">jessdocs 2.0</div>
+        <ul class="right">
+            <% if user_signed_in? %>
+                <li>
+                <a class="dropdown-button" href="#!" data-activates="dropdownMenu1">
+                    <%= current_user.name? ? current_user.name : current_user.email %><i class="material-icons right">arrow_drop_down</i>
+                    <% if current_user.admin? %>
+                        <span class="new badge cyan"><%= @request_count %></span>
+                    <% end %>
+                </a>
+                </li>
+            <% end %>
         
-        </div>
+        </ul>
+    </div>  
+</nav>  
         
-        
-        
-    </div>
-    <div class="container-fluid">
-        
-        <%= form_tag filter_tag_specs_path, method: :get, class: "form-inline", id: 'tag-form', remote: true do %>
-            
-            <div class="col-md-11">
-                <label class="label label-default tag ticket tag-checkbox">
-                    ticketed
-                    <%= check_box_tag 'ticketed', 'true', @ticketed, {onclick: 'filter()', class:"checkbox"} %>
-                </label>  
-                
-                <span class="filterspecs navbar-btn">
-                    
-                    <%= render partial: "tag_types/filter", object: @tag_types, as: :tag_types %>
-                </span>
-                
-            </div>
-            <div class="col-md-1 project-select-div">
-                
-                
-                <%= collection_select(  :projects, 
-                                        :project_id, 
-                                        @projects, 
-                                        :id, 
-                                        :name,
-                                        {:selected => @selected_project_id},
-                                        {class: "form-control pull-right",
-                                        id: "project-select",
-                                        onchange: 'filter()'}) %>
-            
-            </div>
-        <% end %>
-    </div>
-</nav>
+
+   

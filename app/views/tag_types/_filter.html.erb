@@ -1,7 +1,10 @@
 <% tag_types.each do |tag_type| %>
-    <label class="label label-default tag tag-checkbox" style="background-color: <%= tag_type.color %>">
-        <%= tag_type.name %>
-        <%= check_box_tag 'tag_types[]', tag_type.id, @tag_type_ids && @tag_type_ids.include?(tag_type.id.to_s), {onclick: 'filter()', class:"checkbox"} %>
-    </label>
+
+    <div class="tag-checkbox valign-wrapper" style="color: <%= tag_type.color %>">
+        <%= check_box_tag 'tag_types[]', tag_type.id, @tag_type_ids && @tag_type_ids.include?(tag_type.id.to_s), {onclick: 'filter()', class:"filled-in checkbox", id: "tag_types_#{tag_type.id}"} %>
+        <%= label_tag "tag_types_#{tag_type.id}", tag_type.name, class: "checkbox-label" %>
+        <i class="material-icons valign">label</i> 
+    </div>  
+    
 <% end %>
     
