@@ -231,10 +231,12 @@ class SpecsController < ApplicationController
   def destroy
     @spec = Spec.find(params[:id])
     
+    
     deleted_id = params[:id]
-
+    project_id = @spec.project_id
     @spec.destroy
-  
+    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    
     respond_to do |format|
       format.html { redirect_to specs_url, notice: 'Spec was successfully destroyed.' }
       format.json { head :no_content }
