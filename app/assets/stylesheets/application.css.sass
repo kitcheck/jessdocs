@@ -44,9 +44,9 @@ body.dragging, body.dragging *
 
 ul.sortable li.placeholder
     position: relative
-    margin: 0
+    left: 100px
     padding: 0
-    border: none
+    border: 1px solid #512da8
 
 ul.sortable li.placeholder:before
     position: absolute
@@ -57,9 +57,12 @@ ul.sortable li.placeholder:before
     left: -8px
     top: -1px
     border: 8px solid transparent
-    border-left-color: red
+    border-left-color: #512da8
     border-right: none
     z-index: 2000
+
+ul.active
+    border: 1px solid #333333
 
 .modal .side-buttons
     display: none !important

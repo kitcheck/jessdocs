@@ -1,4 +1,14 @@
 <div class='filter'>
+    
+    <div class="switch">
+        <label>
+        off
+        <input type="checkbox" id="sortSwitch">
+        <span class="lever"></span>
+        on
+        </label>
+    </div>
+    
     <%= form_tag filter_tag_specs_path, method: :get, class: "form-inline", id: 'tag-form', remote: true do %>
         <div class="project-select-div input-field">
             

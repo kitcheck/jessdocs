@@ -1,7 +1,9 @@
 $(document).ready(function () {
     
     $(document).on('mouseenter','.spec', function(){
-      $('.side-button.active-btn', this).css('visibility','visible');
+        if(!$('#sortSwitch').prop('checked')){
+            $('.side-button.active-btn', this).css('visibility','visible');
+        }
     }).on('mouseleave', '.spec', function() {
         $('.side-button.active-btn', this).css('visibility','hidden');
     });  
