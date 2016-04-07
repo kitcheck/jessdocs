@@ -35,7 +35,9 @@
             <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
                 <p>No results</p>
             <% else %>
-                <%= render partial: "specs", collection: @specs, as: :spec %>
+                <ul class="sortable spec-list">
+                    <%= render partial: "specs", collection: @specs, as: :spec %>
+                </ul>
             <% end %>
         </div>
         

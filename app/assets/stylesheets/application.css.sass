@@ -34,6 +34,33 @@ $spinner-default-color: $primary-color-dark !default
 @import 'bootstrap-social/bootstrap-social'
 
 
+body.dragging, body.dragging *
+    cursor: move !important
+
+.dragged
+    position: absolute
+    opacity: 0.5
+    z-index: 2000
+
+ul.sortable li.placeholder
+    position: relative
+    margin: 0
+    padding: 0
+    border: none
+
+ul.sortable li.placeholder:before
+    position: absolute
+    content: ""
+    width: 0
+    height: 0
+    margin-top: -8px
+    left: -8px
+    top: -1px
+    border: 8px solid transparent
+    border-left-color: red
+    border-right: none
+    z-index: 2000
+
 .modal .side-buttons
     display: none !important
 
