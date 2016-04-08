@@ -1,4 +1,4 @@
-<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+<div class="fixed-action-btn horizontal" id="fixedEditBtn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large cyan">
         <i class="material-icons">menu</i>
     </a>
@@ -10,6 +10,15 @@
                         data: {position: "top", delay: "20", tooltip: "add specs" } do %>
                 <i class="material-icons">add</i>
             <% end %>
+        </li>
+        <li>
+            <button class="btn-floating deep-purple tooltipped"
+                    data-position="top"
+                    data-delay="20"
+                    data-tooltip="reorder specs"
+                    id="reorderBtn">
+                <i class="material-icons">reorder</i>
+            </button>
         </li>
         <li>
             <%= link_to new_tag_type_path,
@@ -30,6 +39,11 @@
         </li>
     </ul>
 </div>
-       
+
+<div class="fixed-action-btn" id="reorderDoneBtn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large deep-purple">
+        <i class="large material-icons">check</i>
+    </a>
+</div>
        
       
