@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     post 'dedent'
     get 'delete'
     post 'bookmark'
+    post 'move'
     collection do
       get 'mass_add_view'
       post 'mass_add'

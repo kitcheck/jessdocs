@@ -1,9 +1,9 @@
    
 <% if (@filtered_spec_ids.nil? || @filtered_spec_ids.include?(spec[:id])) %>
-    <li id="li<%=spec[:id]%>" class="spec-li">
+    <li id="li<%=spec[:id]%>" class="spec-li" data-spec-id="<%=spec[:id]%>">
         <%= render partial: "spec", object: spec %>
         <% if (spec[:children]) %>
-            <ul class="spec-list">
+            <ul class="spec-list" data-parent="<%=spec[:id]%>">
                 <%= render partial: "specs", 
                             collection: spec[:children], 
                             as: :spec %>
