@@ -174,7 +174,7 @@ class SpecsController < ApplicationController
         next_top_order = 1
       end
     else
-      next_top_order = Spec.pluck(:spec_order).max + 1
+      next_top_order = Spec.for_project(@selected_project_id).pluck(:spec_order).max.to_i + 1
     end
     
     Spec.parse_block(params[:text], 
@@ -248,8 +248,17 @@ class SpecsController < ApplicationController
     
     deleted_id = params[:id]
     project_id = @spec.project_id
+    
+    #recompute spec_order
+    siblings = @spec.siblings
+    if siblings.any?
+      siblings.where("spec_order > ?", @spec.spec_order).update_all("spec_order = spec_order - 1")
+    end
+    
     @spec.destroy
     @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    
+    
     
     respond_to do |format|
       format.html { redirect_to specs_url, notice: 'Spec was successfully destroyed.' }
@@ -278,7 +287,7 @@ class SpecsController < ApplicationController
     end
     
     #  moving within the same tree
-    if params[:parent_id] == @spec.parent_id.to_s
+    if params[:parent_id].to_i == @spec.parent_id.to_i
       puts "same parent"
       if @old_siblings.any?
         if @spec.spec_order > @spec_order
@@ -294,7 +303,7 @@ class SpecsController < ApplicationController
       # if we move from one tree to another tree
       # need to update everything >= @spec.spec_order in new tree
       if @new_siblings && @new_siblings.any?
-        @new_siblings.where("spec_order > ?", @spec_order).update_all("spec_order = spec_order + 1")
+        @new_siblings.where("spec_order >= ?", @spec_order).update_all("spec_order = spec_order + 1")
       end
       # need to update everything >= @spec.order in previous tree
       if @old_siblings.any?
