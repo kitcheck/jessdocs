@@ -43,7 +43,9 @@ class Spec < ActiveRecord::Base
     def to_hash
         {   :id => self.id,
             :description => self.description,
-            :project_id => self.project_id
+            :project_id => self.project_id,
+            :root => self.root?,
+            :bookmarked => self.bookmarked?
         }
     end
     
