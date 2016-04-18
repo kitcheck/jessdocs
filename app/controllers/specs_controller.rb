@@ -288,7 +288,7 @@ class SpecsController < ApplicationController
     
     @spec.update(:parent => @new_parent, :spec_order => @spec_order) 
     
-    render nothing: true
+    render :nothing => true
   end
 
   private

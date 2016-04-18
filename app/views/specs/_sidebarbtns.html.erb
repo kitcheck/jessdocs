@@ -12,15 +12,6 @@
             <% end %>
         </li>
         <li>
-            <button class="btn-floating deep-purple tooltipped"
-                    data-position="top"
-                    data-delay="20"
-                    data-tooltip="reorder specs"
-                    id="reorderBtn">
-                <i class="material-icons">reorder</i>
-            </button>
-        </li>
-        <li>
             <%= link_to new_tag_type_path,
                         remote:true,
                         class: "btn-floating deep-purple tooltipped",
@@ -39,11 +30,3 @@
         </li>
     </ul>
 </div>
-
-<div class="fixed-action-btn" id="reorderDoneBtn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large deep-purple">
-        <i class="large material-icons">check</i>
-    </a>
-</div>
-       
-      
