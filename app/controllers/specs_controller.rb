@@ -105,8 +105,8 @@ class SpecsController < ApplicationController
     
     if @spec.save
       if params[:spec][:child_id]
-        @spec.update!(:parent => @child.parent)
-        @child.update!(:parent => @spec)
+        @spec.update!(:parent => @child.parent, :spec_order => @child.spec_order)
+        @child.update!(:parent => @spec, :spec_order => 1)
       end
       
       if spec_params[:parent_id]
