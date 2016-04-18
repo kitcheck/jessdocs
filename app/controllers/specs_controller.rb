@@ -188,12 +188,18 @@ class SpecsController < ApplicationController
     # redirect_to filter_tag_specs_path(:projects => {:project_id => @selected_project_id})
   end
   
+  # POST spec/:id/bookmark
   def bookmark
     @spec = Spec.find(params[:spec_id])
     @bookmarked = @spec.bookmarked
     @spec.update!(:bookmarked => !@bookmarked)
     project_id = @spec.project_id
     @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+  end
+  
+  # GET specs/bookmarks
+  def bookmarks
+    @bookmarks = Spec.for_project(params[:project_id]).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
   end
 
   #POST /specs/:spec_id/indent

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'mass_add_view'
       post 'mass_add'
       get 'filter_tag'
+      get 'bookmarks'
     end
   end
   
