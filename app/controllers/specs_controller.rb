@@ -279,12 +279,14 @@ class SpecsController < ApplicationController
       @spec_order = @sibling.spec_order + 1
     else
       if @new_parent
-        @new_siblings = @parent.children
+        @new_siblings = @new_parent.children
       else
         @new_siblings = Spec.for_project(@spec.project_id).roots
       end
       @spec_order = 1
     end
+    
+    
     
     #  moving within the same tree
     if params[:parent_id].to_i == @spec.parent_id.to_i
@@ -311,9 +313,8 @@ class SpecsController < ApplicationController
       end
     end
     
-    @spec.update!(:spec_order => @spec_order, 
-                  :parent => @new_parent)
-                  
+    @spec.update(:parent => @new_parent, :spec_order => @spec_order) 
+    
     render nothing: true
   end
 
