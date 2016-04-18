@@ -194,12 +194,13 @@ class SpecsController < ApplicationController
     @bookmarked = @spec.bookmarked
     @spec.update!(:bookmarked => !@bookmarked)
     project_id = @spec.project_id
-    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    # @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    redirect_to bookmarks_specs_url(:project_id => project_id)
   end
   
   # GET specs/bookmarks
   def bookmarks
-    @bookmarks = Spec.for_project(params[:project_id]).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    @bookmarks = Spec.for_project(params[:project_id]).where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
   end
   
   def delete
@@ -229,7 +230,7 @@ class SpecsController < ApplicationController
     end
     
     @spec.destroy
-    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
     
     
     
@@ -289,6 +290,7 @@ class SpecsController < ApplicationController
     @spec.update(:parent => @new_parent, :spec_order => @spec_order) 
     
     render :nothing => true
+    # redirect_to bookmarks_specs_url(:project_id => @spec.project_id)
   end
 
   private

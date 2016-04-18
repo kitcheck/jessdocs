@@ -10,6 +10,7 @@ $(document).ready(function () {
                 
                 var parent_id = $item.closest('ul').attr('data-parent');
                 var spec_id = $item.attr('data-spec-id');
+                var project_id = $item.attr('data-project-id');
                 var prev_id;
                 
                 if (newIndex > 0) {
@@ -24,7 +25,16 @@ $(document).ready(function () {
                         sibling_id: prev_id     
                     },
                     global: false
-                });
+                }).done(function(){
+                   $.ajax({
+                    url: "specs/bookmarks",
+                    type: "GET",
+                    data: {
+                        project_id: project_id   
+                    },
+                    global: false
+                }) 
+              });
                 
                 //send parent
                 //send id of sibling right above newIndex if there is one
