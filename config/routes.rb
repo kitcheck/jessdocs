@@ -25,8 +25,6 @@ Rails.application.routes.draw do
   resources :tags
   resources :spec_types
   resources :specs do
-    post 'indent'
-    post 'dedent'
     get 'delete'
     post 'bookmark'
     post 'move'

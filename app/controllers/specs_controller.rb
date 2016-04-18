@@ -201,39 +201,6 @@ class SpecsController < ApplicationController
   def bookmarks
     @bookmarks = Spec.for_project(params[:project_id]).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
   end
-
-  #POST /specs/:spec_id/indent
-  def indent
-    @spec = Spec.find(params[:spec_id])
-    @closest_older_sibling_id = @spec.closest_older_sibling_id
-    
-    if @spec.update(:parent => Spec.find(@closest_older_sibling_id))
-      @print_specs_hash = get_spec_hash(Spec.find(@closest_older_sibling_id).subtree)
-      # redirect_to :action => 'index', :id => @spec
-    else
-      
-    end
-  end
-  
-  #POST /specs/:spec_id/dedent
-  def dedent
-    @spec = Spec.find(params[:spec_id])
-   
-    @old_parent_id = @spec.parent.id
-    @new_parent = @spec.parent.parent
-    
-    if @spec.update(:parent => @new_parent)
-      if @new_parent
-        @print_specs_hash = get_spec_hash(@new_parent.subtree)
-      else
-        @print_specs_hash = get_spec_hash(@spec.subtree)
-      end
-  
-      # redirect_to :action => 'index', :id => @spec
-    else
-      
-    end
-  end
   
   def delete
     @tag_hash = tag_hash
