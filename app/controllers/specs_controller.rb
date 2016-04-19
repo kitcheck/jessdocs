@@ -194,13 +194,13 @@ class SpecsController < ApplicationController
     @bookmarked = @spec.bookmarked
     @spec.update!(:bookmarked => !@bookmarked)
     project_id = @spec.project_id
-    # @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
-    redirect_to bookmarks_specs_url(:project_id => project_id)
+    @bookmarks = Spec.for_project(project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    # redirect_to bookmarks_specs_url(:project_id => project_id)
   end
   
   # GET specs/bookmarks
   def bookmarks
-    @bookmarks = Spec.for_project(params[:project_id]).where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    @bookmarks = Spec.for_project(params[:project_id]).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
   end
   
   def delete
@@ -230,7 +230,7 @@ class SpecsController < ApplicationController
     end
     
     @spec.destroy
-    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    @bookmarks = Spec.for_project(project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
     
     
     
@@ -332,7 +332,7 @@ class SpecsController < ApplicationController
       @tag_types = TagType.all
       @project = Project.find(@selected_project_id)
       
-      @bookmarks = Spec.for_project(@selected_project_id).where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+      @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
       @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).select{ |c| (c.root? && c.is_childless?) || (!c.root? && c.created_at == c.siblings.pluck(:created_at).max)}.map(&:spec_id)
       
       @specs = get_spec_hash(Spec.for_project(@selected_project_id))

@@ -10,6 +10,16 @@ $(document).ready(function () {
                 
                 var parent_id = $item.closest('ul').attr('data-parent');
                 var spec_id = $item.attr('data-spec-id');
+                
+                var bookmarkBtn = $item.find('.bookmark-btn');
+                
+                if (parent_id == "nil"){
+                    bookmarkBtn.show();
+                } else {
+                    bookmarkBtn.hide();
+                }
+                
+                
                 var project_id = $item.attr('data-project-id');
                 var prev_id;
                 
