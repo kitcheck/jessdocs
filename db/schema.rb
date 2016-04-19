@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324232144) do
+ActiveRecord::Schema.define(version: 20160409011021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160324232144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "bookmarked",   default: false, null: false
+    t.integer  "spec_order"
   end
 
   add_index "specs", ["ancestry"], name: "index_specs_on_ancestry", using: :btree

@@ -1,11 +1,14 @@
 <div>
-    
+        
+        <% css_class = ( spec[:root] == true )  ? "" : "hide" %>
         <%= link_to spec_bookmark_path(:spec_id => spec[:id]), 
                     method: :post,
                     remote:true, 
                     :data => {:tooltip => 'bookmark', :position => 'bottom', :delay => '20'},
-                    class: "tooltipped btn btn-square" do %>
+                    class: "tooltipped btn btn-square #{css_class} bookmark-btn" do %>
+            
             <i class="material-icons">bookmark</i>
+            
         <% end %>
         <%= link_to new_tag_path(:id => spec[:id]), 
                     remote:true, 
@@ -38,25 +41,6 @@
                     class: "btn btn-square tooltipped",
                     :data => {:tooltip => 'edit', :position => 'bottom', :delay => '20'} do %>
             <i class="material-icons">edit</i>
-        <% end %>
-                    
-        <% if spec[:can_indent] %>
-            <%= link_to spec_indent_url(  :spec_id =>spec[:id]),
-                        method: :post,
-                        remote:true,
-                        :data => {:tooltip => 'indent', :position => 'bottom', :delay => '20'},
-                        class: "indent_spec btn btn-square tooltipped" do %>
-                <i class="material-icons">format_indent_increase</i>
-            <% end %>
-        <% end %>
-        <% if !(spec[:is_root]==true) %>
-            <%= link_to spec_dedent_url(  :spec_id => spec[:id]),
-                    method: :post,
-                    remote:true,
-                    :data => {:tooltip => 'dedent', :position => 'bottom', :delay => '20'},
-                    class: "indent_spec btn btn-square tooltipped" do %>
-                <i class="material-icons">format_indent_decrease</i>
-            <% end %>
         <% end %>
         
         <%= link_to spec_delete_path(:spec_id => spec[:id]),

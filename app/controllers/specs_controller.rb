@@ -105,8 +105,8 @@ class SpecsController < ApplicationController
     
     if @spec.save
       if params[:spec][:child_id]
-        @spec.update!(:parent => @child.parent)
-        @child.update!(:parent => @spec)
+        @spec.update!(:parent => @child.parent, :spec_order => @child.spec_order)
+        @child.update!(:parent => @spec, :spec_order => 1)
       end
       
       if spec_params[:parent_id]
@@ -166,7 +166,21 @@ class SpecsController < ApplicationController
     parent_id = params[:projects][:parent_id]
     @selected_project_id = params[:projects][:project_id]
     
-    Spec.parse_block(params[:text], @selected_project_id, parent_id)
+    if parent_id
+      parent = Spec.find(parent_id)
+      if parent.has_children?
+        next_top_order = parent.children.last.spec_order + 1
+      else
+        next_top_order = 1
+      end
+    else
+      next_top_order = Spec.for_project(@selected_project_id).pluck(:spec_order).max.to_i + 1
+    end
+    
+    Spec.parse_block(params[:text], 
+                      @selected_project_id, 
+                      parent_id,
+                      next_top_order)
     # filter_view
     # @specs = Spec.for_project(params[:project][:id]).roots
     
@@ -174,45 +188,19 @@ class SpecsController < ApplicationController
     # redirect_to filter_tag_specs_path(:projects => {:project_id => @selected_project_id})
   end
   
+  # POST spec/:id/bookmark
   def bookmark
     @spec = Spec.find(params[:spec_id])
     @bookmarked = @spec.bookmarked
     @spec.update!(:bookmarked => !@bookmarked)
     project_id = @spec.project_id
-    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
-  end
-
-  #POST /specs/:spec_id/indent
-  def indent
-    @spec = Spec.find(params[:spec_id])
-    @closest_older_sibling_id = @spec.closest_older_sibling_id
-    
-    if @spec.update(:parent => Spec.find(@closest_older_sibling_id))
-      @print_specs_hash = get_spec_hash(Spec.find(@closest_older_sibling_id).subtree)
-      # redirect_to :action => 'index', :id => @spec
-    else
-      
-    end
+    @bookmarks = Spec.for_project(project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    # redirect_to bookmarks_specs_url(:project_id => project_id)
   end
   
-  #POST /specs/:spec_id/dedent
-  def dedent
-    @spec = Spec.find(params[:spec_id])
-   
-    @old_parent_id = @spec.parent.id
-    @new_parent = @spec.parent.parent
-    
-    if @spec.update(:parent => @new_parent)
-      if @new_parent
-        @print_specs_hash = get_spec_hash(@new_parent.subtree)
-      else
-        @print_specs_hash = get_spec_hash(@spec.subtree)
-      end
-  
-      # redirect_to :action => 'index', :id => @spec
-    else
-      
-    end
+  # GET specs/bookmarks
+  def bookmarks
+    @bookmarks = Spec.for_project(params[:project_id]).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
   end
   
   def delete
@@ -234,8 +222,17 @@ class SpecsController < ApplicationController
     
     deleted_id = params[:id]
     project_id = @spec.project_id
+    
+    #recompute spec_order
+    siblings = @spec.siblings
+    if siblings.any?
+      siblings.where("spec_order > ?", @spec.spec_order).update_all("spec_order = spec_order - 1")
+    end
+    
     @spec.destroy
-    @bookmarks = Spec.for_project(project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+    @bookmarks = Spec.for_project(project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    
+    
     
     respond_to do |format|
       format.html { redirect_to specs_url, notice: 'Spec was successfully destroyed.' }
@@ -243,6 +240,57 @@ class SpecsController < ApplicationController
       format.js   { render :layout => false, 
                     :locals => {:deleted_id => deleted_id} }
     end
+  end
+  
+  # POST /specs/1
+  def move
+    @spec = Spec.find(params[:spec_id])
+    @old_siblings = @spec.siblings
+    @new_parent = (params[:parent_id] != 'nil') ? Spec.find(params[:parent_id]) : nil
+    if params[:sibling_id]
+      @sibling = Spec.find(params[:sibling_id])
+      @new_siblings = @sibling.siblings
+      @spec_order = @sibling.spec_order + 1
+    else
+      if @new_parent
+        @new_siblings = @new_parent.children
+      else
+        @new_siblings = Spec.for_project(@spec.project_id).roots
+      end
+      @spec_order = 1
+    end
+    
+    
+    
+    #  moving within the same tree
+    if params[:parent_id].to_i == @spec.parent_id.to_i
+      puts "same parent"
+      if @old_siblings.any?
+        if @spec.spec_order > @spec_order
+          @old_siblings.where("spec_order >= ? AND spec_order < ?", @spec_order, @spec.spec_order).update_all("spec_order = spec_order + 1")
+        elsif @spec.spec_order < @spec_order
+          @spec_order = @spec_order - 1
+          @old_siblings.where("spec_order > ? AND spec_order <= ?", @spec.spec_order, @spec_order).update_all("spec_order = spec_order - 1")
+        end
+      end
+      
+    else
+      puts "different parent"
+      # if we move from one tree to another tree
+      # need to update everything >= @spec.spec_order in new tree
+      if @new_siblings && @new_siblings.any?
+        @new_siblings.where("spec_order >= ?", @spec_order).update_all("spec_order = spec_order + 1")
+      end
+      # need to update everything >= @spec.order in previous tree
+      if @old_siblings.any?
+        @old_siblings.where("spec_order >= ?", @spec.spec_order).update_all("spec_order = spec_order - 1")
+      end
+    end
+    
+    @spec.update(:parent => @new_parent, :spec_order => @spec_order) 
+    
+    render :nothing => true
+    # redirect_to bookmarks_specs_url(:project_id => @spec.project_id)
   end
 
   private
@@ -284,7 +332,7 @@ class SpecsController < ApplicationController
       @tag_types = TagType.all
       @project = Project.find(@selected_project_id)
       
-      @bookmarks = Spec.for_project(@selected_project_id).where(:bookmarked => true).order(created_at: :asc).to_a.map(&:serializable_hash)
+      @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
       @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).select{ |c| (c.root? && c.is_childless?) || (!c.root? && c.created_at == c.siblings.pluck(:created_at).max)}.map(&:spec_id)
       
       @specs = get_spec_hash(Spec.for_project(@selected_project_id))
@@ -318,7 +366,7 @@ class SpecsController < ApplicationController
     end
     
     def get_spec_hash(spec_scope)
-      hash = spec_scope.arrange_serializable(:order => 'created_at ASC') do |parent, children|
+      hash = spec_scope.arrange_serializable(:order => 'spec_order ASC') do |parent, children|
         parent.to_hash.merge({ :children => children})
       end
       
@@ -328,6 +376,10 @@ class SpecsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def spec_params
       params.require(:spec).permit(:description, :spec_type_id, :parent_id, :project_id)
+    end
+  
+    def move_params
+      params.require(:spec).permit(:id, :parent_id, :sibling_id)
     end
   
     def spec_param

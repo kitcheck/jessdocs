@@ -3,7 +3,7 @@
 <% elsif @filtered_spec_ids && @filtered_spec_ids.none? %>
     $('.full-spec-list').html('<div class="container">No results</div>')
 <% else %>
-    $('.full-spec-list').html('<%= j (render partial: 'specs', collection: @specs, as: :spec) %>')
+    $('.full-spec-list').html('<ul class="sortable spec-list" data-parent="nil"><%= j (render partial: 'specs', collection: @specs, as: :spec) %></ul>')
     $('.bookmarks').html("<%= j(render partial: "bookmarks", object: @bookmarks, as: :bookmarks) %>")
     $('.tooltipped').tooltip({delay: 50});
 <% end %>

@@ -44,8 +44,8 @@ class Spec < ActiveRecord::Base
         {   :id => self.id,
             :description => self.description,
             :project_id => self.project_id,
-            :can_indent => self.can_indent?,
-            :is_root => self.root?
+            :root => self.root?,
+            :bookmarked => self.bookmarked?
         }
     end
     
@@ -58,13 +58,14 @@ class Spec < ActiveRecord::Base
         ids.uniq
     end
 
-    def self.parse_block(text, project_id, parent_id=nil)
+    def self.parse_block(text, project_id, parent_id=nil, next_top_order)
         self.parse_alternate(   :text_array => text.split("\n"), 
                                 :project_id => project_id, 
-                                :parent_id => parent_id)
+                                :parent_id => parent_id,
+                                :next_top_order => next_top_order)
     end
     
-    def self.parse_alternate(text_array:, project_id:, parent_id:nil, depth:0, previous:nil, error_count:0)
+    def self.parse_alternate(text_array:, project_id:, parent_id:nil, depth:0, previous:nil, error_count:0, next_top_order:)
         #regex = /(\t*|-*)\s?(\w+)\s?(.*)/
         #instead of looking for s{2}* we should replace s{2}* with \t
         # not sure if this needs to be just the leading whitespace only?
@@ -83,35 +84,32 @@ class Spec < ActiveRecord::Base
         
         spec_description = "#{spec_type_indicator} #{spec_description_rest}"
         
-        if (spec_type_indicator == "should" || spec_type_indicator == "for")
-            spec_type = SpecType.it
-        else
-            spec_type = SpecType.describe
-        end
-        
         begin
+            # spec_order = previous ? (previous.spec_order + 1): 1
             spec = Spec.create!(:description => spec_description,
-                                :spec_type => spec_type,
+                                :spec_type_id => 1,
                                 :project_id => project_id)
-            puts "spec = #{spec.description}"
-            puts "depth = #{depth}, spec_depth = #{spec_depth}"
             
             if(spec_depth == 0)
-                spec.update_attributes!(:parent_id => parent_id)
+                spec.update_attributes!(:parent_id => parent_id,
+                                        :spec_order => next_top_order)
+                puts "next_top_order = #{next_top_order}"
+                next_top_order= next_top_order + 1
             else
                 if(depth == spec_depth)
                     parent = previous.nil? ? nil : previous.parent
-                    spec.update!(:parent => parent)
+                    spec.update!(:parent => parent,
+                                 :spec_order => previous.spec_order + 1)
                 elsif (spec_depth > depth) #deeper in, set the parent
-                    spec.update!(:parent => previous)
+                    spec.update!(:parent => previous, 
+                                 :spec_order => 1)
                 else #spec_depth < depth. farther out... no idea
                     
                     (depth-spec_depth).times do #this is how far back we need to go
-                        puts "previous = "
-                        puts "#{previous.description}"
                         previous = previous.parent
                     end
-                    spec.update!(:parent => previous.parent)
+                    spec.update!(:parent => previous.parent,
+                                 :spec_order => previous.spec_order + 1)
                 end
             end
         rescue => error
@@ -124,7 +122,8 @@ class Spec < ActiveRecord::Base
                                 :depth => spec_depth, 
                                 :previous => spec, 
                                 :error_count => error_count,
-                                :parent_id => parent_id)
+                                :parent_id => parent_id,
+                                :next_top_order => next_top_order)
     end
     
     def self.parse(text_array, project_id, depth=0, previous=nil, error_count=0)
