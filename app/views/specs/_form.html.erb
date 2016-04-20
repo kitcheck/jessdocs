@@ -1,4 +1,5 @@
-  <%= form_for @spec, remote: true, :html => {class: "spec-form", novalidate: ""} do |f| %>
+  <% css_class = new_spec  ? "spec-form" : "" %>
+  <%= form_for @spec, remote: true, :html => {class: "#{css_class}", novalidate: ""} do |f| %>
   <div class="modal-content">
       <div class="modal-body">
         
