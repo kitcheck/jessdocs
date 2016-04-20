@@ -1,36 +1,27 @@
-<div class="spec section scrollspy"  id="<%=spec[:id]%>">
-   
+<div class="spec section"  id="<%=spec[:id]%>">
+   <div class="side-buttons left">
+            
+        <% if @can_edit %>
+            <a class="btn-flat btn-square active-btn drag-button side-button">
+                <i class="material-icons tiny-icon">drag_handle</i>
+            </a>
+            <a class="btn-flat btn-square edit-button active-btn side-button">
+                <i class="material-icons tiny-icon">mode_edit</i>
+            </a>
+           
+        <% end %>
+        <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "sticky-btn" : "" %>
+        <% comment_color = (@comment_array && @comment_array.include?(spec[:id]) ) ? "deep-purple-text darken-2" : "" %>
+        <%= link_to comments_path(:spec_id => spec[:id]),
+                    remote: true,
+                    class: "btn-flat btn-square comment-button active-btn side-button #{css_class}" do %>
+            <i class="material-icons <%=comment_color%>">comment</i>
+        <% end %>
+        
+        
+    </div>
    
     <div class="spec-data">
-        
-        <span class="side-buttons">
-            
-            <% if @can_edit %>
-                <a class="btn-flat btn-square active-btn drag-button side-button">
-                    <i class="material-icons tiny-icon">drag_handle</i>
-                </a>
-                <a class="btn-flat btn-square edit-button active-btn side-button">
-                    <i class="material-icons tiny-icon">mode_edit</i>
-                </a>
-               
-            <% end %>
-            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) ) ? "hide" : "active-btn" %>
-            <%= link_to comments_path(:spec_id => spec[:id]),
-                        remote: true,
-                        class: "btn-flat btn-square comment-button side-button #{css_class}" do %>
-                <i class="material-icons">comment</i>
-            <% end %>
-            
-            
-        </span>
-            <% css_class = (@comment_array && @comment_array.include?(spec[:id]) )  ? "" : "hide" %>
-            <%= link_to comments_path(:spec_id => spec[:id]),
-                        remote: true,
-                        class: "btn-flat btn-square comment-button side-button label-button #{css_class}" do %>
-                <i class="material-icons deep-purple-text darken-2">comment</i>
-            <% end %>
-            
-            
         
         <%= render partial: "data", object: spec, as: :spec %>
     </div>
