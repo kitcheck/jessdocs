@@ -4,7 +4,7 @@ class TagTypesController < ApplicationController
   # GET /tag_types
   # GET /tag_types.json
   def index
-    @tag_types = TagType.all
+    @tag_types = TagType.by_group
   end
 
   # GET /tag_types/1
@@ -27,8 +27,9 @@ class TagTypesController < ApplicationController
   # POST /tag_types.json
   def create
     @tag_type = TagType.new(tag_type_params)
-    @tag_types = TagType.all
+    
     if @tag_type.save
+      @tag_types = TagType.by_group
       # redirect_to '/specs'
     else
       render :action => 'new'
@@ -48,9 +49,9 @@ class TagTypesController < ApplicationController
   # PATCH/PUT /tag_types/1.json
   def update
     
-    @tag_types = TagType.all
+    
     if @tag_type.update(tag_type_params)
-      # redirect_to '/specs'
+      @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
     else
       render :action => 'edit'
     end

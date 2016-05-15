@@ -9,6 +9,8 @@ class TagType < ActiveRecord::Base
     
     default_scope { order("LOWER(name)") }
     
+    scope :by_group, -> { includes(:tag_type_group).all.group_by(&:tag_type_group) }
+    
     before_create :downcase
     
     private

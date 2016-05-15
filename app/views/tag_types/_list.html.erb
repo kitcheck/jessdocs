@@ -2,7 +2,16 @@
 
     <h4>tags</h4>
     <div>
-        <%= render partial: "show", collection: @tag_types, as: :tag_type %>
+        
+        <% @tag_types.each do |tag_type_group| %>
+            <% unless tag_type_group.first.nil? %>
+                <h5><%= tag_type_group.first.name %></h5>
+            <% end %>
+            <% grouped_tag_type = tag_type_group.last %>
+            <% grouped_tag_type.each do |tag_type| %>
+                <%= render partial: "show", object: tag_type, as: :tag_type %>  
+            <% end %>   
+        <% end %>
     </div>
 </div>
 <div class="modal-footer">

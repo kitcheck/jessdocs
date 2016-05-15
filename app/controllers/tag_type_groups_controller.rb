@@ -27,7 +27,7 @@ class TagTypeGroupsController < ApplicationController
     @tag_type_group = TagTypeGroup.new(tag_type_group_params)
     
     if @tag_type_group.save
-      @tag_types = TagType.all
+      @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
     else
       render :action => 'new'
     end

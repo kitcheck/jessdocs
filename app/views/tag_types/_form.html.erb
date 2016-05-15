@@ -25,7 +25,8 @@
                                     @tag_type_groups, 
                                     :id, 
                                     :name, 
-                                    include_blank: 'none' %>
+                                    {include_blank: 'none'},
+                                    {onchange: "changeColor(#{TagTypeGroup.all.pluck(:color)}, $(this).val() )"} %>
             <%= f.label :tag_type_group_id, 'tag type group' %>                   
           </div>
           <div class="row marginless valign-wrapper">
