@@ -16,19 +16,11 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to new_tag_type_path,
-                            remote:true,
-                            class: "btn-floating deep-purple tooltipped",
-                            data: {position: "top", delay: "20", tooltip: "add tag type" } do %>
-                    <i class="material-icons">label</i>
-                <% end %>
-            </li>
-            <li>
                 <%= link_to tag_types_path,
                             remote:true,
                             class: "btn-floating deep-purple tooltipped",
-                            data: {position: "top", delay: "20", tooltip: "edit tag types" } do %>
-                    <i class="material-icons">mode_edit</i>
+                            data: {position: "top", delay: "20", tooltip: "tag types" } do %>
+                    <i class="material-icons">label</i>
                 <% end %>
                 
             </li>

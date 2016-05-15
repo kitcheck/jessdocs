@@ -1,5 +1,8 @@
 $("#spec-modal").closeModal();
 $("#small-modal").html("<%= j(render 'edit') %>")
+$('select').material_select();
+$(".edit_tag_type").validate();
+
 <% unless @tag_type.errors.any? %>
     $("#small-modal").openModal();
 <% end %>

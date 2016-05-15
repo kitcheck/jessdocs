@@ -15,10 +15,12 @@ class TagTypesController < ApplicationController
   # GET /tag_types/new
   def new
     @tag_type = TagType.new
+    @tag_type_groups = TagTypeGroup.all
   end
 
   # GET /tag_types/1/edit
   def edit
+    @tag_type_groups = TagTypeGroup.all
   end
 
   # POST /tag_types
@@ -85,6 +87,6 @@ class TagTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_type_params
-      params.require(:tag_type).permit(:name, :color)
+      params.require(:tag_type).permit(:name, :color, :tag_type_group_id)
     end
 end

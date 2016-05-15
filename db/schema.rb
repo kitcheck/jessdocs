@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409011021) do
+ActiveRecord::Schema.define(version: 20160515204432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(version: 20160409011021) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "name"
     t.integer  "created_by_id"
+    t.integer  "organization_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -77,11 +78,21 @@ ActiveRecord::Schema.define(version: 20160409011021) do
   add_index "specs", ["ancestry"], name: "index_specs_on_ancestry", using: :btree
   add_index "specs", ["project_id"], name: "project_id_ix", using: :btree
 
-  create_table "tag_types", force: :cascade do |t|
+  create_table "tag_type_groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
     t.string   "color"
+  end
+
+  create_table "tag_types", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "name"
+    t.string   "color"
+    t.integer  "organization_id"
+    t.integer  "created_by_id"
+    t.integer  "tag_type_group_id"
   end
 
   create_table "tags", force: :cascade do |t|

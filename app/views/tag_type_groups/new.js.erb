@@ -1,9 +1,9 @@
 $("#spec-modal").closeModal();
-$("#small-modal").html("<%= j(render 'new') %>")
-$("#new_tag_type").validate();
+$("#small-modal").html("<%= j(render 'form') %>")
+$("#new_tag_type_group").validate();
 $('select').material_select();
 
-<% unless @tag_type.errors.any? %>
+<% unless @tag_type_group.errors.any? %>
     $("#small-modal").openModal();
 <% end %>
 

@@ -1,10 +1,10 @@
-  <%= form_for @tag_type, remote: true, :html=>{novalidate: ""} do |f| %>
+  <%= form_for @tag_type_group, remote: true, :html=>{novalidate: ""} do |f| %>
     <div class="modal-content">
       
       
         <div class="modal-body">
           
-          <% if @tag_type.errors.any? %>
+          <% if @tag_type_group.errors.any? %>
             <div class="alert card-panel red white-text">
               <div class="row valign-wrapper marginless">
                 <div class="col s1 valign">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col s11 valign">
                 <ul>
-                <% @tag_type.errors.full_messages.each do |message| %>
+                <% @tag_type_group.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
                 <% end %>
                 </ul>
@@ -20,21 +20,14 @@
               </div>
             </div>
           <% end %>
-          <div class="input-field">
-            <%= f.collection_select :tag_type_group_id, 
-                                    @tag_type_groups, 
-                                    :id, 
-                                    :name, 
-                                    include_blank: 'none' %>
-            <%= f.label :tag_type_group_id, 'tag type group' %>                   
-          </div>
+          
           <div class="row marginless valign-wrapper">
             <div class="col s2">
               <%= f.label :color, '&nbsp;'.html_safe %>
-              <%= color_field(:tag_type, :color, options={class: "btn-square"})  %>
+              <%= color_field(:tag_type_group, :color, options={class: "btn-square"})  %>
             </div>
             <div class="input-field col s10">
-              <%= f.text_field 'name', {class: "validate", placeholder: 'tag name', required: ""}%>
+              <%= f.text_field 'name', {class: "validate", placeholder: 'tag group name', required: ""}%>
               <%= f.label :name, '&nbsp;'.html_safe %>
             </div>
             

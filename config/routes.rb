@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :tag_type_groups
   resources :organizations
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   

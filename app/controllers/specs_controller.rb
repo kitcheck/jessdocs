@@ -329,7 +329,7 @@ class SpecsController < ApplicationController
       else
         @selected_project_id = Project.first.id
       end
-      @tag_types = TagType.all
+      @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
       @project = Project.find(@selected_project_id)
       
       @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)

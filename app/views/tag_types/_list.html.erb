@@ -6,5 +6,15 @@
     </div>
 </div>
 <div class="modal-footer">
-    <%= link_to "okay", "#", class: "btn modal-close"%>
+    <%= link_to new_tag_type_path,
+                remote:true,
+                class: "btn" do %>
+        + tag type
+    <% end %>
+    <%= link_to new_tag_type_group_path,
+                remote:true,
+                class: "btn" do %>
+        + tag group
+    <% end %>
+    <%= link_to "cancel", "#", class: "btn-flat modal-close"%>
 </div>

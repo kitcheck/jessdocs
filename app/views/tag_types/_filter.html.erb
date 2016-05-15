@@ -1,10 +1,14 @@
-<% tag_types.each do |tag_type| %>
-
-    <div class="tag-checkbox valign-wrapper" style="color: <%= tag_type.color %>">
-        <%= check_box_tag 'tag_types[]', tag_type.id, @tag_type_ids && @tag_type_ids.include?(tag_type.id.to_s), {onclick: 'filter()', class:"filled-in checkbox", id: "tag_types_#{tag_type.id}"} %>
-        <%= label_tag "tag_types_#{tag_type.id}", tag_type.name, class: "checkbox-label truncate" %>
-        <i class="material-icons valign">label</i> 
-    </div>  
-    
+<% tag_types.each do |tag_type_group| %>
+    <% unless tag_type_group.first.nil? %>
+        <h6><%= tag_type_group.first.name %></h6>
+    <% end %>
+    <% grouped_tag_type = tag_type_group.last %>
+    <% grouped_tag_type.each do |tag_type| %>
+        <div class="tag-checkbox valign-wrapper" style="color: <%= tag_type.color %>">
+            <%= check_box_tag 'tag_types[]', tag_type.id, @tag_type_ids && @tag_type_ids.include?(tag_type.id.to_s), {onclick: 'filter()', class:"filled-in checkbox", id: "tag_types_#{tag_type.id}"} %>
+            <%= label_tag "tag_types_#{tag_type.id}", tag_type.name, class: "checkbox-label truncate" %>
+            <i class="material-icons valign">label</i> 
+        </div>  
+    <% end %>   
 <% end %>
     

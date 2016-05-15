@@ -1,0 +1,4 @@
+<% unless @tag_type_group.errors.any? %>
+    $('#small-modal').closeModal();
+    $(".filterspecs").html("<%= j(render partial: "tag_types/filter", object: @tag_types, as: :tag_types) %>");
+<% end %>
