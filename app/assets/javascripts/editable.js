@@ -69,7 +69,7 @@ $(document).ready(function () {
         
         
         
-        var deleteElem = $(this).parents('.spec-data').find('.delete_tag');
+        var deleteElem = $(this).parents('.spec').find('.delete_tag');
         $('.delete_tag').not(deleteElem).hide();
         deleteElem.toggle('fast');
         
