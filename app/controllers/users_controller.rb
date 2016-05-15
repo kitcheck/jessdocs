@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
     
     def destroy
-        @user.destroy
+        @user.update!(:organization_id => nil)
     end
     
     def update

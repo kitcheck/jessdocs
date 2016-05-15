@@ -3,3 +3,7 @@ $('#new_project').validate();
 <% unless @project.errors.any? %>
     $("#spec-modal").openModal();
 <% end %>
+
+$('.modal-close').on('click', function() {
+    $('#spec-modal').closeModal();
+});

@@ -48,7 +48,7 @@
             </div>
         </div>
     
-        <% if current_user.can_edit? %>
+        <% if @can_edit_current_project %>
             <%= render partial: "sidebarbtns" %>
         <% end %>
         

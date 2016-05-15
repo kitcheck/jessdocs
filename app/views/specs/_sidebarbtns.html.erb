@@ -4,7 +4,8 @@
     </a>
     <ul>
         <li>
-            <%= link_to mass_add_view_specs_path(:projects =>{:project_id => @selected_project_id}),
+            <%= link_to mass_add_view_specs_path(:projects =>{:project_id => @selected_project_id},
+                                                :organization_id => @selected_org_id),
                         remote:true,
                         class: "btn-floating deep-purple tooltipped",
                         data: {position: "top", delay: "20", tooltip: "add specs" } do %>
@@ -27,6 +28,14 @@
                 <i class="material-icons">mode_edit</i>
             <% end %>
             
+        </li>
+        <li>
+            <%= link_to new_project_path,
+                        remote:true,
+                        class: "btn-floating deep-purple tooltipped",
+                        data: {position: "top", delay: "20", tooltip: "add project" } do %>
+                <i class="material-icons">note_add</i>
+            <% end %>
         </li>
     </ul>
 </div>

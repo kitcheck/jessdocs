@@ -32,7 +32,9 @@
             </div>
             
           </div>
-          
+          <%= fields_for :tag_type, @tag_type do |t| %>
+            <%= t.hidden_field :organization_id, value: @selected_org_id %>
+          <% end %>
         </div>
         
         

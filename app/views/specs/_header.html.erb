@@ -8,13 +8,10 @@
             manage users <span class="new badge cyan"><%= @request_count %></span>
             <% end %>
         </li>
-        <li><%= link_to "add project", 
-                    new_project_path,
-                    remote: true %></li>
         <li class="divider"></li>
     <% end %>
   
-  <li><%= link_to('log out', destroy_user_session_path, :method => :delete) %></li>
+    <li><%= link_to('log out', destroy_user_session_path, :method => :delete) %></li>
 </ul>
 
 <nav class="deep-purple">
@@ -22,6 +19,14 @@
         <div class="brand-logo">jessdocs 2.0</div>
         <ul class="right">
             <% if user_signed_in? %>
+                <li><%= link_to 'Personal', 
+                                    specs_path(:organization_id => 0) %></li>
+                <% if @user_organization %>
+                    <li class="active">
+                        <%= link_to @user_organization.name, 
+                                    specs_path(:organization_id => @user_organization.id) %>
+                    </li>
+                <% end %>
                 <li>
                 <a class="dropdown-button" href="#!" data-activates="dropdownMenu1">
                     <%= current_user.name? ? current_user.name : current_user.email %><i class="material-icons right">arrow_drop_down</i>

@@ -7,16 +7,12 @@ class SpecsController < ApplicationController
                                           :filter_tag, 
                                           :mass_add_view,
                                           :mass_add,
-                                          :create,
-                                          :dedent,
-                                          :indent]
+                                          :create]
   before_action :can_view_edit_buttons, only: [ :index,
                                                 :filter_project,
                                                 :filter_tag,
                                                 :mass_add,
-                                                :create,
-                                                :indent,
-                                                :dedent]
+                                                :create]
   
   
   before_action :can_edit, only: [:new,
@@ -143,8 +139,15 @@ class SpecsController < ApplicationController
   
   #GET /specs/mass_add_view
   def mass_add_view
-    @projects = Project.all
+    # @projects = Project.for_user(current_user)
+    @selected_org_id = params[:organization_id]
     
+    if @selected_org_id
+      @projects = Project.where(:organization_id => @selected_org_id)
+    else
+      @projects = Project.where(:organization_id => nil,
+                                :created_by_id => current_user.id)
+    end
     # @selected_project_id = params[:projects][:project_id]
     
     if params[:id]
@@ -324,44 +327,75 @@ class SpecsController < ApplicationController
     
     def filter_view
       @can_view = can_view
-      if params[:projects]
-        @selected_project_id = params[:projects][:project_id]
+      
+      @user_organization = Organization.find(current_user.organization_id)
+      
+      if params[:organization_id] == "0" || @user_organization.nil?
+        @selected_org = 'Personal'
+        @selected_org_id = nil
+        @can_edit_current_project = true
+        @projects = Project.where(:organization_id => nil,
+                                  :created_by_id => current_user.id)
       else
-        @selected_project_id = Project.first.id
+        @selected_org_id = current_user.organization_id
+        @selected_org = @user_organization.name
+        @can_edit_current_project = current_user.can_edit?
+        @projects = Project.where(:organization_id => @selected_org_id)
       end
-      @tag_types = TagType.all
-      @project = Project.find(@selected_project_id)
+    
+      @tag_types = TagType.where(:organization_id => @selected_org_id)
       
-      @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
-      @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).select{ |c| (c.root? && c.is_childless?) || (!c.root? && c.created_at == c.siblings.pluck(:created_at).max)}.map(&:spec_id)
-      
-      @specs = get_spec_hash(Spec.for_project(@selected_project_id))
-      
-      @projects = Project.all
-      
-      @filtered_spec_ids_array = []
-      
-      @requests = Request.all
-      @request_count = @requests.any? ? @requests.count : nil
-      
-      @tag_type_ids = params[:tag_types]
-      
-      if @tag_type_ids
-        @tag_type_ids.each do |tag_type_id|
-          # @filtered_spec_ids_array << Spec.filter_by_tag_type(tag_type_id, @project_specs).map(&:id).uniq
-          @filtered_spec_ids_array << Spec.all_ancestry_ids(Spec.for_project(@project.id).with_tag_type(tag_type_id))
+      if params[:projects]
+        @project = Project.find(params[:projects][:project_id])
+      else
+        if @selected_org_id.nil?
+          @project = Project.where( :organization_id => nil,
+                                                :created_by_id => current_user.id).first
+        else
+          @project = Project.where(:organization_id => current_user.id).first
         end
       end
       
-      @ticketed = params[:ticketed]
-      if @ticketed
-        @filtered_spec_ids_array << Spec.all_ancestry_ids(Spec.for_project(@project.id).has_ticket)
-      end
+      if @project
+        @selected_project_id = @project.id 
+        
+       
+        
+        # @tag_types = TagType.all
+        
+        
+        @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+        @comment_array = Comment.where.not(:resolved => true, :user_id => current_user.id).select{ |c| (c.root? && c.is_childless?) || (!c.root? && c.created_at == c.siblings.pluck(:created_at).max)}.map(&:spec_id)
+        
+        @specs = get_spec_hash(Spec.for_project(@selected_project_id))
+        
+        # @projects = Project.for_user(current_user)
+        
+        @filtered_spec_ids_array = []
+        
+        @requests = Request.all
+        @request_count = @requests.any? ? @requests.count : nil
+        
+        @tag_type_ids = params[:tag_types]
+        
+        if @tag_type_ids
+          @tag_type_ids.each do |tag_type_id|
+            # @filtered_spec_ids_array << Spec.filter_by_tag_type(tag_type_id, @project_specs).map(&:id).uniq
+            @filtered_spec_ids_array << Spec.all_ancestry_ids(Spec.for_project(@project.id).with_tag_type(tag_type_id))
+          end
+        end
+        
+        @ticketed = params[:ticketed]
+        if @ticketed
+          @filtered_spec_ids_array << Spec.all_ancestry_ids(Spec.for_project(@project.id).has_ticket)
+        end
+        
+        @filtered_spec_ids = @filtered_spec_ids_array.inject(:&)
+        
+        if @filtered_spec_ids
+          @filtered_spec_ids.uniq!
+        end
       
-      @filtered_spec_ids = @filtered_spec_ids_array.inject(:&)
-      
-      if @filtered_spec_ids
-        @filtered_spec_ids.uniq!
       end
     end
     

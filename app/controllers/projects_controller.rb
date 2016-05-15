@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    @user_organization = Organization.find(current_user.organization_id)
   end
 
   # GET /projects/1/edit

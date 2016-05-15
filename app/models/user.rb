@@ -23,6 +23,20 @@ class User < ActiveRecord::Base
     self.role_id != Role.view_only.id && self.role_id != Role.none.id
   end
   
+  def can_edit_project?(project:)
+    # user created project AND project has no organization id (because what if user gets removed from organization)
+    # OR
+    # user has edit privs in organization AND project has organization id
+    
+    if(project.organization_id.nil?)
+      return (project.created_by_id == self.id)
+    elsif(project.organization_id == self.organization_id)
+      return self.can_edit?
+    else
+      return false
+    end
+  end
+
   def admin?
     self.role_id == Role.admin.id
   end

@@ -10,4 +10,5 @@ class Comment < ActiveRecord::Base
     validates_presence_of :text
     
     default_scope { order(:resolved, created_at: :desc) }
+    # scope :for_project, ->(project_id) { where(:project_id => project_id) }
 end

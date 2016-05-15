@@ -22,13 +22,15 @@
               </div>
             </div>
           <% end %>
-  
+          
           <div class="input-field">
             
             <%= f.text_field :name, {class: "form-control", class: "validate", placeholder: 'project name', required: ""}%>
-              <%= f.label :name, '&nbsp;'.html_safe %>
+            <%= f.label :name, '&nbsp;'.html_safe %>
           </div>
-          
+          <%= fields_for :project, @project do |p| %>
+            <%= p.hidden_field :organization_id, value: @selected_org_id %>
+          <% end %>
         </div>
         
         

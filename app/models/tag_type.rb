@@ -6,6 +6,8 @@ class TagType < ActiveRecord::Base
     
     has_many :tags, dependent: :destroy
     
+    belongs_to :organization
+    
     default_scope { order("LOWER(name)") }
     
     before_create :downcase
