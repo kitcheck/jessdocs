@@ -58,6 +58,13 @@ $(document).ready(function () {
         $('.side-button.active-btn', this).css('visibility','hidden');
     });  
     
+    $(document).on('mouseenter','#fixedEditBtn', function(){
+        $('#toTheTopBtn').show();
+        $('#hamburgerBtn').hide();
+    }).on('mouseleave', '#fixedEditBtn', function() {
+        $('#hamburgerBtn').show();
+        $('#toTheTopBtn').hide();
+    });
     
     
     $(document).on('click','.edit-button', function(){
