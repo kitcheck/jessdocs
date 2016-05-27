@@ -22,7 +22,7 @@
           <% end %>
           <div class="input-field">
             <%= f.select :tag_type_group_id, 
-                          options_for_select(@tag_type_groups.map {|t| [t.name, t.id, {'data-color' => t.color }]}),
+                          options_for_select(@tag_type_groups.map {|t| [t.name, t.id, {'data-color' => t.color }]}, @tag_type.tag_type_group_id),
                           {include_blank: 'none'},
                           {onchange: "changeColor( $(this).find(':selected').attr('data-color') )"} %>
             

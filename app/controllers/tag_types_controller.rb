@@ -5,6 +5,7 @@ class TagTypesController < ApplicationController
   # GET /tag_types.json
   def index
     @tag_types = TagType.by_group
+    @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
   end
 
   # GET /tag_types/1

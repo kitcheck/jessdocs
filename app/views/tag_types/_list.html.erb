@@ -27,6 +27,25 @@
                 <%= render partial: "tag_types/show", object: tag_type, as: :tag_type %>  
             <% end %>   
         <% end %>
+        
+        <% @tagless_groups.each do |group| %>
+            <h5>
+                <%= group.name %>
+                <span class="btn-group btn-group-xs" role="group">
+                    <%= link_to edit_tag_type_group_path(group),
+                                remote: true,
+                                class: "btn-flat btn-square" do %>
+                        <i class="material-icons">edit</i>
+                    <% end %>
+                    <%= link_to group, 
+                                method: :delete,
+                                class: "delete_tag_type_group btn-flat btn-square",
+                                :remote => true do %>
+                        <i class="material-icons">delete</i>
+                    <% end %>
+                </span>
+            </h5>
+        <% end %>
     </div>
 </div>
 <div class="modal-footer">
