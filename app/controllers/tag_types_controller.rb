@@ -51,7 +51,7 @@ class TagTypesController < ApplicationController
     
     
     if @tag_type.update(tag_type_params)
-      @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
+      @tag_types = TagType.by_group
     else
       render :action => 'edit'
     end
@@ -70,9 +70,7 @@ class TagTypesController < ApplicationController
   # DELETE /tag_types/1.json
   def destroy
     @tag_type.destroy
-    Tag.where(:tag_type_id => @tag_type.id).each do |tag|
-      tag.destroy
-    end
+    
     respond_to do |format|
       format.html { redirect_to tag_types_url, notice: 'Tag type was successfully destroyed.' }
       format.json { head :no_content }

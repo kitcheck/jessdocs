@@ -36,24 +36,27 @@ class TagTypeGroupsController < ApplicationController
   # PATCH/PUT /tag_type_groups/1
   # PATCH/PUT /tag_type_groups/1.json
   def update
-    respond_to do |format|
       if @tag_type_group.update(tag_type_group_params)
-        format.html { redirect_to @tag_type_group, notice: 'Tag type group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tag_type_group }
+        TagType.where(:tag_type_group => @tag_type_group).update_all(:color => @tag_type_group.color)
+        @tag_types = TagType.by_group
       else
-        format.html { render :edit }
-        format.json { render json: @tag_type_group.errors, status: :unprocessable_entity }
+        render :action => 'edit'
       end
-    end
   end
 
   # DELETE /tag_type_groups/1
   # DELETE /tag_type_groups/1.json
   def destroy
     @tag_type_group.destroy
+    
+    TagType.where(:tag_type_group => @tag_type_group).update_all(:tag_type_group_id => nil)
+    
+    @tag_types= TagType.by_group
+    
     respond_to do |format|
       format.html { redirect_to tag_type_groups_url, notice: 'Tag type group was successfully destroyed.' }
       format.json { head :no_content }
+      format.js   { render :layout => false }
     end
   end
 

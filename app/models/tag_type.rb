@@ -7,7 +7,7 @@ class TagType < ActiveRecord::Base
     
     has_many :tags, dependent: :destroy
     
-    default_scope { order("LOWER(name)") }
+    default_scope { order("tag_type_group_id nulls first, LOWER(name)")}
     
     scope :by_group, -> { includes(:tag_type_group).all.group_by(&:tag_type_group) }
     

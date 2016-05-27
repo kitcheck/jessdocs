@@ -23,16 +23,19 @@
           <div class="input-field">
             <%= f.collection_select :tag_type_group_id, 
                                     @tag_type_groups, 
-                                    :id, 
+                                    :color, 
                                     :name, 
                                     {include_blank: 'none'},
-                                    {onchange: "changeColor(#{TagTypeGroup.all.pluck(:color)}, $(this).val() )"} %>
+                                    {onchange: "changeColor( $(this).val() )"} %>
             <%= f.label :tag_type_group_id, 'tag type group' %>                   
           </div>
           <div class="row marginless valign-wrapper">
             <div class="col s2">
-              <%= f.label :color, '&nbsp;'.html_safe %>
-              <%= color_field(:tag_type, :color, options={class: "btn-square"})  %>
+              <div class="btn-square" id="colorDisplay"></div>
+              <div class="color-picker" id="colorPickerDiv">
+                <%= f.label :color, '&nbsp;'.html_safe %>
+                <%= color_field(:tag_type, :color, options={class: "btn-square"})  %>
+              </div>
             </div>
             <div class="input-field col s10">
               <%= f.text_field 'name', {class: "validate", placeholder: 'tag name', required: ""}%>

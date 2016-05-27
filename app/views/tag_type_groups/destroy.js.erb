@@ -1,0 +1,8 @@
+$('.delete_tag_type_group').bind('ajax:success', function() {
+   $("#spec-modal").html("<%= j(render 'tag_types/list') %>");
+   $(".filterspecs").html("<%= j(render partial: "tag_types/filter", object: @tag_types, as: :tag_types) %>");
+});
+
+$('.modal-close').on('click', function() {
+    $('#small-modal').closeModal();
+});
