@@ -21,17 +21,16 @@
             </div>
           <% end %>
           <div class="input-field">
-            <%= f.collection_select :tag_type_group_id, 
-                                    @tag_type_groups, 
-                                    :color, 
-                                    :name, 
-                                    {include_blank: 'none'},
-                                    {onchange: "changeColor( $(this).val() )"} %>
+            <%= f.select :tag_type_group_id, 
+                          options_for_select(@tag_type_groups.map {|t| [t.name, t.id, {'data-color' => t.color }]}),
+                          {include_blank: 'none'},
+                          {onchange: "changeColor( $(this).find(':selected').attr('data-color') )"} %>
+            
             <%= f.label :tag_type_group_id, 'tag type group' %>                   
           </div>
           <div class="row marginless valign-wrapper">
             <div class="col s2">
-              <div class="btn-square" id="colorDisplay"></div>
+              <div class="btn-square" id="colorDisplay" style="display:none"></div>
               <div class="color-picker" id="colorPickerDiv">
                 <%= f.label :color, '&nbsp;'.html_safe %>
                 <%= color_field(:tag_type, :color, options={class: "btn-square"})  %>

@@ -1,14 +1,17 @@
 function changeColor(color) {
     var colorElem = $('#tag_type_color');
-    alert('color = ' + color);
-    
+    var colorDisplay = $('#colorDisplay');
+    var colorPickerContainer = $('#colorPickerDiv');
+
     if (color){
-        
         colorElem.val(color);
         colorElem.attr('value', color);
-        colorElem.prop('disabled', true);
+        colorDisplay.css('background-color', color);
+        colorDisplay.show();
+        colorPickerContainer.hide();
     }
     else {
-        colorElem.prop('disabled', false);
+        colorDisplay.hide();
+        colorPickerContainer.show();
     }
 }
