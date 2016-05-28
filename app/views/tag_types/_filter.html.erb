@@ -1,6 +1,6 @@
 <% tag_types.each do |tag_type_group| %>
     <% unless tag_type_group.first.nil? %>
-        <h6><%= tag_type_group.first.name %></h6>
+        <h6 class="truncate"><%= tag_type_group.first.name %></h6>
     <% end %>
     <% grouped_tag_type = tag_type_group.last %>
     <% grouped_tag_type.each do |tag_type| %>
