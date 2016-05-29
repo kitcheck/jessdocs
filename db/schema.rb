@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160515204432) do
+ActiveRecord::Schema.define(version: 20160528192734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,23 +93,29 @@ ActiveRecord::Schema.define(version: 20160515204432) do
     t.integer  "organization_id"
     t.integer  "created_by_id"
     t.integer  "tag_type_group_id"
+    t.time     "deleted_at"
+    t.integer  "deleted_by_id"
   end
 
   create_table "tags", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "spec_id"
     t.integer  "tag_type_id"
+    t.time     "deleted_at"
+    t.integer  "deleted_by_id"
   end
 
   add_index "tags", ["spec_id"], name: "spec_id_ix", using: :btree
 
   create_table "tickets", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.integer  "spec_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",          null: false
+    t.integer  "spec_id",       null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "tracker_id"
+    t.time     "deleted_at"
+    t.integer  "deleted_by_id"
   end
 
   add_index "tickets", ["spec_id"], name: "ticket_id_ix", using: :btree

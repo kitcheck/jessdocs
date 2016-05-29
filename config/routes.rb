@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   end
   resources :tickets
   resources :projects
-  resources :tag_types
+  resources :tag_types do
+    post 'recover'
+  end
   resources :tags
   resources :spec_types
   resources :specs do

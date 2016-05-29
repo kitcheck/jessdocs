@@ -1,3 +1,8 @@
 $('.delete_tag_type').bind('ajax:success', function() {
    $(this).closest('div.tag-type-line').fadeOut();
+   $("#spec-modal").html("<%= j(render 'list') %>");
+   
+   $('.modal-close').on('click', function() {
+        $('#spec-modal').closeModal();
+    });
 });

@@ -4,7 +4,7 @@
                 style="background-color: <%= tag_type.color %>">
             <%= tag_type.name %>
         </div>
-                
+        <% if !archived %>        
         <span class="btn-group btn-group-xs" role="group">
             <%= link_to edit_tag_type_path(tag_type),
                         remote: true,
@@ -18,5 +18,17 @@
                 <i class="material-icons">delete</i>
             <% end %>
         </span>
-
+        <% else %>
+            
+            <% if tag_type.deleted_by_id %>
+                <% deleted_by = User.find(tag_type.deleted_by_id) %>
+                <span>deleted by <%= deleted_by.email %></span>
+            <% end %>
+            <%= link_to tag_type_recover_path(:tag_type_id => tag_type.id),
+                        method: :post,
+                        remote: true,
+                        class: "btn-flat btn-square" do %>
+                <i class="material-icons">restore</i>
+            <% end %>
+        <% end %>
 </div>

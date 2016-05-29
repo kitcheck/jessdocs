@@ -1,2 +1,9 @@
 $("#spec-modal").html("<%= j(render 'list') %>")
-$("#spec-modal").openModal();
+
+$('.modal-close').on('click', function() {
+    $('#spec-modal').closeModal();
+});
+
+if ( $('#spec-modal').is(':hidden') ) {
+    $("#spec-modal").openModal();
+}

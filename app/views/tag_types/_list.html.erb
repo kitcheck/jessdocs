@@ -24,7 +24,7 @@
             <% end %>
             <% grouped_tag_type = tag_type_group.last %>
             <% grouped_tag_type.each do |tag_type| %>
-                <%= render partial: "tag_types/show", object: tag_type, as: :tag_type %>  
+                <%= render partial: "tag_types/show", object: tag_type, as: :tag_type, locals: {archived: false} %>  
             <% end %>   
         <% end %>
         
@@ -46,6 +46,8 @@
                 </span>
             </h5>
         <% end %>
+        <h5>archived</h5>
+        <%= render partial: "tag_types/show", collection: @deleted_tag_types, as: :tag_type, locals: {archived: true} %>
     </div>
 </div>
 <div class="modal-footer">

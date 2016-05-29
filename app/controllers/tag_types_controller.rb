@@ -6,6 +6,7 @@ class TagTypesController < ApplicationController
   def index
     @tag_types = TagType.by_group
     @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
+    @deleted_tag_types = TagType.only_deleted
   end
 
   # GET /tag_types/1
@@ -70,13 +71,25 @@ class TagTypesController < ApplicationController
   # DELETE /tag_types/1
   # DELETE /tag_types/1.json
   def destroy
+    @tag_type.update!(:deleted_by_id => current_user.id)
     @tag_type.destroy
+    
+    @tag_types = TagType.by_group
+    @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
+    @deleted_tag_types = TagType.only_deleted
     
     respond_to do |format|
       format.html { redirect_to tag_types_url, notice: 'Tag type was successfully destroyed.' }
       format.json { head :no_content }
-      format.js   { render :layout => false }
+      format.js   { }
     end
+  end
+  
+  def recover
+    @tag_type = TagType.only_deleted.find(params[:tag_type_id])
+    @tag_type.recover
+    
+    redirect_to tag_types_url
   end
 
   private
