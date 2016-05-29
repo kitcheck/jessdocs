@@ -36,7 +36,7 @@
                 <p>No results</p>
             <% else %>
                 <ul class="sortable spec-list" data-parent="nil">
-                    <%= render_specs(@specs, @filtered_spec_ids).html_safe %>
+                    <%= render_specs(@specs, @filtered_spec_ids, @can_edit, @ticket_hash, @tag_hash).html_safe %>
                 </ul>
             <% end %>
         </div>

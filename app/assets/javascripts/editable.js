@@ -68,12 +68,17 @@ $(document).ready(function () {
     
     
     $(document).on('click','.edit-button', function(){
-        
+        var specId = $(this).parents('.spec').attr('id');
         var btnElem = $(this).parents('.spec').find('.spec-buttons');
-        $('.spec-buttons').not(btnElem).hide();
         
+        $('.tooltipped').not('.btn-floating').tooltip('remove');
+        $('.spec-buttons').not(btnElem).html('');
+        
+        
+        btnElem.html(renderButtons(specId));
+        btnElem.find('.tooltipped').tooltip();
         btnElem.toggle('fast');
-        
+
         
         
         var deleteElem = $(this).parents('.spec').find('.delete_tag');
@@ -84,21 +89,34 @@ $(document).ready(function () {
     
 });
 
-function toggleTagEdit() {
-    var tagElem = $('.delete_tag')
-    if ( tagElem.hasClass('hidden')){
-        tagElem.removeClass('hidden');
-    }
-    else {
-        tagElem.addClass('hidden');
-    }
-}
-
-function toggleEdit(tagElem) {
-    if ( tagElem.hasClass('hidden')){
-        tagElem.removeClass('hidden');
-    }
-    else {
-        tagElem.addClass('hidden');
-    }
+function renderButtons(specId) {
+    var btnHtml = "<div>";
+    
+    btnHtml += "<a data-tooltip='add tag' data-position='bottom' data-delay='20' class='tooltipped btn-flat btn-square' data-remote='true' href='/tags/new?id='" + specId+ "'>"
+            + "<i class='material-icons'>label</i>"
+            + "</a>";
+    
+    btnHtml += '<a data-tooltip="add ticket" data-position="bottom" data-delay="20" class="tooltipped btn-flat btn-square" data-remote="true" href="/tickets/new?id=' + specId + '">'
+            + '<i class="material-icons">insert_link</i>'
+            + '</a>';
+    
+    btnHtml += '<a data-tooltip="add parent" data-position="bottom" data-delay="20" class="tooltipped btn-flat btn-square" data-remote="true" href="/specs/new?id='+specId+'">'
+            + 'p'
+            + '</a>';
+    
+    btnHtml += '<a data-tooltip="add children" data-position="bottom" data-delay="20" class="tooltipped btn-flat btn-square" data-remote="true" href="/specs/mass_add_view?id='+specId+'">'
+            + 'c'
+            + '</a>';
+    
+    btnHtml += '<a class="btn-flat btn-square tooltipped" data-tooltip="edit" data-position="bottom" data-delay="20" data-remote="true" href="/specs/'+specId+'/edit">'
+            +  '<i class="material-icons">edit</i>'
+            + '</a>';
+    
+    btnHtml += '<a class="delete_spec btn-flat btn-square tooltipped" data-tooltip="delete" data-position="bottom" data-delay="20" data-remote="true" href="/specs/'+specId+'/delete">'
+            + '<i class="material-icons">delete</i>'
+            + '</a>';
+    
+    btnHtml += '</div>';
+    
+    return btnHtml;
 }
