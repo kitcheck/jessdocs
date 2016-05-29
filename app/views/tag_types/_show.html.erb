@@ -1,19 +1,18 @@
-<div class="tag-type-line">
+<span class="tag-type-line">
     
-        <div   class="chip tag" 
-                style="background-color: <%= tag_type.color %>">
-            <%= tag_type.name %>
-        </div>
+    <div class="chip tag" style="background-color: <%= tag_type.color %>">
+        <%= tag_type.name %>
+       
         <% if !archived %>        
         <span class="btn-group btn-group-xs" role="group">
             <%= link_to edit_tag_type_path(tag_type),
                         remote: true,
-                        class: "btn-flat btn-square" do %>
+                        class: "btn-flat btn-square white-text" do %>
                 <i class="material-icons">edit</i>
             <% end %>
             <%= link_to tag_type, 
                         method: :delete,
-                        class: "delete_tag_type btn-flat btn-square",
+                        class: "delete_tag_type btn-flat btn-square white-text",
                         :remote => true do %>
                 <i class="material-icons">delete</i>
             <% end %>
@@ -23,7 +22,7 @@
             <%= link_to tag_type_recover_path(:tag_type_id => tag_type.id),
                         method: :post,
                         remote: true,
-                        class: "btn-flat btn-square" do %>
+                        class: "btn-flat btn-square white-text" do %>
                 <i class="material-icons">restore</i>
             <% end %>
             <% if tag_type.deleted_by_id %>
@@ -31,4 +30,5 @@
                 <span>deleted by <%= deleted_by.email %></span>
             <% end %>
         <% end %>
-</div>
+    </div>
+</span>

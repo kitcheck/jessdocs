@@ -7,15 +7,20 @@
           <ul class="errors"></ul>
   
           <div class="form-group">
-            
-            <% @tag_types.each do |tag_type| %>
-              <div class="chip tag tag-checkbox" style="background-color: <%= tag_type.color %>">
+            <% @tag_types.each do |tag_type_group| %>
+              <% unless tag_type_group.first.nil? %>
+                  <h5><%= tag_type_group.first.name %></h5>
+              <% end %>
+              <% grouped_tag_type = tag_type_group.last %>
+              <% grouped_tag_type.each do |tag_type| %>
+                <div class="chip tag tag-checkbox" style="background-color: <%= tag_type.color %>">
          
                   <%= check_box_tag 'tag_types[]', tag_type.id, @spec_tags && @spec_tags.include?(tag_type.id), {class:"checkbox", id: "add_tag_#{tag_type.id}"} %>
                   <%= label_tag "add_tag_#{tag_type.id}", tag_type.name %>
-              </div>
-              
+                </div>  
+              <% end %>   
             <% end %>
+            
             
             <%= hidden_field_tag :spec_id, @spec.id %>
           </div>

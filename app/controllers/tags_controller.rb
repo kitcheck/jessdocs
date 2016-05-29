@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.by_group
   end
 
   # GET /tags/1
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   def new
     @tag = Tag.new
-    @tag_types = TagType.all
+    @tag_types = TagType.by_group
     @spec = Spec.find(params[:id])
     @spec_tags = @spec.tags.pluck(:tag_type_id)
   end
