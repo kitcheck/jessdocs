@@ -36,7 +36,7 @@
                 <p>No results</p>
             <% else %>
                 <ul class="sortable spec-list" data-parent="nil">
-                    <%= render partial: "specs", collection: @specs, as: :spec %>
+                    <%= render_specs(@specs, @filtered_spec_ids).html_safe %>
                 </ul>
             <% end %>
         </div>
