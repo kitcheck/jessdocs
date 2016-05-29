@@ -1,5 +1,8 @@
 class TagType < ActiveRecord::Base
     belongs_to :tag_type_group
+    belongs_to :deleted_by, class_name: "User"
+    belongs_to :created_by, class_name: "User"
+    
     acts_as_paranoid
     
     validates_presence_of :name

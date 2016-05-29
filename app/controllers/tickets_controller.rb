@@ -55,6 +55,7 @@ class TicketsController < ApplicationController
   # DELETE /tickets/1.json
   def destroy
     @ticket_id = @ticket.id
+    @ticket.update_attributes!(:deleted_by_id => current_user.id)
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }

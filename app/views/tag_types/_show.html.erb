@@ -20,15 +20,15 @@
         </span>
         <% else %>
             
-            <% if tag_type.deleted_by_id %>
-                <% deleted_by = User.find(tag_type.deleted_by_id) %>
-                <span>deleted by <%= deleted_by.email %></span>
-            <% end %>
             <%= link_to tag_type_recover_path(:tag_type_id => tag_type.id),
                         method: :post,
                         remote: true,
                         class: "btn-flat btn-square" do %>
                 <i class="material-icons">restore</i>
+            <% end %>
+            <% if tag_type.deleted_by_id %>
+                <% deleted_by = tag_type.deleted_by %>
+                <span>deleted by <%= deleted_by.email %></span>
             <% end %>
         <% end %>
 </div>

@@ -63,7 +63,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1.json
   def destroy
     @tag_id = @tag.id
-    @tag.update_attributes!(:deleted_by_id => current_user.id)
+    @tag.update!(:deleted_by_id => current_user.id)
     @tag.reload
     
     @tag.destroy
