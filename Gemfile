@@ -30,6 +30,7 @@ gem 'omniauth'
 gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 gem 'acts_as_paranoid', '~> 0.5.0.beta2'
+gem 'active_record_union'
 
 gem 'puma'
 

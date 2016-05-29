@@ -18,9 +18,10 @@ class Spec < ActiveRecord::Base
     scope :with_tag_type, ->(type_id) { joins(:tags).where(tags: {tag_type_id: type_id})  }
     scope :for_project, ->(project_id) { where(:project_id => project_id) }
     scope :has_ticket, -> { joins(:tickets) }
+    scope :full_ancestry_of_spec, -> (spec) {spec.path.union(spec.descendants)}
     
     def full_ancestry_ids
-        (self.path.to_a + self.descendants.to_a).map(&:id)
+        self.path.union(self.descendants).pluck(:id)
     end
     
     def bottom?
@@ -50,12 +51,12 @@ class Spec < ActiveRecord::Base
     end
     
     def self.all_ancestry_ids(specs)
-        ids = []
+        query = specs
         specs.map do |spec|
-            ids.concat spec.full_ancestry_ids
+            query = query.union(Spec.full_ancestry_of_spec(spec))
         end
         
-        ids.uniq
+        query.pluck(:id)
     end
 
     def self.parse_block(text, project_id, parent_id=nil, next_top_order)
