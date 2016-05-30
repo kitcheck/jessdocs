@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       post 'mass_add'
       get 'filter_tag'
       get 'bookmarks'
+      get 'export'
     end
   end
   

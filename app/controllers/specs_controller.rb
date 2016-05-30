@@ -242,6 +242,12 @@ class SpecsController < ApplicationController
     end
   end
   
+  def export
+    @specs = Spec.find(836).subtree.arrange_serializable
+    
+    @spec_json = Spec.export_specs_to_protractor(:specs => @specs)
+  end
+  
   # POST /specs/1
   def move
     @spec = Spec.find(params[:spec_id])
@@ -380,6 +386,10 @@ class SpecsController < ApplicationController
   
     def move_params
       params.require(:spec).permit(:id, :parent_id, :sibling_id)
+    end
+    
+    def export_params
+      params.require(:specs).permit(:spec_id)
     end
   
     def spec_param

@@ -161,4 +161,48 @@ class Spec < ActiveRecord::Base
         self.parse(text_array, project_id, spec_depth, spec, error_count)
     end
     
+    def self.export_spec_to_protractor(spec:, protractor_html: "", depth: 0)
+        
+        if spec["children"].any?
+            depth.times do 
+                protractor_html << "\t"
+            end
+            protractor_html << "describe('#{spec["description"]}'){\n\n"
+            
+            # children
+            spec["children"].each do |child|
+                export_spec_to_protractor( :spec => child, 
+                                            :protractor_html => protractor_html,
+                                            :depth => depth + 1)
+            end
+            
+            
+        else
+            depth.times do 
+                protractor_html << "\t"
+            end
+            protractor_html << "it('#{spec["description"]}'){\n\n"
+            depth.times do 
+                protractor_html << "\t"
+            end
+            protractor_html << "};\n\n"
+            return protractor_html
+        end
+        depth.times do 
+            protractor_html << "\t"
+        end
+        protractor_html << "};\n\n"
+        
+        protractor_html
+    end
+    
+    def self.export_specs_to_protractor(specs:)
+        protractor_html = "\n"
+        
+        specs.each do |spec|
+            protractor_html << export_spec_to_protractor(:spec => spec)
+        end
+            
+        protractor_html
+    end
 end

@@ -24,6 +24,15 @@
                 <% end %>
                 
             </li>
+            <li>
+                <%= link_to export_specs_path,
+                            remote:true,
+                            class: "btn-floating deep-purple tooltipped",
+                            data: {position: "top", delay: "20", tooltip: "export" } do %>
+                    <i class="material-icons">publish</i>
+                <% end %>
+                
+            </li>
         </ul>
     </div>
 <% else %>
