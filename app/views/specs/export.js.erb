@@ -1,2 +1,4 @@
-$("#spec-modal").html("<%= j(render 'export') %>")
-$("#spec-modal").openModal();
+<% if @spec_data %>
+    $("#spec-modal").html("<%= j(render 'export') %>")
+    $("#spec-modal").openModal();
+<% end %>

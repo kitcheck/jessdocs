@@ -22,6 +22,8 @@ $(document).ready(function () {
             return parseInt(this.getAttribute("value"));
         }).get();
         
+        $('.export-checkbox').prop('checked', false);
+        
         $.ajax({
             url: "specs/export",
             type: "GET",

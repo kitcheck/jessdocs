@@ -167,7 +167,7 @@ class Spec < ActiveRecord::Base
             depth.times do 
                 protractor_html << "\t"
             end
-            protractor_html << "describe('#{spec["description"]}'){\n\n"
+            protractor_html << "describe('#{spec["description"].squish}'){\n\n"
             
             # children
             spec["children"].each do |child|
@@ -181,7 +181,7 @@ class Spec < ActiveRecord::Base
             depth.times do 
                 protractor_html << "\t"
             end
-            protractor_html << "it('#{spec["description"]}'){\n\n"
+            protractor_html << "it('#{spec["description"].squish}'){\n\n"
             depth.times do 
                 protractor_html << "\t"
             end

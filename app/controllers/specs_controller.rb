@@ -243,9 +243,12 @@ class SpecsController < ApplicationController
   end
   
   def export
-    @specs = Spec.where(:id => params[:specs][:spec_id]).arrange_serializable
-    
-    @spec_data = Spec.export_specs_to_protractor(:specs => @specs)
+    if params[:specs] && params[:specs][:spec_id]
+      @specs = Spec.where(:id => params[:specs][:spec_id]).arrange_serializable
+      @spec_data = Spec.export_specs_to_protractor(:specs => @specs)
+    else
+      @spec_data = nil
+    end
   end
   
   # POST /specs/1
