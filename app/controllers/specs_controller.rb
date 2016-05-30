@@ -243,7 +243,7 @@ class SpecsController < ApplicationController
   end
   
   def export
-    @specs = Spec.find(836).subtree.arrange_serializable
+    @specs = Spec.where(:id => params[:specs][:spec_id]).arrange_serializable
     
     @spec_data = Spec.export_specs_to_protractor(:specs => @specs)
   end

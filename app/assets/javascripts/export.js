@@ -6,6 +6,12 @@ $(document).ready(function () {
         $('#exportDoneBtn').show();
     });
     
+    $(document).on('click','.export-checkbox', function(){
+        var checked = $(this).prop('checked');
+        var parentSpecElem = $(this).closest('.spec-li');
+        parentSpecElem.find('.export-checkbox').not($(this)).prop('checked', checked); 
+    });
+    
     $(document).on('click','#exportDoneBtn', function(){
         $('.choose-spec').hide();
         $('#fixedEditBtn').show();
