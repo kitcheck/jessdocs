@@ -20,7 +20,7 @@ class Spec < ActiveRecord::Base
     scope :has_ticket, -> { joins(:tickets) }
     scope :full_ancestry_of_spec, -> (spec) {spec.path.union(spec.descendants)}
     
-    before_create :format
+    before_save :format
     
     def full_ancestry_ids
         self.path.union(self.descendants).pluck(:id)
