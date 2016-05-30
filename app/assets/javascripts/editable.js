@@ -101,7 +101,7 @@ function renderButtons(specId) {
             + "<i class='material-icons'>bookmark</i>"
             + "</a>";
     
-    btnHtml += "<a data-tooltip='add tag' data-position='bottom' data-delay='20' class='tooltipped waves-effect waves-light btn btn-square' data-remote='true' href='/tags/new?id='" + specId+ "'>"
+    btnHtml += "<a data-tooltip='add tag' data-position='bottom' data-delay='20' class='tooltipped waves-effect waves-light btn btn-square' data-remote='true' href='/tags/new?id="+specId+"'>"
             + "<i class='material-icons'>label</i>"
             + "</a>";
     
