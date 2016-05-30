@@ -1,4 +1,5 @@
 <% if @spec_data %>
     $("#spec-modal").html("<%= j(render 'export') %>")
+    var clip = new Clipboard('#copyBtn');
     $("#spec-modal").openModal();
 <% end %>
