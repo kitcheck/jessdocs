@@ -20,6 +20,8 @@ class Spec < ActiveRecord::Base
     scope :has_ticket, -> { joins(:tickets) }
     scope :full_ancestry_of_spec, -> (spec) {spec.path.union(spec.descendants)}
     
+    before_create :format
+    
     def full_ancestry_ids
         self.path.union(self.descendants).pluck(:id)
     end
@@ -205,4 +207,10 @@ class Spec < ActiveRecord::Base
             
         protractor_html
     end
+    
+    private
+        def format
+            self.name.downcase!
+            self.name.squish!
+        end
 end
