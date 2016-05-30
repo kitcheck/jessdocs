@@ -2,6 +2,7 @@ module SpecsHelper
     
     def render_specs(specs, filtered_spec_ids, can_edit, ticket_hash, tag_hash)
         spec_html = ""
+        
         specs.each do |spec|
             spec_html << render_spec(spec, filtered_spec_ids, can_edit, ticket_hash, tag_hash)
         end
@@ -48,8 +49,15 @@ module SpecsHelper
                             remote: true,
                             class: "btn-flat btn-square comment-button active-btn side-button #{css_class}") do
             "<i class='material-icons #{comment_color}'>comment</i>".html_safe
-        end
+                    end
         
+        
+        
+        spec_html << "</div>"
+        
+        spec_html << "<div class='choose-spec left'>"
+        spec_html << check_box_tag("specs[]", spec[:id], false, {class:"filled-in checkbox", id: "specs_#{spec[:id]}"})
+        spec_html << label_tag("specs_#{spec[:id]}", '&nbsp'.html_safe, class: "checkbox-label")
         spec_html << "</div>"
    
         spec_html << "<div class='spec-data'>"
