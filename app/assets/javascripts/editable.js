@@ -2,7 +2,10 @@ $(document).ready(function () {
     
     $(document).on('mouseenter','.spec', function(){
         
-        $('.side-button.active-btn', this).css('visibility','visible');
+        if(!$('#exportDoneBtn').is(':visible')){
+            $('.side-button.active-btn', this).css('visibility','visible');
+        }
+        
         $("ul.sortable").sortable({
             handle: '.drag-button',
             onDrop: function  ($item, container, _super) {

@@ -56,7 +56,7 @@ module SpecsHelper
         spec_html << "</div>"
         
         spec_html << "<div class='choose-spec left'>"
-        spec_html << check_box_tag("specs[]", spec[:id], false, {class:"filled-in checkbox", id: "specs_#{spec[:id]}"})
+        spec_html << check_box_tag("specs[]", spec[:id], false, {class:"filled-in checkbox export-checkbox", id: "specs_#{spec[:id]}"})
         spec_html << label_tag("specs_#{spec[:id]}", '&nbsp'.html_safe, class: "checkbox-label")
         spec_html << "</div>"
    

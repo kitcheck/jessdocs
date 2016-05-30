@@ -25,13 +25,10 @@
                 
             </li>
             <li>
-                <%= link_to export_specs_path,
-                            remote:true,
-                            class: "btn-floating deep-purple tooltipped",
-                            data: {position: "top", delay: "20", tooltip: "export" } do %>
-                    <i class="material-icons">publish</i>
-                <% end %>
-                
+                <a class="btn-floating deep-purple tooltipped"
+                    data-position = "top" data-delay = "20" data-tooltip = "export">
+                    <i class="material-icons" id="exportBtn">publish</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -42,3 +39,9 @@
         </a>
     </div>
 <% end %>
+
+<div class="fixed-action-btn" id="exportDoneBtn" style="bottom: 45px; right: 24px; display:none">
+    <a class="btn-floating btn-large deep-purple">
+        <i class="large material-icons">check</i>
+    </a>
+</div>

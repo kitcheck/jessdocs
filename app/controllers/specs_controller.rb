@@ -245,7 +245,7 @@ class SpecsController < ApplicationController
   def export
     @specs = Spec.find(836).subtree.arrange_serializable
     
-    @spec_json = Spec.export_specs_to_protractor(:specs => @specs)
+    @spec_data = Spec.export_specs_to_protractor(:specs => @specs)
   end
   
   # POST /specs/1
