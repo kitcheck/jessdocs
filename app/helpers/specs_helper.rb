@@ -29,7 +29,7 @@ module SpecsHelper
     end
     
     def render_spec_section(spec, can_edit, ticket_hash, tag_hash)
-        spec_html = "<div class='spec section'  id='#{spec[:id]}'>"
+        spec_html = "<div class='spec section'  id='#{spec[:id]}' data-root='#{spec[:root]}'>"
         spec_html << "<div class='side-buttons left'>"
             
         if can_edit
