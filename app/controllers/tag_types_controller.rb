@@ -7,6 +7,25 @@ class TagTypesController < ApplicationController
     @tag_types = TagType.by_group
     @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
     @deleted_tag_types = TagType.only_deleted
+    
+    results = {tag_types: []}
+    TagType.includes(:tag_type_group).all.group_by(&:tag_type_group).each do |group, tag_types|
+      if group
+        results[:tag_types] << {
+          name: group.name,
+          tag_types: tag_types
+        } 
+      else
+        results[:tag_types] << {
+          name: nil,
+          tag_types: tag_types
+        } 
+      end
+    end
+    
+    render :json => {tag_types: results, 
+                    tagless_groups: @tagless_groups,
+                    deleted_tag_types: @deleted_tag_types}
   end
 
   # GET /tag_types/1

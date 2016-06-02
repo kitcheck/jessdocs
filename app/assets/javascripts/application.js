@@ -15,6 +15,8 @@
 //= require jquery.validate.additional-methods
 //= require jquery.form
 //= require clipboard
+//= require angular
+//= require angular-rails-templates
 //= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks

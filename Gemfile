@@ -34,6 +34,9 @@ gem 'active_record_union'
 
 gem 'clipboard-rails'
 
+gem 'angularjs-rails'
+gem 'angular-rails-templates'
+
 gem 'puma'
 
 gem 'materialize-sass', :github => "mkhairi/materialize-sass", :branch => "master"

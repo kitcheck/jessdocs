@@ -57,6 +57,11 @@ GEM
     acts_as_paranoid (0.5.0.beta2)
       activerecord (~> 4.0)
       activesupport (~> 4.0)
+    angular-rails-templates (1.0.0)
+      railties (>= 4.2, < 6)
+      sprockets (~> 3.0)
+      tilt
+    angularjs-rails (1.5.6)
     arel (6.0.3)
     autoprefixer-rails (6.3.3)
       execjs
@@ -213,6 +218,8 @@ DEPENDENCIES
   active_record_union
   acts_as_paranoid (~> 0.5.0.beta2)
   ancestry!
+  angular-rails-templates
+  angularjs-rails
   autoprefixer-rails
   byebug
   clipboard-rails
