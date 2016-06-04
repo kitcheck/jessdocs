@@ -46,6 +46,13 @@ class SpecsController < ApplicationController
   
   def index
     filter_view
+    
+    respond_to do |format|
+      format.html
+      format.js { }
+      format.json { render :json => Spec.for_project(1).arrange_serializable.to_json }
+    end
+    
   end
   
   def filter_tag
@@ -372,6 +379,7 @@ class SpecsController < ApplicationController
       if @filtered_spec_ids
         @filtered_spec_ids.uniq!
       end
+      
     end
     
     def get_spec_hash(spec_scope)

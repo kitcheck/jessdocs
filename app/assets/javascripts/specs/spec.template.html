@@ -1,0 +1,33 @@
+<div>
+    <div ng-mouseenter="spec.userMouseover=true"
+        ng-mouseleave="spec.userMouseover=false">
+        
+        <div ng-style="{'visibility': spec.userMouseover?'visible':'hidden'}" style="display:inline-block">
+          <div ui-tree-handle style="display: inline-block">
+            <i class="material-icons">drag_handle</i>
+          </div>
+          <div style="display:inline-block">
+            <a ng-click="toggleEditButtons(spec)" class='btn-flat btn-square edit-button active-btn side-button'>
+              <i class='material-icons tiny-icon'>mode_edit</i>
+            </a>
+          </div>
+        </div>
+        
+        <div style="display:inline-block">
+          {{spec.description}}
+        </div>
+        
+        <div ng-if="spec.showEditButtons">
+          <a data-tooltip="bookmark" data-position="bottom" data-delay="20" 
+              class="tooltipped waves-effect waves-light btn btn-square bookmark-btn">
+              <i class="material-icons">bookmark</i></a>
+        </div>
+  
+    </div>
+
+<ol ui-tree-nodes="" ng-model="spec.children" style="outline: none;">
+    <li ng-repeat="spec in spec.children" ui-tree-node>
+        <spec></spec>
+    </li>
+</ol>
+</div>

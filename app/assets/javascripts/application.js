@@ -17,6 +17,8 @@
 //= require clipboard
 //= require angular
 //= require angular-rails-templates
+//= require angular-ui-tree
+//= require angular-recursion/angular-recursion
 //= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks

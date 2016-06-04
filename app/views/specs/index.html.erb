@@ -35,9 +35,7 @@
             <% if @specs.blank? || (!@filtered_spec_ids.nil? && @filtered_spec_ids.count == 0) %>
                 <p>No results</p>
             <% else %>
-                <ul class="sortable spec-list" data-parent="nil">
-                    <%= render_specs(@specs, @filtered_spec_ids, @can_edit, @ticket_hash, @tag_hash).html_safe %>
-                </ul>
+                <specs></specs>
             <% end %>
         </div>
         

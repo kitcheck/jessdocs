@@ -1,4 +1,5 @@
 angular.module('jessdocs', [
   'templates',
-  'sidebar'
+  'sidebar',
+  'specs'
 ]);
