@@ -1,8 +1,8 @@
 <div ui-tree
      id="tree-root">
-    <ol ui-tree-nodes ng-model="specs">
-        <li ng-repeat="spec in specs" ui-tree-node>
-            <spec></spec>
-        </li>
-    </ol>
+  <ol ui-tree-nodes ng-model="$ctrl.spec">
+    <li ng-repeat="spec in $ctrl.spec" ui-tree-node>
+      <item-row spec="::spec" ui-tree-callbacks="::$callbacks"></item-row>
+    </li>
+  </ol>
 </div>

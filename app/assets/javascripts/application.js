@@ -16,9 +16,11 @@
 //= require jquery.form
 //= require clipboard
 //= require angular
+//= require angular-animate
 //= require angular-rails-templates
 //= require angular-ui-tree
 //= require angular-recursion/angular-recursion
+//= require quick-ng-repeat/quick-ng-repeat
 //= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
