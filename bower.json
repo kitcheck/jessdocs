@@ -18,8 +18,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-drag-and-drop-lists": "^1.4.0",
-    "angular-recursion": "^1.0.5",
-    "quick-ng-repeat": "quick-ngrepeat#*"
+    
   }
 }
