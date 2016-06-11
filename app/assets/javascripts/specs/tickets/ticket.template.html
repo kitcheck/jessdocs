@@ -1,0 +1,9 @@
+<div class="chip tag ticket small-chip">
+    <a href="{{::$ctrl.ticket.url}}">
+        {{::$ctrl.ticket.name}}
+    </a>
+    <a>
+        <i class="small-chip-icon material-icons"
+            ng-if="$ctrl.spec.showEditButtons" class="animate-if">close</i>
+    </a>
+</div>

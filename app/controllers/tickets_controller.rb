@@ -4,7 +4,25 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    ticket_hash = Hash.new { |h,k| h[k] = [] }
+      Ticket.pluck(:spec_id, :id, :tracker_id, :name).map do |ticket| 
+        if ticket_hash[ticket.first]
+          ticket_hash[ticket.first] << {
+            :id => ticket[1],
+            :tracker_id => ticket[2],
+            :url => Ticket.get_url(ticket[2]),
+            :name => ticket[3]
+          }
+        else
+          ticket_hash.merge( [ticket.first,  {
+            :id => ticket[1],
+            :tracker_id => ticket[2],
+            :url => Ticket.get_url(ticket[2]),
+            :name => ticket[3]
+          } ] ) 
+        end
+      end
+    render :json => ticket_hash
   end
 
   # GET /tickets/1

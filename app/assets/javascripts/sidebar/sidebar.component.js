@@ -1,5 +1,5 @@
-angular.
-  module('sidebar', ['templates']).
+var module = angular.module('jessdocs');
+module.
   component('sidebar', {
     templateUrl: 'sidebar/sidebar.template.html',
     controller: ['$scope', '$http', '$httpParamSerializerJQLike', '$location',

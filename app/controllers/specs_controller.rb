@@ -50,7 +50,8 @@ class SpecsController < ApplicationController
     respond_to do |format|
       format.html
       format.js { }
-      format.json { render :json => Spec.for_project(4).arrange_serializable.to_json }
+      format.json { render :json => {specs: Spec.for_project(6).arrange_serializable
+      } }
     end
     
   end

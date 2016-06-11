@@ -18,6 +18,6 @@
     "tests"
   ],
   "dependencies": {
-    
+    "angular-materialize": "^0.1.8"
   }
 }

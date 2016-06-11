@@ -4,7 +4,24 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.by_group
+    # @tags = Tag.by_group
+    tag_hash = Hash.new { |h,k| h[k] = [] }
+      Tag.joins(:tag_type).pluck(:spec_id, :id, :name, :color).map do |tag| 
+        if tag_hash[tag.first]
+          tag_hash[tag.first] << {
+            :id => tag[1],
+            :name => tag[2],
+            :color => tag[3]
+          }
+        else
+          tag_hash.merge( [tag.first,  {
+            :id => tag[1],
+            :name => tag[2],
+            :color => tag[3]
+          } ] ) 
+        end
+      end
+    render :json => tag_hash
   end
 
   # GET /tags/1
