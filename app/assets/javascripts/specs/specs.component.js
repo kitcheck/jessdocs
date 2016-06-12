@@ -10,15 +10,30 @@ module.component('spec', {
         ticket: '<'
     },
     templateUrl: 'specs/spec.template.html',
-    controller: function($scope) {
+    controller: function($scope, $http) {
        var self = this;
 
        $scope.$callbacks = self.uiTreeCallbacks;
        
        self.toggleEditButtons = function(spec) {
           spec.showEditButtons = !spec.showEditButtons;
+          if (spec.showEditButtons) {
+            self.getAvailableTagTypes(spec);
+          }
+          
         };
         
+        self.getAvailableTagTypes = function(spec){
+            $http({
+              url: '/tags/new', 
+              method: 'GET',
+              params: {
+                  id: spec.id
+              }
+            }).then(function(response) {
+                spec.tagtypes = response.data;
+            });
+        };
     }
 });
 module.component('specs', {
@@ -47,8 +62,7 @@ module.component('specs', {
        };
        
        self.getTags = function(spec){
-         var id = spec.id;
-         return self.tags[id];
+         return self.tags[spec.id];
        };
      }
 });

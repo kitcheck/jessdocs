@@ -8,6 +8,7 @@ class Spec < ActiveRecord::Base
     has_many :tags, dependent: :destroy
     has_many :tickets, dependent: :destroy
     has_many :comments, dependent: :destroy
+    has_many :tag_types, through: :tags
     
     alias_attribute :name, :description
     

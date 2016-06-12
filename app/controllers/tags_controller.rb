@@ -31,10 +31,14 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   def new
-    @tag = Tag.new
-    @tag_types = TagType.by_group
-    @spec = Spec.find(params[:id])
-    @spec_tags = @spec.tags.pluck(:tag_type_id)
+    # @tag = Tag.new
+    # @tag_types = TagType.by_group
+    # @spec = Spec.find(params[:id])
+    # @spec_tags = @spec.tags.pluck(:tag_type_id)
+    
+    # @available_types = TagType.where.not(id: @spec.tags.pluck(:tag_type_id))
+    
+    render :json => TagType.all
   end
 
   # GET /tags/1/edit
@@ -44,22 +48,27 @@ class TagsController < ApplicationController
   # POST /tags
   # POST /tags.json
   def create
-    @spec = Spec.find(params[:spec_id])
-    @tags = @spec.tags
-    @tag_types = TagType.all
+    # @spec = Spec.find(params[:spec_id])
+    # @tags = @spec.tags
+    # @tag_types = TagType.all
     
-    unless params[:tag_types]
-      @tags.destroy_all
-    else
-      current_tag_types = @tags.pluck(:tag_type_id)
-      tag_types_to_delete = current_tag_types - params[:tag_types]
-      tag_types_to_add = params[:tag_types] - current_tag_types
-      @tags.where(:tag_type_id => tag_types_to_delete).destroy_all
-      tag_types_to_add.each do |tag_type|
-        Tag.create!(:spec_id => @spec.id, :tag_type_id => tag_type)
-      end
-    end
-    @new_tags_hash = @spec.tags ? @spec.tags.to_a.map(&:to_hash) : nil
+    # unless params[:tag_types]
+    #   @tags.destroy_all
+    # else
+    #   current_tag_types = @tags.pluck(:tag_type_id)
+    #   tag_types_to_delete = current_tag_types - params[:tag_types]
+    #   tag_types_to_add = params[:tag_types] - current_tag_types
+    #   @tags.where(:tag_type_id => tag_types_to_delete).destroy_all
+    #   tag_types_to_add.each do |tag_type|
+    #     Tag.create!(:spec_id => @spec.id, :tag_type_id => tag_type)
+    #   end
+    # end
+    # @new_tags_hash = @spec.tags ? @spec.tags.to_a.map(&:to_hash) : nil
+    
+    @tag = Tag.new(create_params)
+    @tag.save
+    
+    render :json => @tag
   end
 
   # PATCH/PUT /tags/1
@@ -106,4 +115,8 @@ class TagsController < ApplicationController
       params.require(:spec_id)
     end
     
+    
+    def create_params
+      params.require(:tag).permit(:spec_id, :tag_type_id)
+    end
 end
