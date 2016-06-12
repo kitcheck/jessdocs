@@ -19,7 +19,9 @@
 //= require angular-animate
 //= require angular-rails-templates
 //= require angular-ui-tree
-//= require angular-materialize/src/angular-materialize
+//= require angular-aria/angular-aria
+//= require angular-animate/angular-animate
+//= require angular-material/angular-material
 //= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks

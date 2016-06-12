@@ -1,1 +1,0 @@
-// angular.module('sidebar', ['templates']);

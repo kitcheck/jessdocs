@@ -1,1 +1,7 @@
-<ticket ng-repeat="ticket in $ctrl.tickets" tag="::ticket" spec="$ctrl.spec"></ticket>
+<md-chips ng-if="$ctrl.tickets" ng-model="$ctrl.tickets" name="ticket" readonly="ctrl.readonly">
+    <md-chip-template>
+        <a href="{{::chip.url}}">
+            {{::$chip.name}}
+        </a>
+    </md-chip-template>
+</md-chips>

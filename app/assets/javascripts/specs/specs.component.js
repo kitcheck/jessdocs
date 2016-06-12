@@ -6,7 +6,8 @@ module.component('spec', {
     bindings: {
         spec: '<',
         uiTreeCallbacks: '=',
-        tag: '<'
+        tag: '<',
+        ticket: '<'
     },
     templateUrl: 'specs/spec.template.html',
     controller: function($scope) {
@@ -26,13 +27,13 @@ module.component('specs', {
        var self = this;
         
        self.$onInit = function(){
+           
          $http.get('tickets.json').then(function(response) {
             self.tickets = response.data;
-            console.log(self.tickets);
          });
+         
          $http.get('tags.json').then(function(response) {
             self.tags = response.data;
-            console.log(self.tags);
          });
          $http.get('specs.json').then(function(response) {
             self.spec = response.data.specs;
@@ -40,9 +41,13 @@ module.component('specs', {
         
         
        };
+       
        self.getTickets = function(spec){
-         return self.tickets[spec.id]  
+         var tickets = self.tickets[spec.id];
+         console.log(tickets);
+         return tickets;
        };
+       
        self.getTags = function(spec){
          var id = spec.id;
          return self.tags[id];
@@ -50,8 +55,36 @@ module.component('specs', {
      }
 });
 module.component('buttons', {
-     templateUrl: 'specs/buttons.template.html',
-     controller: function() {
-         
+    bindings: {
+        spec: '<'
+    },
+    templateUrl: 'specs/buttons.template.html',
+    controller: function($mdDialog, $http) {
+        var self = this;
+        
+        self.associateTicket = function(ev, spec) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.prompt()
+              .title('associate ticket')
+              .placeholder('#000000000')
+              .ariaLabel('ticket number')
+              .targetEvent(ev)
+              .ok('associate')
+              .cancel('cancel');
+            $mdDialog.show(confirm).then(function(result) {
+              self.ticket = result;
+              console.log(result);
+              if (self.ticket){
+                  $http({
+                      url: '/tickets', 
+                      method: "POST",
+                      data: 
+                        {ticket: {name: self.ticket,
+                                spec_id: spec.id
+                      }}
+                  });
+              }
+            });
+        };
      }
 });

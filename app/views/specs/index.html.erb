@@ -14,14 +14,20 @@
     </div>
 
 <% if @can_view %>
-    <header>
-        <%= render partial: "header" %>
-    </header>
     
+
     <main>
-    <ul id="slide-out" class="side-nav fixed deep-purple lighten-4">
-      <li><sidebar></sidebar></li>
-    </ul>
+    <md-sidenav  
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-disable-backdrop>
+     <sidebar></sidebar>
+    </md-sidenav>
+    
+    <toolbar>
+        
+    </toolbar>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 
     <p class="notice hide"><%= notice %></p>

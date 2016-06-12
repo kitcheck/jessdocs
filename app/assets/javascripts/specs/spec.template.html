@@ -18,20 +18,22 @@
         
         <div style="display:inline-block">
           {{::$ctrl.spec.description}}
-          <tickets ticket="$ctrl.ticket" spec="$ctrl.spec"></tickets>
+          <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
           <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
         </div>
         
         <div ng-if="$ctrl.spec.showEditButtons" class="animate-if">
-          <buttons></buttons>
+          <buttons spec="$ctrl.spec"></buttons>
         </div>
   
     </div>
     <ol ui-tree-nodes="" ng-model="$ctrl.spec.children">
         <li ng-repeat="child in $ctrl.spec.children" ui-tree-node>
-            <spec spec='::child' 
-                      ui-tree-callbacks="::$callbacks"
-                      tag="$ctrl.parent.getTags(child)"></spec>
+            <spec 
+                spec='::child' 
+                ui-tree-callbacks="::$callbacks"
+                tag="::$ctrl.parent.getTags(child)"
+                ticket="::$ctrl.parent.getTickets(child)"></spec>
         </li>
     </ol>
 </div>

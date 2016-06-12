@@ -1,6 +1,6 @@
 angular.module('jessdocs', [
   'templates',
-  'ui.materialize',
+  'ngMaterial',
   'ngAnimate',
   'ui.tree'
 ]);

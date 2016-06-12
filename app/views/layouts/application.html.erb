@@ -9,9 +9,25 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
-<body>
+<body layout="row">
 
-<%= yield %>
-
+    <md-sidenav
+            class="md-sidenav-left"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-md')"
+            md-disable-backdrop>
+         <sidebar></sidebar>
+    </md-sidenav>
+  
+  <section layout="column" flex role="main">
+    
+      
+      
+      <md-content>
+        <toolbar></toolbar>
+        <specs></specs>
+      </md-content>
+      
+  </section>
 </body>
 </html>

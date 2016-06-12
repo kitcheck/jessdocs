@@ -6,10 +6,10 @@
     class="waves-effect waves-light btn btn-square" >
     <i class="material-icons">label</i>
 </a>
-<a href="#ticketModal" modal data-tooltip="add ticket" data-position="bottom" data-delay="20" 
-    class="waves-effect waves-light btn btn-square" >
-    <i class="material-icons">insert_link</i>
-</a>
+<md-button ng-click="$ctrl.associateTicket($event, $ctrl.spec)" data-tooltip="add ticket" data-position="bottom" data-delay="20" 
+    class="md-icon-button md-accent">
+    <md-icon class="material-icons">insert_link</md-icon>
+</md-button>
 <a tooltipped data-tooltip="add parent" data-position="bottom" data-delay="20" 
     class="waves-effect waves-light btn btn-square">
     p

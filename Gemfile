@@ -37,6 +37,7 @@ gem 'clipboard-rails'
 gem 'angularjs-rails'
 gem 'angular-rails-templates'
 gem 'angular_ui_tree_rails'
+gem 'angular_rails_csrf'
 
 gem 'puma'
 

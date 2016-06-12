@@ -53,6 +53,8 @@ class TicketsController < ApplicationController
       @spec = Spec.find(@spec_id)
       render :action => 'new'
     end
+    
+    render :nothing => true
   end
 
   # PATCH/PUT /tickets/1
