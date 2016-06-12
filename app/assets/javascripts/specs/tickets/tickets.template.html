@@ -1,4 +1,8 @@
-<md-chips ng-if="$ctrl.tickets" ng-model="$ctrl.tickets" name="ticket" readonly="ctrl.readonly">
+<md-chips 
+    ng-if="$ctrl.tickets" 
+    ng-model="$ctrl.tickets" 
+    name="ticket" 
+    readonly="!$ctrl.spec.showEditButtons">
     <md-chip-template>
         <a href="{{::chip.url}}">
             {{::$chip.name}}

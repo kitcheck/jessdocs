@@ -1,1 +1,22 @@
-<tag ng-repeat="tag in $ctrl.tags" tag="::tag" spec="$ctrl.spec"></tag>
+<md-chips 
+    ng-if="$ctrl.tags" 
+    ng-model="$ctrl.tags" 
+    name="tag" 
+    readonly="!$ctrl.spec.showEditButtons"
+    md-autocomplete-snap
+    md-transform-chip="$ctrl.transformChip($chip)"
+    md-require-match="true">
+    
+    <md-autocomplete
+      md-selected-item="$ctrl.selectedItem"
+      md-search-text="$ctrl.searchText"
+      md-items="item in $ctrl.querySearch($ctrl.searchText)"
+      md-item-text="item.name"
+      placeholder="add a tag">
+    <span md-highlight-text="$ctrl.searchText">{{item.name}}</span>
+  </md-autocomplete>
+  
+    <md-chip-template style="color: {{::$chip.color}}">
+        <strong>{{::$chip.name}}</strong>
+    </md-chip-template>
+</md-chips>

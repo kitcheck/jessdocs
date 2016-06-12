@@ -43,9 +43,7 @@ module.component('specs', {
        };
        
        self.getTickets = function(spec){
-         var tickets = self.tickets[spec.id];
-         console.log(tickets);
-         return tickets;
+         return self.tickets[spec.id];
        };
        
        self.getTags = function(spec){

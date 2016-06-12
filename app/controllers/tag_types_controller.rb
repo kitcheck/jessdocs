@@ -37,6 +37,8 @@ class TagTypesController < ApplicationController
   def new
     @tag_type = TagType.new
     @tag_type_groups = TagTypeGroup.all
+    
+    render :json => TagType.all
   end
 
   # GET /tag_types/1/edit

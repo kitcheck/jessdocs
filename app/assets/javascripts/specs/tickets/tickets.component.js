@@ -7,8 +7,6 @@ module.component('tickets', {
      },
      templateUrl: 'specs/tickets/tickets.template.html',
      controller: function() {
-       var self = this;
-       
-       
+        var self = this;
      }
 });
