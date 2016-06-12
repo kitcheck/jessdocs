@@ -32,7 +32,15 @@ module.component('tags', {
                 {tag: {tag_type_id: chip.id,
                         spec_id: self.spec.id
               }}
-          });  
+            });  
+        };
+        
+        self.removeTag = function(chip){
+            console.log(chip);
+            $http({
+              url: '/tags/' + chip.id, 
+              method: "DELETE"
+            }); 
         };
         
         self.querySearch = function(query) {
