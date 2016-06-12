@@ -44,17 +44,20 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @spec_id = params[:ticket][:spec_id]
-    @ticket = Ticket.new(:name => params[:ticket][:name], :spec_id => @spec_id)
+    # @spec_id = params[:ticket][:spec_id]
+    # @ticket = Ticket.new(:name => params[:ticket][:name], :spec_id => @spec_id)
 
-    if @ticket.save
-      # redirect_to '/specs'
-    else
-      @spec = Spec.find(@spec_id)
-      render :action => 'new'
-    end
+    # if @ticket.save
+    #   # redirect_to '/specs'
+    # else
+    #   @spec = Spec.find(@spec_id)
+    #   render :action => 'new'
+    # end
     
-    render :nothing => true
+    @ticket = Ticket.new(create_params)
+    @ticket.save
+    
+    render :json => @ticket
   end
 
   # PATCH/PUT /tickets/1
@@ -74,14 +77,23 @@ class TicketsController < ApplicationController
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
-    @ticket_id = @ticket.id
     @ticket.update_attributes!(:deleted_by_id => current_user.id)
     @ticket.destroy
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js   { render :layout => false }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
+    #   format.json { head :no_content }
+    #   format.js   { render :layout => false }
+    # end
+    
+    render :json => {message: 'ticket deleted'}
+  end
+  
+  def remove
+    @ticket = Ticket.where(delete_params).first
+    @ticket.update_attributes!(:deleted_by_id => current_user.id)
+    @ticket.destroy
+    
+    render :json => {message: 'ticket deleted'}
   end
 
   private
@@ -96,6 +108,14 @@ class TicketsController < ApplicationController
     end
     
     def add_params
-      params.permit(:ticket).require(:name, :spec_id)
+      params.require(:ticket).permit(:name, :spec_id)
+    end
+    
+    def create_params
+      params.require(:ticket).permit(:name, :spec_id)
+    end
+    
+    def delete_params
+      params.require(:ticket).permit(:name, :spec_id)
     end
 end

@@ -20,7 +20,11 @@ Rails.application.routes.draw do
       get 'poll'
     end
   end
-  resources :tickets
+  resources :tickets do
+    collection do
+      post 'remove'
+    end
+  end
   resources :projects
   resources :tag_types do
     post 'recover'

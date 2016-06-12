@@ -76,11 +76,6 @@ class TagsController < ApplicationController
     @tag.reload
     
     @tag.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to '/specs', notice: 'Tag was successfully destroyed.' }
-    #   format.json { head :no_content }
-    #   format.js   { render :layout => false }
-    # end
     
     render :json => {message: 'tag deleted'}
   end

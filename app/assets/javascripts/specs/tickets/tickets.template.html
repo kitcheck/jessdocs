@@ -2,7 +2,11 @@
     ng-if="$ctrl.tickets" 
     ng-model="$ctrl.tickets" 
     name="ticket" 
-    readonly="!$ctrl.spec.showEditButtons">
+    readonly="!$ctrl.spec.showEditButtons"
+    md-transform-chip="$ctrl.transformChip($chip)"
+    md-on-add="$ctrl.addTicket($chip)"
+    md-on-remove="$ctrl.removeTicket($chip)"
+    placeholder="+ ticket">
     <md-chip-template>
         <a href="{{::chip.url}}">
             {{::$chip.name}}
