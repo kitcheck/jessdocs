@@ -1,0 +1,58 @@
+<md-fab-speed-dial 
+    md-direction="left" 
+    md-open="$ctrl.isOpen"
+    ng-mouseenter="$ctrl.togglePageUp(true)"
+    ng-mouseleave="$ctrl.togglePageUp(false)"
+    class="md-fab-bottom-right md-fling">
+  <md-fab-trigger >
+    <md-button 
+        class="md-fab" 
+        aria-label="menu"
+        ng-click="$ctrl.scrollToTop()">
+        
+        <md-icon class="material-icons" ng-if="!$ctrl.pageUp">
+            menu
+        </md-icon>
+        <md-icon class="material-icons" ng-if="$ctrl.pageUp">
+            arrow_upward
+        </md-icon>
+    </md-button>
+    
+  </md-fab-trigger>
+  <md-fab-actions>
+    <md-button 
+        class="md-fab md-raised md-mini"
+        aria-label="mass add specs"
+        ng-click="$ctrl.scrollToTop()">
+        
+        <md-tooltip 
+            md-direction="bottom">
+              add specs
+        </md-tooltip>
+      <md-icon class="material-icons">add</md-icon>
+    </md-button>
+    
+    <md-button 
+        class="md-fab md-raised md-mini"
+        aria-label="tag types">
+        
+        <md-tooltip 
+            md-direction="bottom" >
+              tag types
+        </md-tooltip>
+      <md-icon class="material-icons">label</md-icon>
+    </md-button>
+    
+    <md-button 
+        class="md-fab md-raised md-mini"
+        aria-label="export">
+        
+        <md-tooltip 
+            md-direction="bottom" >
+              export
+        </md-tooltip>
+      <md-icon class="material-icons">publish</md-icon>
+    </md-button>
+    
+  </md-fab-actions>
+</md-fab-speed-dial>
