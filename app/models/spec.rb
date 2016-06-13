@@ -193,7 +193,7 @@ class Spec < ActiveRecord::Base
         depth.times do 
             protractor_html << "\t"
         end
-        protractor_html << "};\n\n"
+        protractor_html << "});\n\n"
         
         protractor_html
     end
