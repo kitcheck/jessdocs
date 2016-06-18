@@ -62,8 +62,6 @@ class SpecsController < ApplicationController
     
     @project = Project.find(@selected_project_id)
     
-    @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
-    
     @tag_type_ids = params[:tag_types]
     
     query = Spec.none
@@ -87,7 +85,9 @@ class SpecsController < ApplicationController
     
     @specs = get_spec_hash(query)
     
-    render :json => @specs
+    @bookmarks = query.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    
+    render :json => {specs: @specs, bookmarks: @bookmarks}
     
   end
 

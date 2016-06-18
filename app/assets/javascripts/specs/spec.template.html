@@ -16,14 +16,37 @@
           </div>
         </div>
         
-        <div style="display:inline-block">
+        <div ng-if="!$ctrl.spec.showEditButtons" style="display:inline-block">
           {{::$ctrl.spec.description}}
           <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
           <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
         </div>
-        
-        <div ng-if="$ctrl.spec.showEditButtons" class="animate-if">
-          <buttons spec="$ctrl.spec"></buttons>
+        <div ng-if="$ctrl.spec.showEditButtons"
+            class="spec-card">
+            <md-card>
+              <md-card-title>
+                <md-card-title-text>
+                    <md-input-container>
+                      <input ng-model="$ctrl.spec.description" aria-label="description">
+                    </md-input-container>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
+                <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="left center">
+                <md-button aria-label="add parent">
+                  + parent
+                </md-button>
+                <md-button aria-label="children">
+                  + children
+                </md-button>
+                <md-button class="md-icon-button" aria-label="delete">
+                  <i class="material-icons">delete</i>
+                </md-button>
+              </md-card-actions>
+          </md-card>
         </div>
   
     </div>

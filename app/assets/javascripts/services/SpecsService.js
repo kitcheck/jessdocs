@@ -15,7 +15,8 @@ module.service('$specs', function($http, $q) {
             params: filterParams
         }).
         then(function (response) {
-            self.specs = response.data;
+            self.specs = response.data.specs;
+            self.bookmarks = response.data.bookmarks;
             updateAll();
             return self.specs;
         });

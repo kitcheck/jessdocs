@@ -9,6 +9,10 @@ module.component('tickets', {
      controller: function($http, $filter) {
         var self = this;
         
+        self.$onInit = function() {
+            self.tickets = self.tickets || [];  
+        };
+        
         self.transformChip = function(chip) {
             var chipName = chip.name || chip;
             var found = $filter('filter')(self.tickets, {name: chipName}, true);

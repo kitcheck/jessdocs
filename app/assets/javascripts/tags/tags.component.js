@@ -11,6 +11,10 @@ module.component('tags', {
         self.selectedItem = null;
         self.searchText = null;
         
+        self.$onInit = function() {
+            self.tags = self.tags || [];  
+        };
+        
         self.transformChip = function(chip) {
             if (angular.isObject(chip)) {
                 
