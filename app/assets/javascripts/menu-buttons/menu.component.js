@@ -57,5 +57,8 @@ function TagTypesController($scope, $mdDialog) {
         if (tagType.isBeingEdited){
             $scope.editingTagType = tagType;
         }
+        else {
+            $scope.editingTagType = null;
+        }
     };
 }
