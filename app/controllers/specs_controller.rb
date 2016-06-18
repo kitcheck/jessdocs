@@ -168,12 +168,14 @@ class SpecsController < ApplicationController
     @spec = Spec.find(params[:id])
 	  
 	  
-    if @spec.update_attributes(spec_param)
+    @spec.update_attributes(spec_param)
       # redirect_to :action => 'index', :id => @spec
-    else
-      @spec_types = SpecType.all
-      render :action => 'edit'
-    end
+    # else
+    #   @spec_types = SpecType.all
+    #   render :action => 'edit'
+    # end
+    
+    render :json => @spec
   end
   
   #GET /specs/mass_add_view

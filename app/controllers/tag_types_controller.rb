@@ -13,11 +13,13 @@ class TagTypesController < ApplicationController
       if group
         results[:tag_types] << {
           name: group.name,
+          color: group.color,
           tag_types: tag_types
         } 
       else
         results[:tag_types] << {
           name: nil,
+          color: nil,
           tag_types: tag_types
         } 
       end

@@ -10,28 +10,58 @@ module.component('spec', {
         ticket: '<'
     },
     templateUrl: 'specs/spec.template.html',
-    controller: function($scope, $http) {
+    controller: function($scope, $http, $tagtypes) {
        var self = this;
-
+       
        $scope.$callbacks = self.uiTreeCallbacks;
        
-       self.toggleEditButtons = function(spec) {
-          spec.showEditButtons = !spec.showEditButtons;
-          if (spec.showEditButtons) {
-            self.getAvailableTagTypes(spec);
-          }
-          
+        self.toggleEditButtons = function(spec) {
+            //previously edited spec
+            var editingSpec = self.parent.getEditingSpec();
+            spec.showEditButtons = !spec.showEditButtons;
+            //if we are turning editing on for this spec
+            if (spec.showEditButtons) {
+                toggleEditOn(spec, editingSpec);
+            }
+            //if we are turning editing off for this spec
+            //that means we clicked the checkmark
+            else {
+                toggleEditOff(spec, editingSpec.copy);
+                self.parent.setEditingSpec(null);
+            }
+        
         };
         
+        function toggleEditOn(spec, editingSpec){
+            if(editingSpec && editingSpec.spec && !angular.equals(editingSpec.spec, spec)){
+                editingSpec.spec.showEditButtons = false;
+                toggleEditOff(editingSpec.spec, editingSpec.copy);
+            }
+            self.parent.setEditingSpec(spec);
+            self.getAvailableTagTypes(spec);
+        }
+        
+        function toggleEditOff(spec, copy){
+            //if spec has changed, change in db
+            if(!angular.equals(spec.description, copy.description)){
+                $http({
+                    url: '/specs/' + spec.id, 
+                    method: "PUT",
+                    data: {
+                        id: spec.id,
+                        spec: {
+                            description: spec.description
+                        }}
+                }).
+                then(function (response) {
+                    console.log(response.data);
+                });
+            }
+        }
+        
         self.getAvailableTagTypes = function(spec){
-            $http({
-              url: '/tags/new', 
-              method: 'GET',
-              params: {
-                  id: spec.id
-              }
-            }).then(function(response) {
-                spec.tagtypes = response.data;
+            $tagtypes.getTagTypes().then( function(response){
+              spec.tagtypes = response.data;  
             });
         };
     }
@@ -40,7 +70,21 @@ module.component('specs', {
      templateUrl: 'specs/specs.template.html',
      controller: function($http, $q, $scope, $specs) {
         var self = this;
-        self.specsLoaded = false;
+        
+        var editingSpec;
+        var editingCopy;
+        
+        self.setEditingSpec = function(spec){
+            editingSpec = spec;
+            editingCopy = angular.copy(spec);
+        };
+        
+        self.getEditingSpec = function(){
+            return {
+                spec: editingSpec,
+                copy: editingCopy
+            };
+        };
         
        self.$onInit = function(){
            
@@ -57,35 +101,10 @@ module.component('specs', {
                     self.spec = $specs.specs;
                 });
                 $specs.setSpecList();
-                // $specs.getSpecList().then( function(result) {
-                //     self.spec = result.data;
-                // });
-                
-                
-                // if ($specs.specs){
-                //     self.specs = $specs.specs;
-                // }
-                // else {
-                //     $http.get('specs/filter_tag.json').then(function(response) {
-                        
-                //         specsService.specs = response.data;
-                //         self.spec = specsService.specs;
-                //     });
-                // }
                 
             });
             
-             
-         
        };
-       
-     
-       
-    //   $scope.$watch(function () {
-    //         return $specs.specs;         
-    //     }, function (value) {
-    //         self.spec = value;
-    //     });
        
        self.getTickets = function(spec){
          return self.tickets[spec.id];
@@ -94,39 +113,5 @@ module.component('specs', {
        self.getTags = function(spec){
          return self.tags[spec.id];
        };
-     }
-});
-module.component('buttons', {
-    bindings: {
-        spec: '<'
-    },
-    templateUrl: 'specs/buttons.template.html',
-    controller: function($mdDialog, $http) {
-        var self = this;
-        
-        self.associateTicket = function(ev, spec) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.prompt()
-              .title('associate ticket')
-              .placeholder('#000000000')
-              .ariaLabel('ticket number')
-              .targetEvent(ev)
-              .ok('associate')
-              .cancel('cancel');
-            $mdDialog.show(confirm).then(function(result) {
-              self.ticket = result;
-              console.log(result);
-              if (self.ticket){
-                  $http({
-                      url: '/tickets', 
-                      method: "POST",
-                      data: 
-                        {ticket: {name: self.ticket,
-                                spec_id: spec.id
-                      }}
-                  });
-              }
-            });
-        };
      }
 });

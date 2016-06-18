@@ -1,6 +1,8 @@
 <div>
+  <div ng-if="!$ctrl.spec.showEditButtons">
     <div ng-mouseenter="$ctrl.spec.userMouseover=true"
-        ng-mouseleave="$ctrl.spec.userMouseover=false">
+        ng-mouseleave="$ctrl.spec.userMouseover=false"
+        style="display: inline-block">
         
         <div ng-style="{'visibility': $ctrl.spec.userMouseover?'visible':'hidden'}" style="display:inline-block">
           <div style="display:inline-block">
@@ -15,20 +17,36 @@
             </a>
           </div>
         </div>
-        
-        <div ng-if="!$ctrl.spec.showEditButtons" style="display:inline-block">
+    </div>
+    <div style="display:inline-block">
           {{::$ctrl.spec.description}}
           <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
           <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
-        </div>
+    </div>
+    </div>
         <div ng-if="$ctrl.spec.showEditButtons"
             class="spec-card">
             <md-card>
+                <md-toolbar class="md-accent md-hue-1">
+                  <div class="md-toolbar-tools">
+                      <md-input-container style="width: 100%">
+                      <input 
+                        ng-model="$ctrl.spec.description" 
+                        aria-label="description"
+                        style="margin-top:20px" />
+                    </md-input-container>
+                    <span flex></span>
+                    <md-button 
+                      class="md-icon-button" 
+                      aria-label="done"
+                      ng-click="$ctrl.toggleEditButtons($ctrl.spec)">
+                      <md-icon class="material-icons">done</md-icon>
+                    </md-button>
+                  </div>
+                </md-toolbar>
               <md-card-title>
                 <md-card-title-text>
-                    <md-input-container>
-                      <input ng-model="$ctrl.spec.description" aria-label="description">
-                    </md-input-container>
+                    
                 </md-card-title-text>
               </md-card-title>
               <md-card-content>
@@ -47,9 +65,8 @@
                 </md-button>
               </md-card-actions>
           </md-card>
-        </div>
-  
     </div>
+    
     <ol ui-tree-nodes="" ng-model="$ctrl.spec.children">
         <li ng-repeat="child in $ctrl.spec.children" ui-tree-node>
             <spec 

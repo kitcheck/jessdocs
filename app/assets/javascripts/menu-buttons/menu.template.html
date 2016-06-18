@@ -22,7 +22,7 @@
   </md-fab-trigger>
   <md-fab-actions>
     <md-button 
-        class="md-fab md-raised md-mini"
+        class="md-fab md-raised md-mini md-accent"
         aria-label="mass add specs"
         ng-click="$ctrl.scrollToTop()">
         
@@ -34,8 +34,9 @@
     </md-button>
     
     <md-button 
-        class="md-fab md-raised md-mini"
-        aria-label="tag types">
+        class="md-fab md-raised md-mini md-accent"
+        aria-label="tag types"
+        ng-click="$ctrl.showTagTypesModal($event)">
         
         <md-tooltip 
             md-direction="bottom" >
@@ -45,7 +46,7 @@
     </md-button>
     
     <md-button 
-        class="md-fab md-raised md-mini"
+        class="md-fab md-raised md-mini md-accent"
         aria-label="export">
         
         <md-tooltip 
