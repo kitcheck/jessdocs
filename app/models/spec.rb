@@ -62,6 +62,15 @@ class Spec < ActiveRecord::Base
         query.pluck(:id)
     end
 
+    def self.all_ancestry(specs)
+        query = specs
+        specs.map do |spec|
+            query = query.union(Spec.full_ancestry_of_spec(spec))
+        end
+        
+        query
+    end
+
     def self.parse_block(text, project_id, parent_id=nil, next_top_order)
         self.parse_alternate(   :text_array => text.split("\n"), 
                                 :project_id => project_id, 

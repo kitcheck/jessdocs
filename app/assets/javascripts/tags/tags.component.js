@@ -1,4 +1,4 @@
-var module = angular.module('jessdocs');
+var module = angular.module('app');
 
 module.component('tags', {
     bindings: {

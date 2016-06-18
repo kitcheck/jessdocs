@@ -1,4 +1,4 @@
-var module = angular.module('jessdocs');
+var module = angular.module('app');
 module.component('spec', {
     require: {
         parent: '^^specs'
@@ -38,24 +38,54 @@ module.component('spec', {
 });
 module.component('specs', {
      templateUrl: 'specs/specs.template.html',
-     controller: function($http) {
-       var self = this;
+     controller: function($http, $q, $scope, $specs) {
+        var self = this;
+        self.specsLoaded = false;
         
        self.$onInit = function(){
            
-         $http.get('tickets.json').then(function(response) {
-            self.tickets = response.data;
-         });
+            var promises = {
+                tickets: $http.get('tickets.json'),
+                tags: $http.get('tags.json')
+            };
+            
+            $q.all(promises).then( function(response) {
+                self.tickets = response.tickets.data;
+                self.tags = response.tags.data;
+                
+                $specs.addCallback(function callback() {
+                    self.spec = $specs.specs;
+                });
+                $specs.setSpecList();
+                // $specs.getSpecList().then( function(result) {
+                //     self.spec = result.data;
+                // });
+                
+                
+                // if ($specs.specs){
+                //     self.specs = $specs.specs;
+                // }
+                // else {
+                //     $http.get('specs/filter_tag.json').then(function(response) {
+                        
+                //         specsService.specs = response.data;
+                //         self.spec = specsService.specs;
+                //     });
+                // }
+                
+            });
+            
+             
          
-         $http.get('tags.json').then(function(response) {
-            self.tags = response.data;
-         });
-         $http.get('specs.json').then(function(response) {
-            self.spec = response.data.specs;
-        });
-        
-        
        };
+       
+     
+       
+    //   $scope.$watch(function () {
+    //         return $specs.specs;         
+    //     }, function (value) {
+    //         self.spec = value;
+    //     });
        
        self.getTickets = function(spec){
          return self.tickets[spec.id];

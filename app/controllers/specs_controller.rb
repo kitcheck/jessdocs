@@ -57,11 +57,38 @@ class SpecsController < ApplicationController
   end
   
   def filter_tag
-    filter_view
-    respond_to do |format|
-      format.html
-      format.js { render :layout => false }
+   
+    @selected_project_id = params[:project_id] ||  Project.first.id
+    
+    @project = Project.find(@selected_project_id)
+    
+    @bookmarks = Spec.for_project(@selected_project_id).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    
+    @tag_type_ids = params[:tag_types]
+    
+    query = Spec.none
+    
+    if @tag_type_ids
+      @tag_type_ids.each do |tag_type_id|
+        query = query.union(Spec.all_ancestry(Spec.for_project(@project.id).with_tag_type(tag_type_id)))
+        puts "query = #{query}"
+      end
     end
+    
+    @ticketed = params[:ticketed]
+    
+    if @ticketed
+      query = query.union(Spec.all_ancestry(Spec.for_project(@project.id).has_ticket))
+    end
+    
+    if @tag_type_ids.nil? && @ticketed.nil?
+      query = Spec.for_project(@project.id)
+    end
+    
+    @specs = get_spec_hash(query)
+    
+    render :json => @specs
+    
   end
 
   # GET /specs/1
@@ -209,6 +236,8 @@ class SpecsController < ApplicationController
   # GET specs/bookmarks
   def bookmarks
     @bookmarks = Spec.for_project(params[:project_id]).roots.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
+    
+    return :json => @bookmarks
   end
   
   def delete
