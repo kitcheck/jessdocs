@@ -1,0 +1,58 @@
+<md-card 
+    style="width:100%">
+    <md-toolbar style="background-color:{{tag_type.color}}">
+      <div class="md-toolbar-tools">
+          <md-input-container 
+              style="width:80%">
+                <input
+                    ng-model="tag_type.name"
+                    aria-label="name"
+                    style="margin-top:20px; color:white" />
+            </md-input-container>
+        <span flex></span>
+        <md-button 
+          class="md-icon-button" 
+          aria-label="done"
+          ng-click="editTagType(tag_type)">
+          <md-icon class="material-icons">done</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+  <md-card-content>
+      <md-input-container
+        style="width:80%">
+        <label>tag type group</label>
+        <md-select 
+            ng-model="tag_type.tag_type_group_id"
+            aria-label="tag type groups"
+            md-on-close="changeTagGroup(tag_type)">
+              <md-option value="">no group</md-option>
+              <md-option 
+                ng-repeat="group in tagGroups" 
+                value="{{group.id}}">
+                    {{group.name}}
+              </md-option>
+        </md-select>
+      </md-input-container>
+      <span flex></span>
+      <md-input-container>
+        <color-picker
+            ng-model="tag_type.color"
+            color-picker-disabled="disableColorField(tag_type.tag_type_group_id)"
+            color-picker-format="hex"
+            color-picker-alpha="false"
+            color-picker-swatch="true"
+            color-picker-swatch-bootstrap="true"
+            color-picker-swatch-only="true"
+            color-picker-inline="false"
+            color-picker-on-change="onChange($event, color)"
+            aria-label="tag type color"
+        ></color-picker>
+    </md-input-container>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button class="md-icon-button" aria-label="delete">
+      <i class="material-icons">delete</i>
+    </md-button>
+  </md-card-actions>
+</md-card>

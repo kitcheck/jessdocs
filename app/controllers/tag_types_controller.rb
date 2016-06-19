@@ -4,7 +4,7 @@ class TagTypesController < ApplicationController
   # GET /tag_types
   # GET /tag_types.json
   def index
-    @tag_types = TagType.by_group
+    @tag_types = TagType.all #TagType.by_group
     @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
     @deleted_tag_types = TagType.only_deleted
     
@@ -27,7 +27,9 @@ class TagTypesController < ApplicationController
     
     render :json => {tag_types: results, 
                     tagless_groups: @tagless_groups,
-                    deleted_tag_types: @deleted_tag_types}
+                    deleted_tag_types: @deleted_tag_types,
+                    all_types: @tag_types
+    }
   end
 
   # GET /tag_types/1
@@ -75,11 +77,11 @@ class TagTypesController < ApplicationController
   def update
     
     
-    if @tag_type.update(tag_type_params)
-      @tag_types = TagType.by_group
-    else
-      render :action => 'edit'
-    end
+    @tag_type.update(tag_type_params)
+    #   @tag_types = TagType.by_group
+    # else
+    #   render :action => 'edit'
+    # end
     # respond_to do |format|
     #   if @tag_type.update(tag_type_params)
     #     format.html { redirect_to @tag_type, notice: 'Tag type was successfully updated.' }
@@ -89,6 +91,8 @@ class TagTypesController < ApplicationController
     #     format.json { render json: @tag_type.errors, status: :unprocessable_entity }
     #   end
     # end
+    
+    render :json => @tag_type
   end
 
   # DELETE /tag_types/1

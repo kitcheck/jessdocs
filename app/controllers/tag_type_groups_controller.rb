@@ -5,6 +5,8 @@ class TagTypeGroupsController < ApplicationController
   # GET /tag_type_groups.json
   def index
     @tag_type_groups = TagTypeGroup.all
+    
+    render :json => @tag_type_groups
   end
 
   # GET /tag_type_groups/1

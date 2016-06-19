@@ -1,9 +1,16 @@
-<md-dialog aria-label="tag types"  ng-cloak>
+<md-dialog aria-label="tag types"  style="width:800px" ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>tag types</h2>
         <span flex></span>
+        <md-input-container
+            ng-show="searching">
+            <input ng-model="query" style="margin-top: 20px" />
+        </md-input-container>
+        <md-button class="md-icon-button" ng-click="toggleSearch()">
+          <md-icon class="material-icons" aria-label="Close dialog">search</md-icon>
+        </md-button>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
         </md-button>
@@ -11,14 +18,16 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
+          
         <section ng-repeat="tag_type_group in tag_type_groups">
           <md-subheader 
             ng-if="tag_type_group.name"
-            style="background-color:{{tag_type_group.color}}">
+            style="background-color:{{tag_type_group.color}};
+                    color:white">
               <strong>{{tag_type_group.name}}</strong>
           </md-subheader>
           <md-list layout-padding>
-            <md-list-item ng-repeat="tag_type in tag_type_group.tag_types">
+            <md-list-item ng-repeat="tag_type in tag_type_group.tag_types | filter:query">
                 <div ng-if="!tag_type.isBeingEdited">
                     <div 
                       style="color: {{tag_type.color}}">
@@ -40,41 +49,11 @@
                         <md-icon class="material-icons">delete</md-icon>
                     </md-button>
                 </div>
-                <md-card 
-                    ng-if="tag_type.isBeingEdited"
-                    style="width:100%">
-                    <md-toolbar style="background-color:{{tag_type.color}}">
-                      <div class="md-toolbar-tools">
-                          <md-input-container 
-                              ng-if="tag_type.isBeingEdited">
-                                <input
-                                    ng-model="tag_type.name"
-                                    aria-label="name"
-                                    style="margin-top:20px; color:white" />
-                            </md-input-container>
-                        <span flex></span>
-                        <md-button 
-                          class="md-icon-button" 
-                          aria-label="done"
-                          ng-click="editTagType(tag_type)">
-                          <md-icon class="material-icons">done</md-icon>
-                        </md-button>
-                      </div>
-                    </md-toolbar>
-                  <md-card-title>
-                    <md-card-title-text>
-                        hey
-                    </md-card-title-text>
-                  </md-card-title>
-                  <md-card-content>
-                    hey
-                  </md-card-content>
-                  <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="delete">
-                      <i class="material-icons">delete</i>
-                    </md-button>
-                  </md-card-actions>
-              </md-card>
+                <div 
+                  ng-include="'tagtypes/edit-tag-type.template.html'"
+                  ng-if="tag_type.isBeingEdited"
+                  style="width:100%">
+                </div>
               
                 
             </md-list-item>
@@ -83,16 +62,6 @@
         
       </div>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button
-        ng-click="addTagType()">
-       + tag type
-      </md-button>
-      <md-button
-        ng-click="addTagGroup()">
-        + tag group
-      </md-button>
-    </md-dialog-actions>
+    
   </form>
 </md-dialog>

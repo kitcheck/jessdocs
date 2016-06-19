@@ -2,8 +2,26 @@ var module = angular.module('app');
 
 module.service('$tagtypes', function($http, $q) {
     var self = this;
+    var callbacks = [];
     
     self.tagTypes;
+    self.tagTypesByGroup;
+    
+    self.addCallback = function(callback) {
+        callbacks.push(callback);
+    };
+    
+    function notifyWatchers() {
+        callbacks.forEach(function(callback) {
+            callback();
+        });
+    }
+    
+    self.update = function() {
+        updateTagTypesByGroup().then( function(){
+            notifyWatchers();
+        });
+    };
     
     self.getTagTypes = function() {
         if(self.tagTypes){
@@ -18,4 +36,22 @@ module.service('$tagtypes', function($http, $q) {
         });
         return promise;
     };
+    
+    self.getTagTypesByGroup = function() {
+        if(self.tagTypesByGroup){
+            return $q.when(self.tagTypesByGroup);
+        }
+        
+        return updateTagTypesByGroup();
+    };
+    
+    function updateTagTypesByGroup() {
+        var promise = $http.get('tag_types.json')
+        .then(function(response) {
+            self.tagTypesByGroup = response.data.tag_types.tag_types;
+            self.tagTypes = response.data.all_types;
+            return self.tagTypesByGroup;
+        });
+        return promise;
+    }
 });

@@ -23,6 +23,8 @@
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
 //= require materialize-sprockets
+//= require tinycolor/tinycolor
+//= require angular-color-picker/dist/angularjs-color-picker
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

@@ -2,20 +2,28 @@ var module = angular.module('app');
 module.
   component('sidebar', {
     templateUrl: 'sidebar/sidebar.template.html',
-    controller: function ($http, $projects, $specs) {
+    controller: function ($http, $projects, $specs, $tagtypes) {
       var self = this;
       
       self.formData = {};
       self.selected = [];
       
       self.$onInit = function() {
-        $http.get('projects.json').then(function(response) {
+        
+        $projects.getProjects().then( function(response) {
             self.projects = response.data;
             self.formData.project = self.projects[0].id;
         });
-        $http.get('tag_types.json').then(function(response) {
-            self.tag_type_groups = response.data.tag_types.tag_types;
+        
+        $tagtypes.getTagTypesByGroup().then( function(response){
+            self.tag_type_groups = response;
         });
+        
+        $tagtypes.addCallback( function(){
+            console.log('groups = ', $tagtypes.tagTypesByGroup)
+            self.tag_type_groups = $tagtypes.tagTypesByGroup;
+        });
+        
       }; 
       
       
