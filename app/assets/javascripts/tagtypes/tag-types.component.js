@@ -8,6 +8,11 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
     $scope.refreshModal = false;
     $scope.tag_type_groups = $tagtypes.tagTypesByGroup;
     $scope.searching = false;
+    $scope.selectedIndex = 0;
+    
+    this.$onInit = function(){
+        alert('hi')
+    }
     
     $scope.cancel = function() {
         $mdDialog.hide($scope.notifyWatchers);
@@ -21,6 +26,10 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
         }
     };
     
+    $scope.editTagType2 = function(tagtype){
+        $scope.selectedIndex = 1;
+    }
+    
     $scope.editTagType = function(tagType) {
         tagType.isBeingEdited = !tagType.isBeingEdited;
         
@@ -31,7 +40,7 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
                 $scope.editingTagType.isBeingEdited = false;
                 toggleEditOff($scope.editingTagType, $scope.editingCopy);
             }
-            getTagGroups();
+            $scope.getTagGroups();
             $scope.editingTagType = tagType;
             $scope.editingCopy = angular.copy(tagType);
         }
@@ -89,7 +98,7 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
                 || angular.isNumber(groupId));
     };
     
-    function getTagGroups(){
+    $scope.getTagGroups = function(){
         if($scope.tagGroups){
             return true;
         }

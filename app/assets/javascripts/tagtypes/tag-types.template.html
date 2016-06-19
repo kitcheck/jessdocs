@@ -17,50 +17,64 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content">
-          
-        <section ng-repeat="tag_type_group in tag_type_groups">
-          <md-subheader 
-            ng-if="tag_type_group.name"
-            style="background-color:{{tag_type_group.color}};
-                    color:white">
-              <strong>{{tag_type_group.name}}</strong>
-          </md-subheader>
-          <md-list layout-padding>
-            <md-list-item ng-repeat="tag_type in tag_type_group.tag_types | filter:query">
-                <div ng-if="!tag_type.isBeingEdited">
+        <md-tabs 
+            md-dynamic-height 
+            md-border-bottom
+            md-selected="selectedIndex">
+            <md-tab label="tags">
+                <section ng-repeat="tag_type_group in tag_type_groups">
+                  <md-subheader 
+                    ng-if="tag_type_group.name"
+                    style="background-color:{{tag_type_group.color}};
+                            color:white">
+                      <strong>{{tag_type_group.name}}</strong>
+                  </md-subheader>
+                  <md-list layout-padding>
+                    <md-list-item ng-repeat="tag_type in tag_type_group.tag_types | filter:query">
+                        <div ng-if="!tag_type.isBeingEdited">
+                            <div 
+                              style="color: {{tag_type.color}}">
+                                {{tag_type.name}}
+                            </div>
+                            
+                        </div>
+                        <span ng-if="!tag_type.isBeingEdited" flex></span>
+                        <div ng-if="!tag_type.isBeingEdited">
+                        
+                            <md-button 
+                                class="md-accent md-icon-button"
+                                ng-click="editTagType(tag_type)">
+                                <md-icon class="material-icons">edit</md-icon>
+                            </md-button>
+                            <md-button 
+                                class="md-accent md-icon-button"
+                                ng-click="doSecondaryAction($event)">
+                                <md-icon class="material-icons">delete</md-icon>
+                            </md-button>
+                        </div>
+                        <div 
+                          ng-include="'tagtypes/edit-tag-type.template.html'"
+                          ng-if="tag_type.isBeingEdited"
+                          style="width:100%">
+                        </div>
+                    </md-list-item>
+                  </md-list>
+                </section>
+            </md-tab>
+            <md-tab 
+                label="+ tag type"
+                md-on-select="getTagGroups()">
+                <md-content class="md-padding">
                     <div 
-                      style="color: {{tag_type.color}}">
-                        {{tag_type.name}}
+                      ng-include="'tagtypes/edit-tag-type.template.html'"
+                      style="width:100%">
                     </div>
-                    
-                </div>
-                <span ng-if="!tag_type.isBeingEdited" flex></span>
-                <div ng-if="!tag_type.isBeingEdited">
+                </md-content>
+            </md-tab>
+            <md-tab label="+ tag group">
                 
-                    <md-button 
-                        class="md-accent md-icon-button"
-                        ng-click="editTagType(tag_type)">
-                        <md-icon class="material-icons">edit</md-icon>
-                    </md-button>
-                    <md-button 
-                        class="md-accent md-icon-button"
-                        ng-click="doSecondaryAction($event)">
-                        <md-icon class="material-icons">delete</md-icon>
-                    </md-button>
-                </div>
-                <div 
-                  ng-include="'tagtypes/edit-tag-type.template.html'"
-                  ng-if="tag_type.isBeingEdited"
-                  style="width:100%">
-                </div>
-              
-                
-            </md-list-item>
-          </md-list>
-        </section>
-        
-      </div>
+            </md-tab>
+        </md-tabs>
     </md-dialog-content>
     
   </form>
