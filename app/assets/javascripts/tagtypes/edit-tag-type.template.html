@@ -1,11 +1,11 @@
 <md-card 
     style="width:100%">
-    <md-toolbar style="background-color:{{tag_type.color}}">
+    <md-toolbar style="background-color:{{editingTagType.color}}">
       <div class="md-toolbar-tools">
           <md-input-container 
               style="width:80%">
                 <input
-                    ng-model="tag_type.name"
+                    ng-model="editingTagType.name"
                     aria-label="name"
                     style="margin-top:20px; color:white" />
             </md-input-container>
@@ -13,7 +13,7 @@
         <md-button 
           class="md-icon-button" 
           aria-label="done"
-          ng-click="editTagType(tag_type)">
+          ng-click="editTagType(editingTagType)">
           <md-icon class="material-icons">done</md-icon>
         </md-button>
       </div>
@@ -23,9 +23,9 @@
         style="width:80%">
         <label>tag type group</label>
         <md-select 
-            ng-model="tag_type.tag_type_group_id"
+            ng-model="editingTagType.tag_type_group_id"
             aria-label="tag type groups"
-            md-on-close="changeTagGroup(tag_type)">
+            md-on-close="changeTagGroup(editingTagType)">
               <md-option value="">no group</md-option>
               <md-option 
                 ng-repeat="group in tagGroups" 
@@ -37,8 +37,8 @@
       <span flex></span>
       <md-input-container>
         <color-picker
-            ng-model="tag_type.color"
-            color-picker-disabled="disableColorField(tag_type.tag_type_group_id)"
+            ng-model="editingTagType.color"
+            color-picker-disabled="disableColorField(editingTagType.tag_type_group_id)"
             color-picker-format="hex"
             color-picker-alpha="false"
             color-picker-swatch="true"

@@ -8,22 +8,7 @@ class TagTypesController < ApplicationController
     @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
     @deleted_tag_types = TagType.only_deleted
     
-    results = {tag_types: []}
-    TagType.includes(:tag_type_group).all.group_by(&:tag_type_group).each do |group, tag_types|
-      if group
-        results[:tag_types] << {
-          name: group.name,
-          color: group.color,
-          tag_types: tag_types
-        } 
-      else
-        results[:tag_types] << {
-          name: nil,
-          color: nil,
-          tag_types: tag_types
-        } 
-      end
-    end
+    results = tag_hash
     
     render :json => {tag_types: results, 
                     tagless_groups: @tagless_groups,
@@ -56,20 +41,11 @@ class TagTypesController < ApplicationController
     @tag_type = TagType.new(tag_type_params)
     
     if @tag_type.save
-      @tag_types = TagType.by_group
-      # redirect_to '/specs'
+      render :json => tag_hash
     else
-      render :action => 'new'
+      render :json => 'something has gone horribly wrong'
     end
-    # respond_to do |format|
-    #   if @tag_type.save
-    #     # format.html { redirect_to '/specs'}
-    #     # format.json { render :show, status: :created, location: @tag_type }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @tag_type.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    
   end
 
   # PATCH/PUT /tag_types/1
@@ -92,7 +68,8 @@ class TagTypesController < ApplicationController
     #   end
     # end
     
-    render :json => @tag_type
+    render :json => tag_hash
+    
   end
 
   # DELETE /tag_types/1
@@ -129,4 +106,26 @@ class TagTypesController < ApplicationController
     def tag_type_params
       params.require(:tag_type).permit(:name, :color, :tag_type_group_id)
     end
+    
+    def tag_hash
+      results = {tag_types: []}
+      TagType.includes(:tag_type_group).all.group_by(&:tag_type_group).each do |group, tag_types|
+        if group
+          results[:tag_types] << {
+            name: group.name,
+            color: group.color,
+            tag_types: tag_types
+          } 
+        else
+          results[:tag_types] << {
+            name: nil,
+            color: nil,
+            tag_types: tag_types
+          } 
+        end
+      end
+      
+      results
+    end
+  
 end

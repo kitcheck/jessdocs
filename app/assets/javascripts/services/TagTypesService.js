@@ -18,7 +18,7 @@ module.service('$tagtypes', function($http, $q) {
     }
     
     self.update = function() {
-        updateTagTypesByGroup().then( function(){
+        self.updateTagTypesByGroup().then( function(){
             notifyWatchers();
         });
     };
@@ -42,10 +42,10 @@ module.service('$tagtypes', function($http, $q) {
             return $q.when(self.tagTypesByGroup);
         }
         
-        return updateTagTypesByGroup();
+        return self.updateTagTypesByGroup();
     };
     
-    function updateTagTypesByGroup() {
+    self.updateTagTypesByGroup = function() {
         var promise = $http.get('tag_types.json')
         .then(function(response) {
             self.tagTypesByGroup = response.data.tag_types.tag_types;
@@ -53,5 +53,5 @@ module.service('$tagtypes', function($http, $q) {
             return self.tagTypesByGroup;
         });
         return promise;
-    }
+    };
 });

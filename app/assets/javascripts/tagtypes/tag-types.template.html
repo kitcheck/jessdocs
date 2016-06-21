@@ -4,14 +4,7 @@
       <div class="md-toolbar-tools">
         <h2>tag types</h2>
         <span flex></span>
-        <md-input-container
-            ng-show="searching">
-            <input ng-model="query" style="margin-top: 20px" />
-        </md-input-container>
-        <md-button class="md-icon-button" ng-click="toggleSearch()">
-          <md-icon class="material-icons" aria-label="Close dialog">search</md-icon>
-        </md-button>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="close()">
           <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
         </md-button>
       </div>
@@ -20,8 +13,12 @@
         <md-tabs 
             md-dynamic-height 
             md-border-bottom
-            md-selected="selectedIndex">
+            md-selected="selectedIndex"
+            md-on-select="clearEditing()">
             <md-tab label="tags">
+                
+                <md-content>
+                    
                 <section ng-repeat="tag_type_group in tag_type_groups">
                   <md-subheader 
                     ng-if="tag_type_group.name"
@@ -30,16 +27,16 @@
                       <strong>{{tag_type_group.name}}</strong>
                   </md-subheader>
                   <md-list layout-padding>
-                    <md-list-item ng-repeat="tag_type in tag_type_group.tag_types | filter:query">
-                        <div ng-if="!tag_type.isBeingEdited">
+                    <md-list-item ng-repeat="tag_type in tag_type_group.tag_types | filter:$ctrl.query">
+                        <div>
                             <div 
                               style="color: {{tag_type.color}}">
                                 {{tag_type.name}}
                             </div>
                             
                         </div>
-                        <span ng-if="!tag_type.isBeingEdited" flex></span>
-                        <div ng-if="!tag_type.isBeingEdited">
+                        <span flex></span>
+                        <div>
                         
                             <md-button 
                                 class="md-accent md-icon-button"
@@ -52,30 +49,123 @@
                                 <md-icon class="material-icons">delete</md-icon>
                             </md-button>
                         </div>
-                        <div 
-                          ng-include="'tagtypes/edit-tag-type.template.html'"
-                          ng-if="tag_type.isBeingEdited"
-                          style="width:100%">
-                        </div>
                     </md-list-item>
                   </md-list>
                 </section>
-            </md-tab>
-            <md-tab 
-                label="+ tag type"
-                md-on-select="getTagGroups()">
-                <md-content class="md-padding">
-                    <div 
-                      ng-include="'tagtypes/edit-tag-type.template.html'"
-                      style="width:100%">
-                    </div>
                 </md-content>
             </md-tab>
-            <md-tab label="+ tag group">
-                
+            <md-tab
+                md-on-select="initNew(true)"
+                md-on-deselect="clearEditing()">
+                <md-label>
+                    + tag type
+                </md-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                        <md-input-container 
+                          style="width:80%">
+                            <label>tag type name</label>
+                            <input
+                                required
+                                ng-model="editingCopy.name"
+                                aria-label="name"/>
+                        </md-input-container>
+                        <md-input-container
+                            style="width:80%">
+                            <label>tag type group</label>
+                            <md-select 
+                                ng-model="editingCopy.tag_type_group_id"
+                                aria-label="tag type groups"
+                                md-on-close="changeTagGroup(editingCopy)">
+                                  <md-option value="">no group</md-option>
+                                  <md-option 
+                                    ng-repeat="group in tagGroups" 
+                                    value="{{group.id}}">
+                                        {{group.name}}
+                                  </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <color-picker
+                                ng-model="editingCopy.color"
+                                color-picker-disabled="disableColorField(editingCopy.tag_type_group_id)"
+                                color-picker-format="hex"
+                                color-picker-alpha="false"
+                                color-picker-swatch="true"
+                                color-picker-swatch-bootstrap="true"
+                                color-picker-swatch-only="true"
+                                color-picker-inline="false"
+                                aria-label="tag type color"
+                            ></color-picker>
+                        </md-input-container>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab
+                md-on-select="initNew(false)"
+                md-on-deselect="clearEditing()">
+                <md-label>
+                    + tag group
+                </md-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <md-input-container 
+                          style="width:80%">
+                            <label>tag type group name</label>
+                            <input
+                                required
+                                ng-model="editingCopy.name"
+                                aria-label="name"/>
+                        </md-input-container>
+                        
+                        <md-input-container>
+                            <color-picker
+                                ng-model="editingCopy.color"
+                                color-picker-format="hex"
+                                color-picker-alpha="false"
+                                color-picker-swatch="true"
+                                color-picker-swatch-bootstrap="true"
+                                color-picker-swatch-only="true"
+                                color-picker-inline="false"
+                                aria-label="tag type group color"
+                            ></color-picker>
+                        </md-input-container>
+                        
+                    </md-content>
+                </md-tab-body>
             </md-tab>
         </md-tabs>
     </md-dialog-content>
-    
+    <md-dialog-actions 
+        layout="row"
+        ng-show="selectedIndex === 0">
+     
+        <span flex></span>
+        <md-input-container 
+            class="md-icon-float md-icon-right md-block">
+            <input 
+                ng-model="$ctrl.query"
+                aria-label="search"
+                style="margin-top:20px"/>
+            <md-icon 
+                class="material-icons"
+                style="margin-top:25px">search</md-icon>
+        </md-input-container>
+    </md-dialog-actions>
+    <md-dialog-actions 
+        layout="row"
+        ng-if="selectedIndex === 1 || selectedIndex === 2">
+     
+        <span flex></span>
+        <md-button ng-click="cancel()">
+            cancel
+        </md-button>
+        <md-button 
+            ng-disabled="disableSave()"
+            ng-click="save()"
+            class="md-raised md-accent">
+            save
+        </md-button>
+    </md-dialog-actions>
   </form>
 </md-dialog>

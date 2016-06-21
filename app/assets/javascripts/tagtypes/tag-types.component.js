@@ -1,86 +1,165 @@
 var module = angular.module('app');
 
 module.controller('TagTypesController', function($scope, $mdDialog, $http, $filter, $tagtypes){
-    $scope.editingTagType;
+    $scope.editingObject;
     $scope.editingCopy;
-    $scope.tagGroups;
     $scope.notifyWatchers = false;
     $scope.refreshModal = false;
     $scope.tag_type_groups = $tagtypes.tagTypesByGroup;
-    $scope.searching = false;
     $scope.selectedIndex = 0;
+    $scope.editing = false;
     
-    this.$onInit = function(){
-        alert('hi')
-    }
-    
-    $scope.cancel = function() {
+    $scope.close = function() {
         $mdDialog.hide($scope.notifyWatchers);
     };
     
-    $scope.toggleSearch = function(){
-        $scope.searching = !$scope.searching;
-        
-        if (!$scope.searching){
-            $scope.query = "";
-        }
+    $scope.clearEditing = function(){
+        $scope.editingObject = null;
+        $scope.editingCopy = {};
+        $scope.editing = false;
     };
     
-    $scope.editTagType2 = function(tagtype){
-        $scope.selectedIndex = 1;
-    }
-    
-    $scope.editTagType = function(tagType) {
-        tagType.isBeingEdited = !tagType.isBeingEdited;
+    $scope.save = function() {
+        var editingTagGroup = angular.isUndefined($scope.editingCopy.tag_type_group_id);
         
-        //if we weren't editing and now we are
-        if (tagType.isBeingEdited){
-            //if something was previously being edited
-            if ($scope.editingTagType) {
-                $scope.editingTagType.isBeingEdited = false;
-                toggleEditOff($scope.editingTagType, $scope.editingCopy);
+        if(hasChanges($scope.editingObject, $scope.editingCopy)){
+            if(editingTagGroup){
+                if($scope.editingObject === null) {
+                    createTagGroup($scope.editingCopy);
+                }
+                else {
+                    editTagGroup($scope.editingCopy);
+                }
             }
-            $scope.getTagGroups();
-            $scope.editingTagType = tagType;
-            $scope.editingCopy = angular.copy(tagType);
-        }
-        //if we are ceasing to edit
-        else {
-            toggleEditOff($scope.editingTagType, $scope.editingCopy);
-            $scope.editingTagType = null;
-            $scope.editingCopy = null;
+            else {
+                if($scope.editingObject === null){
+                    createTagType($scope.editingCopy);
+                }
+                else {
+                    editTagType($scope.editingCopy);
+                }
+            }
+            // if ($scope.refreshModal){
+            //     $tagtypes.updateTagTypesByGroup().then( function(response){
+            //         $scope.tag_type_groups = $tagtypes.tagTypesByGroup;
+            //     });
+            //     $scope.refreshModal = false;
+            // }
+            
+            $scope.notifyWatchers = true;
+            $scope.cancel();
         }
     };
     
-    function toggleEditOff(tagType, copy){
-        if(!hasNoChanges(tagType, copy)){
-            var groupId = parseInt(tagType.tag_type_group_id);
-            groupId = isNaN(groupId) ? null : groupId;
-            $http({
-                url: '/tag_types/' + tagType.id, 
-                method: "PUT",
-                data: {
-                    id: tagType.id,
-                    tag_type: {
-                        name: tagType.name,
-                        color: tagType.color,
-                        tag_type_group_id: groupId
-                    }}
-            }).
-            then(function (response) {
-                $scope.notifyWatchers = true;
-                console.log(response.data);
-            });
-        }
+    function createTagType(tagType) {
+        var groupId = parseInt(tagType.tag_type_group_id);
+        groupId = isNaN(groupId) ? null : groupId;
+        $http({
+            url: '/tag_types', 
+            method: "POST",
+            data: {
+                id: tagType.id,
+                tag_type: {
+                    name: tagType.name,
+                    color: tagType.color,
+                    tag_type_group_id: groupId
+                }}
+        }).
+        then(function (response) {
+            $scope.tag_type_groups = response.data.tag_types;
+        });
     }
     
-    function hasNoChanges(tagType, copy){
+    function editTagType(tagType) {
+        var groupId = parseInt(tagType.tag_type_group_id);
+        groupId = isNaN(groupId) ? null : groupId;
+        $http({
+            url: '/tag_types/' + tagType.id, 
+            method: "PUT",
+            data: {
+                id: tagType.id,
+                tag_type: {
+                    name: tagType.name,
+                    color: tagType.color,
+                    tag_type_group_id: groupId
+                }}
+        }).
+        then(function (response) {
+            $scope.tag_type_groups = response.data.tag_types;
+        });
+    }
+    
+    function createTagGroup(tagType) {
+        $http({
+            url: '/tag_type_groups', 
+            method: "POST",
+            data: {
+                id: tagType.id,
+                tag_type_group: {
+                    name: tagType.name,
+                    color: tagType.color
+                }}
+        }).
+        then(function (response) {
+            $scope.tagGroups.push(response.data);
+        });
+    }
+    
+    function editTagGroup(tagType) {
+        $http({
+            url: '/tag_type_groups/' + tagType.id, 
+            method: "PUT",
+            data: {
+                id: tagType.id,
+                tag_type_group: {
+                    name: tagType.name,
+                    color: tagType.color
+                }}
+        }).
+        then(function (response) {
+            
+        });
+    }
+    
+    $scope.disableSave = function() {
+        return angular.isUndefined($scope.editingCopy.name)
+    };
+    
+    $scope.cancel = function() {
+        $scope.selectedIndex = 0;
+        $scope.clearEditing();
+    };
+    
+    $scope.initNew = function(groupId){
+        if (!$scope.editing) {
+            $scope.editingObject = null;
+            $scope.editingCopy = {};
+            $scope.editingCopy.color = "#000000";
+            if(groupId){
+                $scope.editingCopy.tag_type_group_id = "";
+            }
+        }
+        //need this in all cases so we can push to it
+        $scope.getTagGroups();
+    };
+    
+    $scope.editTagType = function(tagtype){
+        $scope.selectedIndex = 1;
+        $scope.editingObject = tagtype;
+        $scope.editingCopy = angular.copy(tagtype);
+        $scope.editing = true;
+    };
+    
+    function hasChanges(tagType, copy){
+        if (tagType === null){
+            return true;
+        }
         var noChanges = ( 
             (tagType.name === copy.name) &&
             (tagType.color === copy.color) &&
             (tagType.tag_type_group_id == copy.tag_type_group_id)
         );
-        return noChanges;
+        return !noChanges;
     }
     
     $scope.changeTagGroup = function(tagType) {
@@ -105,11 +184,9 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
         else {
             $http.get('tag_type_groups').then(function(response) {
                 $scope.tagGroups = response.data;
-                
-                console.log($scope.tagGroups)
             });
         }
-    }
+    };
 
     
 });

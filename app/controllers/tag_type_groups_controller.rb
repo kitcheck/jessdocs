@@ -29,9 +29,10 @@ class TagTypeGroupsController < ApplicationController
     @tag_type_group = TagTypeGroup.new(tag_type_group_params)
     
     if @tag_type_group.save
-      @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
+      # @tag_types = TagType.includes(:tag_type_group).all.group_by(&:tag_type_group)
+      render :json => @tag_type_group
     else
-      render :action => 'new'
+      render :json => 'uh oh'
     end
   end
 
@@ -41,8 +42,9 @@ class TagTypeGroupsController < ApplicationController
       if @tag_type_group.update(tag_type_group_params)
         TagType.where(:tag_type_group => @tag_type_group).update_all(:color => @tag_type_group.color)
         @tag_types = TagType.by_group
+        render :json => @tag_type_group
       else
-        render :action => 'edit'
+        render :json => 'something has gone horribly wrong'
       end
   end
 
