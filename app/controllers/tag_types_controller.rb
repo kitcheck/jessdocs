@@ -78,15 +78,17 @@ class TagTypesController < ApplicationController
     @tag_type.update!(:deleted_by_id => current_user.id)
     @tag_type.destroy
     
-    @tag_types = TagType.by_group
-    @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
-    @deleted_tag_types = TagType.only_deleted
+    # @tag_types = TagType.by_group
+    # @tagless_groups = TagTypeGroup.where.not(id: TagType.pluck(:tag_type_group_id))
+    # @deleted_tag_types = TagType.only_deleted
     
-    respond_to do |format|
-      format.html { redirect_to tag_types_url, notice: 'Tag type was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js   { }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to tag_types_url, notice: 'Tag type was successfully destroyed.' }
+    #   format.json { head :no_content }
+    #   format.js   { }
+    # end
+    
+    render :json => tag_hash
   end
   
   def recover
@@ -112,12 +114,14 @@ class TagTypesController < ApplicationController
       TagType.includes(:tag_type_group).all.group_by(&:tag_type_group).each do |group, tag_types|
         if group
           results[:tag_types] << {
+            id: group.id,
             name: group.name,
             color: group.color,
             tag_types: tag_types
           } 
         else
           results[:tag_types] << {
+            id: nil,
             name: nil,
             color: nil,
             tag_types: tag_types

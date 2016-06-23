@@ -55,13 +55,15 @@ class TagTypeGroupsController < ApplicationController
     
     TagType.where(:tag_type_group => @tag_type_group).update_all(:tag_type_group_id => nil)
     
-    @tag_types= TagType.by_group
+    # @tag_types= TagType.by_group
     
-    respond_to do |format|
-      format.html { redirect_to tag_type_groups_url, notice: 'Tag type group was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js   { render :layout => false }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to tag_type_groups_url, notice: 'Tag type group was successfully destroyed.' }
+    #   format.json { head :no_content }
+    #   format.js   { render :layout => false }
+    # end
+    
+    render :json => TagTypeGroup.all
   end
 
   private

@@ -4,7 +4,6 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
     $scope.editingObject;
     $scope.editingCopy;
     $scope.notifyWatchers = false;
-    $scope.refreshModal = false;
     $scope.tag_type_groups = $tagtypes.tagTypesByGroup;
     $scope.selectedIndex = 0;
     $scope.editing = false;
@@ -16,6 +15,7 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
     $scope.clearEditing = function(){
         $scope.editingObject = null;
         $scope.editingCopy = {};
+        $scope.editingCopy.color = "#000000";
         $scope.editing = false;
     };
     
@@ -39,12 +39,6 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
                     editTagType($scope.editingCopy);
                 }
             }
-            // if ($scope.refreshModal){
-            //     $tagtypes.updateTagTypesByGroup().then( function(response){
-            //         $scope.tag_type_groups = $tagtypes.tagTypesByGroup;
-            //     });
-            //     $scope.refreshModal = false;
-            // }
             
             $scope.notifyWatchers = true;
             $scope.cancel();
@@ -143,11 +137,42 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
         $scope.getTagGroups();
     };
     
-    $scope.editTagType = function(tagtype){
-        $scope.selectedIndex = 1;
+    $scope.editTagType = function(tagtype, index){
         $scope.editingObject = tagtype;
         $scope.editingCopy = angular.copy(tagtype);
         $scope.editing = true;
+        $scope.selectedIndex = index;
+    };
+    
+    $scope.deleteTagType = function(tagType){
+        $http({
+            url: '/tag_types/' + tagType.id, 
+            method: "DELETE",
+            data: {
+                id: tagType.id
+            }
+        }).
+        then(function (response) {
+            $scope.tag_type_groups = response.data.tag_types;
+            $scope.notifyWatchers = true;
+        });
+    };
+    
+    $scope.deleteTagGroup = function(tagGroup) {
+        $http({
+            url: '/tag_type_groups/' + tagGroup.id, 
+            method: "DELETE",
+            data: {
+                id: tagGroup.id
+            }
+        }).
+        then(function (response) {
+            $scope.tagGroups = response.data;
+            $tagtypes.updateTagTypesByGroup().then( function(response){
+                $scope.tag_type_groups = response;
+            });
+            $scope.notifyWatchers = true;
+        });
     };
     
     function hasChanges(tagType, copy){
@@ -168,7 +193,6 @@ module.controller('TagTypesController', function($scope, $mdDialog, $http, $filt
         if (group){
             tagType.color = group.color;
         }
-        $scope.refreshModal = true;
     };
     
     $scope.disableColorField = function(groupId){
