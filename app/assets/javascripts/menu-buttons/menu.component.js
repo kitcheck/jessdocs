@@ -3,7 +3,13 @@ var module = angular.module('app');
 module.component('menu', {
 
      templateUrl: 'menu-buttons/menu.template.html',
-     controller: function($window, $mdDialog, $http, $tagtypes) {
+     controller: function(
+         $anchorScroll, 
+         $location, 
+         $mdDialog, 
+         $http, 
+         $tagtypes) {
+             
         var self = this;
         self.isOpen = false;
         self.pageUp = false;
@@ -14,7 +20,8 @@ module.component('menu', {
         };
         
         self.scrollToTop = function(){
-             $window.scrollTo(0, 0);
+            $location.hash('top');
+            $anchorScroll();
         };
         
         self.showTagTypesModal = function(ev){

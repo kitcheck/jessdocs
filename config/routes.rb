@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get 'delete'
     post 'bookmark'
     post 'move'
+    get 'breadcrumbs'
     collection do
       get 'mass_add_view'
       post 'mass_add'

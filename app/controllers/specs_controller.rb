@@ -1,5 +1,5 @@
 class SpecsController < ApplicationController
-  # before_action :set_spec, only: [:show, :edit, :update, :destroy]
+  before_action :set_spec, only: [:show, :edit, :update, :destroy, :breadcrumbs]
   
   
   before_action :initialize_tags, only: [ :index, 
@@ -60,27 +60,34 @@ class SpecsController < ApplicationController
    
     @selected_project_id = params[:project_id] ||  Project.first.id
     
+    @spec = Spec.find(params[:spec_id]) if params[:spec_id]
+    
     @project = Project.find(@selected_project_id)
     
     @tag_type_ids = params[:tag_types]
+    
+    if @spec
+      spec_pool = @spec.subtree #Spec.full_ancestry_of_spec(@spec)
+    else
+      spec_pool = Spec.for_project(@selected_project_id)
+    end
     
     query = Spec.none
     
     if @tag_type_ids
       @tag_type_ids.each do |tag_type_id|
-        query = query.union(Spec.all_ancestry(Spec.for_project(@project.id).with_tag_type(tag_type_id)))
-        puts "query = #{query}"
+        query = query.union(Spec.all_ancestry(spec_pool.with_tag_type(tag_type_id)))
       end
     end
     
     @ticketed = params[:ticketed]
     
     if @ticketed
-      query = query.union(Spec.all_ancestry(Spec.for_project(@project.id).has_ticket))
+      query = query.union(Spec.all_ancestry(spec_pool.has_ticket))
     end
     
     if @tag_type_ids.nil? && @ticketed.nil?
-      query = Spec.for_project(@project.id)
+      query = spec_pool
     end
     
     @specs = get_spec_hash(query)
@@ -125,6 +132,12 @@ class SpecsController < ApplicationController
     @spec = Spec.find(params[:id])
     @spec_types = SpecType.all
     
+  end
+  
+  def breadcrumbs
+    @breadcrumbs = @spec.path
+    
+    render :json => @breadcrumbs
   end
 
   # POST /specs
@@ -343,9 +356,9 @@ class SpecsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    # def set_spec
-    #   @spec = Spec.find(params[:id])
-    # end
+    def set_spec
+      @spec = Spec.find(params[:id])
+    end
     
     def initialize_tags
       @tag_hash = tag_hash
@@ -385,7 +398,6 @@ class SpecsController < ApplicationController
       
       @specs = get_spec_hash(Spec.for_project(@selected_project_id))
       
-      @projects = Project.all
       
       @filtered_spec_ids_array = []
       

@@ -7,6 +7,7 @@ module.
       
       self.formData = {};
       self.selected = [];
+      self.ticketed = false;
       
       self.$onInit = function() {
         
@@ -38,6 +39,11 @@ module.
         self.submit();
       };
       
+      self.toggleTicketed = function() {
+        self.ticketed = !self.ticketed;
+        self.submit();
+      };
+      
       self.changeProject = function() {
         $projects.currentProject = self.formData.project;
         console.log('current project = ', $projects.currentProject);
@@ -51,21 +57,14 @@ module.
         var params = {
           project_id: self.formData.project,
           "tag_types[]": self.selected,
-          ticketed: self.formData.ticketed
+          ticketed: self.ticketed
         };
         
         $specs.setSpecList(params).then( function(result) {
           console.log(result);
         });
         
-        // $http({
-        //     url: '/specs/filter_tag', 
-        //     method: "GET",
-        //     params: {
-        //       }
-        // }).then( function(response) {
-        //   $specs.specs = response.data;
-        // });
+        
       };
       
     }

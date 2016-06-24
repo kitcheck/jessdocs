@@ -1,4 +1,4 @@
-<div>
+<div id="{{$ctrl.spec.id}}">
   <div ng-if="!$ctrl.spec.showEditButtons">
     <div ng-mouseenter="$ctrl.spec.userMouseover=true"
         ng-mouseleave="$ctrl.spec.userMouseover=false"
@@ -14,6 +14,11 @@
             <a ng-click="$ctrl.toggleEditButtons($ctrl.spec)" 
               class='btn-flat btn-square'>
               <i class='material-icons tiny-icon'>mode_edit</i>
+            </a>
+            
+            <a ng-click="$ctrl.setBreadCrumbs($ctrl.spec)" 
+              class='btn-flat btn-square'>
+              <i class='material-icons tiny-icon'>fullscreen</i>
             </a>
           </div>
         </div>
