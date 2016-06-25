@@ -8,8 +8,10 @@
         <span 
             ng-repeat-start="breadcrumb in $ctrl.breadcrumbs" 
             class="md-caption truncate">
-            <a ng-click="$ctrl.setBreadcrumbs(breadcrumb)">{{breadcrumb.description}}</a>
-            
+            <a 
+                ng-click="$ctrl.setBreadcrumbs(breadcrumb)"
+                ng-bind="breadcrumb.description">
+            </a>
         </span>
         <span ng-if="!$last" ng-repeat-end>
             <md-icon class="material-icons">chevron_right</md-icon>

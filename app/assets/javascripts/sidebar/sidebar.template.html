@@ -11,7 +11,7 @@
         </md-select>
         
         <div>
-            <div class="tag-checkbox valign-wrapper">
+            <div class="tag-checkbox">
                 <md-checkbox ng-click="$ctrl.toggleTicketed()" ng-model="$ctrl.formData.ticketed">
                     ticketed
                     <i class="material-icons ticket valign">label</i>
@@ -20,15 +20,18 @@
             
             <div class="filterspecs navbar-btn">
                 <div ng-repeat="tag_type_group in $ctrl.tag_type_groups">
-                    <h5 class="md-title" ng-if="tag_type_group.name">{{tag_type_group.name}}</h5>
-                    <div class="tag-checkbox valign-wrapper" ng-repeat="tag_type in tag_type_group.tag_types" style="color: {{tag_type.color}}">
+                    <div 
+                        class="md-subhead truncate" 
+                        ng-if="tag_type_group.name"
+                        ng-bind="tag_type_group.name"></div>
+                    <div class="tag-checkbox" ng-repeat="tag_type in tag_type_group.tag_types" style="color: {{tag_type.color}}">
                         <md-checkbox 
                             ng-click="$ctrl.toggle(tag_type.id, $ctrl.selected)" 
                             ng-model="$ctrl.formData.tag_types[tag_type.id]" 
                             ng-true-value="true"
                             ng-false-value="">
-                        {{tag_type.name}}
-                        <i class="material-icons valign">label</i> 
+                        <span class="truncate" ng-bind="tag_type.name"></span>
+                        <i class="material-icons">label</i> 
                         </md-checkbox>
                     </div>
                 </div>

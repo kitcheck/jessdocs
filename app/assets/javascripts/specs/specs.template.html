@@ -1,13 +1,15 @@
-<a id="top"></a>
-<div ui-tree
-     id="tree-root">
-  <ol ui-tree-nodes ng-model="$ctrl.spec">
-    <li ng-repeat="spec in $ctrl.spec" ui-tree-node>
-      <spec 
-          spec="::spec" 
-          ui-tree-callbacks="::$callbacks"
-          tag="::$ctrl.getTags(spec)"
-          ticket="::$ctrl.getTickets(spec)"></spec>
-    </li>
-  </ol>
-</div>
+<md-content layout-padding>
+  <a id="top"></a>
+  <div ui-tree
+       id="tree-root">
+    <ol ui-tree-nodes ng-model="$ctrl.spec">
+      <li ng-repeat="spec in $ctrl.spec" ui-tree-node>
+        <spec 
+            spec="::spec" 
+            ui-tree-callbacks="::$callbacks"
+            tag="::$ctrl.getTags(spec)"
+            ticket="::$ctrl.getTickets(spec)"></spec>
+      </li>
+    </ol>
+  </div>
+</md-content>
