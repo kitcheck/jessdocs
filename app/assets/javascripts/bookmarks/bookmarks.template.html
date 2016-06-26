@@ -2,9 +2,16 @@
     class="md-sidenav-right"
     md-component-id="bookmarks"
     md-disable-backdrop>
+     
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>bookmarks</span>
+            </h3>
+        </div>
+    </md-toolbar>
     <md-content>
         <md-list flex>
-            <md-subheader>bookmarks</md-subheader>
             <md-list-item 
                 ng-click="navigateTo(setting.extraScreen, $event)" 
                 ng-repeat="bookmark in $ctrl.bookmarks"

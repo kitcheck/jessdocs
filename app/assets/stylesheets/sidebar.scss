@@ -5,6 +5,11 @@ md-checkbox {
 sidebar {
     overflow: hidden;
     width: 320px;
+    background-color: #EDE7F6;
+}
+
+sidebar md-sidenav {
+    background-color: #EDE7F6;
 }
 
 sidebar:hover { 
@@ -32,6 +37,7 @@ md-list-item, md-list-item .md-list-item-inner {
     padding-top: 10px;
     max-width: 275px !important;
     font-weight: bold !important;
+    background-color: #EDE7F6;
 }
 
 .tag-name {
