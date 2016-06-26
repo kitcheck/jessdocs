@@ -13,7 +13,7 @@
     <md-content>
         <md-list flex>
             <md-list-item 
-                ng-click="navigateTo(setting.extraScreen, $event)" 
+                ng-click="$ctrl.viewBookmark(bookmark)" 
                 ng-repeat="bookmark in $ctrl.bookmarks"
                 ng-if="$ctrl.bookmarks.length > 0">
                 <p> {{ bookmark.description }} </p>
