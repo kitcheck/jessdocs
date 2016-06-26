@@ -1,0 +1,20 @@
+ <md-sidenav
+    class="md-sidenav-right"
+    md-component-id="bookmarks"
+    md-disable-backdrop>
+    <md-content>
+        <md-list flex>
+            <md-subheader>bookmarks</md-subheader>
+            <md-list-item 
+                ng-click="navigateTo(setting.extraScreen, $event)" 
+                ng-repeat="bookmark in $ctrl.bookmarks"
+                ng-if="$ctrl.bookmarks.length > 0">
+                <p> {{ bookmark.description }} </p>
+            </md-list-item>
+            <md-list-item
+                ng-if="$ctrl.bookmarks.length === 0">
+                <p>You have no bookmarks</p>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

@@ -2,7 +2,13 @@ var module = angular.module('app');
 module.
   component('sidebar', {
     templateUrl: 'sidebar/sidebar.template.html',
-    controller: function ($http, $projects, $specs, $tagtypes) {
+    controller: function (
+      $http, 
+      $mdSidenav,
+      $projects, 
+      $specs, 
+      $tagtypes) {
+        
       var self = this;
       
       self.formData = {};

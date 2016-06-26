@@ -2,7 +2,7 @@ var module = angular.module('app');
 
 module.component('breadcrumbs', {
 
-     templateUrl: 'toolbar/breadcrumbs/breadcrumbs.template.html',
+     templateUrl: 'specs/breadcrumbs/breadcrumbs.template.html',
      controller: function(BreadcrumbsService, $specs) {
              
         var self = this;
