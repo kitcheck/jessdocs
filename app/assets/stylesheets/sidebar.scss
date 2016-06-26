@@ -4,8 +4,40 @@ md-checkbox {
 
 sidebar {
     overflow: hidden;
+    width: 320px;
 }
 
 sidebar:hover { 
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.very-dense {
+    font-size: small;
+    margin: 0px;
+}
+
+md-list-item, md-list-item .md-list-item-inner {
+    min-height: 30px;
+}
+
+.tag-icon {
+    margin-right: 20px;
+}
+
+.ticket {
+    color: midnightblue;
+}
+
+.tag-group-name {
+    padding-top: 10px;
+    max-width: 275px !important;
+    font-weight: bold !important;
+}
+
+.tag-name {
+    max-width: 175px !important;
+}
+
+.project-select {
+    width: 100%;
 }
