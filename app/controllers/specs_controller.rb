@@ -72,25 +72,29 @@ class SpecsController < ApplicationController
       spec_pool = Spec.for_project(@selected_project_id)
     end
     
-    query = Spec.none
+    query = Spec.all
     
     if @tag_type_ids
       @tag_type_ids.each do |tag_type_id|
-        query = query.union(Spec.all_ancestry(spec_pool.with_tag_type(tag_type_id)))
+        query = query.merge(Spec.all_ancestry(spec_pool.with_tag_type(tag_type_id)))
       end
     end
     
-    @ticketed = params[:ticketed]
+    @ticketed = (params[:ticketed] == true)
     
-    if @ticketed
-      query = query.union(Spec.all_ancestry(spec_pool.has_ticket))
+    if (@ticketed == true)
+      query = query.merge(Spec.all_ancestry(spec_pool.has_ticket))
     end
     
-    if @tag_type_ids.nil? && @ticketed.nil?
+    if @tag_type_ids.nil? && (@ticketed == false)
       query = spec_pool
     end
     
-    @specs = get_spec_hash(query)
+    temp_specs = query
+    
+    puts "specs = #{temp_specs}"
+    
+    @specs = get_spec_hash(temp_specs)
     
     @bookmarks = query.where(:bookmarked => true).order(spec_order: :asc).to_a.map(&:serializable_hash)
     

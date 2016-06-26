@@ -9,8 +9,10 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
-<body layout="row">
+<body layout="column">
+<toolbar></toolbar>
 
+<md-content layout="row">
     <md-sidenav
             class="md-sidenav-left"
             md-component-id="left"
@@ -24,13 +26,13 @@
       
       
       <md-content>
-        <toolbar></toolbar>
+        
         <specs></specs>
          
       </md-content>
      <menu ng-cloak></menu>
   </section>
-  
+</md-content>
   
   
 </body>

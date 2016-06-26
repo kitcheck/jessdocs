@@ -1,3 +1,11 @@
 md-checkbox {
     margin: 0px;
 }
+
+sidebar {
+    overflow: hidden;
+}
+
+sidebar:hover { 
+    overflow-y: scroll;
+}
