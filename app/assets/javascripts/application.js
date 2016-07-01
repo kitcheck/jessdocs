@@ -16,7 +16,6 @@
 //= require jquery.form
 //= require clipboard
 //= require angular
-//= require angular-animate
 //= require angular-rails-templates
 //= require angular-ui-tree
 //= require angular-aria/angular-aria

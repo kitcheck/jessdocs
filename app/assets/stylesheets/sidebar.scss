@@ -19,10 +19,11 @@ sidebar:hover {
 .very-dense {
     font-size: small;
     margin: 0px;
+    height: 30px;
 }
 
-md-list-item, md-list-item .md-list-item-inner {
-    min-height: 30px;
+md-list.md-dense md-list-item, md-list.md-dense md-list-item ._md-list-item-inner {
+    min-height: 0px;
 }
 
 .tag-icon {
@@ -41,7 +42,7 @@ md-list-item, md-list-item .md-list-item-inner {
 }
 
 .tag-name {
-    max-width: 175px !important;
+    max-width: 165px !important;
 }
 
 .project-select {

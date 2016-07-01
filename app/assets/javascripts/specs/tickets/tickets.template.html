@@ -7,7 +7,7 @@
     md-on-remove="$ctrl.removeTicket($chip)"
     placeholder="+ ticket">
     <md-chip-template>
-        <a href="{{::chip.url}}">
+        <a href="{{::$chip.url}}" target="_blank">
             {{::$chip.name}}
         </a>
     </md-chip-template>

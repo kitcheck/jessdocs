@@ -3,10 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 tags {
-    display:inline-block;
+    height: 30px;
 }
 
-md-chips.md-default-theme .md-chips, md-chips .md-chips {
+tickets {
+    height: 30px;
+}
+
+.read-only-tags {
+    display: inline-block;
+}
+
+.read-only-tags md-chips.md-default-theme .md-chips, md-chips .md-chips {
     box-shadow: 0 0px;
 }
 
@@ -17,14 +25,14 @@ md-chips.md-default-theme .md-chips, md-chips .md-chips {
     line-height: 22px !important;
 }
 
-.md-chip-input-container input {
+.read-only-tags .md-chip-input-container input {
     line-height: 22px;
 }
 
-.md-chips .md-chip {
+.read-only-tags .md-chips md-chip {
     line-height: 22px !important;
     height: 22px !important;
-    margin-top: 22px;
+    margin-top: 13px;
 }
 
 .md-chip-remove {

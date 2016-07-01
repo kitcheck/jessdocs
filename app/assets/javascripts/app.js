@@ -8,12 +8,13 @@ var app = angular.module('app', [
   $rootScopeProvider.digestTtl(100);
 });
 
-app.config(function($mdThemingProvider) {
+app.config(function($mdThemingProvider, $animateProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('deep-purple')
     .accentPalette('cyan', {
       'default': '500'
     });
+    $animateProvider.classNameFilter(/angular-animate/);
 });
 
 app.filter('getById', function() {

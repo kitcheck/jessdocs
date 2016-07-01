@@ -10,12 +10,20 @@ module.component('spec', {
         ticket: '<'
     },
     templateUrl: 'specs/spec.template.html',
-    controller: function($scope, $http, $tagtypes, BreadcrumbsService, $specs) {
+    controller: function(
+        $scope, 
+        $http, 
+        $tagtypes, 
+        BreadcrumbsService, 
+        $specs, 
+        $mdBottomSheet) {
+            
        var self = this;
        
        $scope.$callbacks = self.uiTreeCallbacks;
        
         self.toggleEditButtons = function(spec) {
+            spec.userMouseover=false;
             //previously edited spec
             var editingSpec = self.parent.getEditingSpec();
             spec.showEditButtons = !spec.showEditButtons;
@@ -71,5 +79,6 @@ module.component('spec', {
             
             $specs.setSpecList(params);
         };
+        
     }
 });

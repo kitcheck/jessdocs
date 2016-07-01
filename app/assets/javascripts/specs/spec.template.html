@@ -1,35 +1,42 @@
 <div id="{{$ctrl.spec.id}}">
-  <div ng-if="!$ctrl.spec.showEditButtons">
-    <div ng-mouseenter="$ctrl.spec.userMouseover=true"
-        ng-mouseleave="$ctrl.spec.userMouseover=false"
-        style="display: inline-block">
-        
-        <div ng-style="{'visibility': $ctrl.spec.userMouseover?'visible':'hidden'}" style="display:inline-block">
-          <div style="display:inline-block">
-            <a ui-tree-handle
-              class='btn-flat btn-square'>
-              <i class="material-icons">drag_handle</i>
-            </a>
+  
+  <div 
+    ng-if="!$ctrl.spec.showEditButtons"
+    ng-mouseenter="$ctrl.spec.userMouseover=true"
+    ng-mouseleave="$ctrl.spec.userMouseover=false"
+    class="spec">
+    
           
-            <a ng-click="$ctrl.toggleEditButtons($ctrl.spec)" 
-              class='btn-flat btn-square'>
-              <i class='material-icons tiny-icon'>mode_edit</i>
-            </a>
-            
-            <a ng-click="$ctrl.setBreadCrumbs($ctrl.spec)" 
-              class='btn-flat btn-square'>
-              <i class='material-icons tiny-icon'>fullscreen</i>
-            </a>
-          </div>
-        </div>
-    </div>
-    <div style="display:inline-block">
-          {{::$ctrl.spec.description}}
-          <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
-          <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
-    </div>
-    </div>
-        <div ng-if="$ctrl.spec.showEditButtons"
+    <span
+      ng-style="{'visibility': $ctrl.spec.userMouseover?'visible':'hidden'}">
+        <a ui-tree-handle
+          class='btn-flat btn-square'>
+          <i class="material-icons">drag_handle</i>
+        </a>
+      
+        <a ng-click="$ctrl.setBreadCrumbs($ctrl.spec)" 
+          class='btn-flat btn-square'>
+          <i class='material-icons tiny-icon'>fullscreen</i>
+        </a>
+        
+        <a ng-click="$ctrl.toggleEditButtons($ctrl.spec)" 
+          class='btn-flat btn-square'>
+          <i class='material-icons tiny-icon'>mode_edit</i>
+        </a>
+    </span>
+    <span>
+        {{::$ctrl.spec.description}}
+        <tickets 
+          tickets="$ctrl.ticket" 
+          spec="$ctrl.spec"
+          class="read-only-tags"></tickets>
+        <tags 
+          class="read-only-tags"
+          tags="$ctrl.tag" 
+          spec="$ctrl.spec"></tags>
+    </span>
+  </div>
+  <div ng-if="$ctrl.spec.showEditButtons"
             class="spec-card">
             <md-card>
                 <md-toolbar class="md-accent">
@@ -73,7 +80,7 @@
     </div>
     
     <ol ui-tree-nodes="" ng-model="$ctrl.spec.children">
-        <li ng-repeat="child in $ctrl.spec.children" ui-tree-node>
+        <li ng-repeat="child in $ctrl.spec.children track by child.id" ui-tree-node>
             <spec 
                 spec='::child' 
                 ui-tree-callbacks="::$callbacks"
