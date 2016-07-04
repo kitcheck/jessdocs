@@ -14,11 +14,11 @@ tickets {
     display: inline-block;
 }
 
-.read-only-tags md-chips.md-default-theme .md-chips, md-chips .md-chips {
+.read-only-tags md-chips .md-chips {
     box-shadow: 0 0px;
 }
 
-.md-chip-input-container input {
+.read-only-tags .md-chip-input-container input {
     margin-top: 13px;
     margin-left: 5px;
     height: 22px !important;

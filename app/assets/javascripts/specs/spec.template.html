@@ -36,48 +36,13 @@
           spec="$ctrl.spec"></tags>
     </span>
   </div>
-  <div ng-if="$ctrl.spec.showEditButtons"
-            class="spec-card">
-            <md-card>
-                <md-toolbar class="md-accent">
-                  <div class="md-toolbar-tools">
-                      <md-input-container style="width: 100%">
-                      <input 
-                        ng-model="$ctrl.spec.description" 
-                        aria-label="description"
-                        style="margin-top:20px" />
-                    </md-input-container>
-                    <span flex></span>
-                    <md-button 
-                      class="md-icon-button" 
-                      aria-label="done"
-                      ng-click="$ctrl.toggleEditButtons($ctrl.spec)">
-                      <md-icon class="material-icons">done</md-icon>
-                    </md-button>
-                  </div>
-                </md-toolbar>
-              <md-card-title>
-                <md-card-title-text>
-                    
-                </md-card-title-text>
-              </md-card-title>
-              <md-card-content>
-                <tickets tickets="$ctrl.ticket" spec="$ctrl.spec"></tickets>
-                <tags tags="$ctrl.tag" spec="$ctrl.spec"></tags>
-              </md-card-content>
-              <md-card-actions layout="row" layout-align="left center">
-                <md-button aria-label="add parent">
-                  + parent
-                </md-button>
-                <md-button aria-label="children">
-                  + children
-                </md-button>
-                <md-button class="md-icon-button" aria-label="delete">
-                  <i class="material-icons">delete</i>
-                </md-button>
-              </md-card-actions>
-          </md-card>
-    </div>
+  <div 
+    ng-if="$ctrl.spec.showEditButtons">
+      <edit-spec 
+        spec="$ctrl.spec"
+        tag="$ctrl.tag"
+        ticket="$ctrl.ticket"></edit-spec>      
+  </div>
     
     <ol ui-tree-nodes="" ng-model="$ctrl.spec.children">
         <li ng-repeat="child in $ctrl.spec.children track by child.id" ui-tree-node>
@@ -86,6 +51,12 @@
                 ui-tree-callbacks="::$callbacks"
                 tag="::$ctrl.parent.getTags(child)"
                 ticket="::$ctrl.parent.getTickets(child)"></spec>
+        </li>
+        <li
+          ng-if="$ctrl.spec.addChildren"
+          id="addChildren">
+          <add-spec
+            spec="$ctrl.spec"></add-spec>
         </li>
     </ol>
 </div>

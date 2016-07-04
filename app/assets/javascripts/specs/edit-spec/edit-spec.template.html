@@ -1,0 +1,45 @@
+<md-card class="edit-specs">
+    <md-card-content layout="row" layout-align="space-between">
+        <div class="edit-card-div">
+            <md-input-container class="edit-input">
+                <input 
+                    ng-model="$ctrl.spec.description" 
+                    aria-label="description"
+                    style="margin-top:20px" />
+            </md-input-container>
+            <div>
+                <md-icon class="edit-icon material-icons">link</md-icon>
+                <tickets
+                    tickets="$ctrl.ticket" 
+                    spec="$ctrl.spec"></tickets>
+            </div>
+            <div>
+                <md-icon class="edit-icon material-icons">label</md-icon>
+                <tags
+                    tags="$ctrl.tag" 
+                    spec="$ctrl.spec"></tags>
+            </div>
+        </div>
+      <md-card-actions layout="column" layout-align="left center">
+        <md-button 
+          class="md-icon-button" 
+          aria-label="done"
+          ng-click="$ctrl.toggleEditButtons($ctrl.spec)">
+          <md-icon class="material-icons">done</md-icon>
+        </md-button>
+        <span flex></span>
+        <md-button 
+            class="md-icon-button" 
+            aria-label="add children"
+            ng-click="$ctrl.toggleAddChildren($ctrl.spec)">
+          <i class="material-icons">add</i>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="bookmark">
+          <i class="material-icons">bookmark</i>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="delete">
+          <i class="material-icons">delete</i>
+        </md-button>
+      </md-card-actions>
+    </md-card-content>
+</md-card>

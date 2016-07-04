@@ -1,0 +1,30 @@
+<md-card class="edit-specs">
+    <md-card-content layout="row" layout-align="space-between">
+        <md-input-container class="edit-input md-block">
+            <textarea
+                rows="4"
+                ng-model="$ctrl.text"></textarea>
+        </md-input-container>
+        <md-card-actions layout="column" layout-align="left center">
+            <md-button 
+              class="md-icon-button" 
+              aria-label="cancel"
+              ng-click="$ctrl.cancelAdd()">
+              <md-icon class="material-icons">close</md-icon>
+            </md-button>
+            <md-button 
+              class="md-icon-button" 
+              aria-label="indent"
+              ng-click="$ctrl.indent()">
+              <md-icon class="material-icons">format_indent_increase</md-icon>
+            </md-button>
+            <span flex></span>
+            <md-button 
+              class="md-icon-button" 
+              aria-label="add specs"
+              ng-click="$ctrl.toggleEditButtons($ctrl.spec)">
+              <md-icon class="material-icons">done</md-icon>
+            </md-button>
+      </md-card-actions>
+    </md-card-content>
+</md-card>

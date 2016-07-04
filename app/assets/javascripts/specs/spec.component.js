@@ -12,11 +12,12 @@ module.component('spec', {
     templateUrl: 'specs/spec.template.html',
     controller: function(
         $scope, 
-        $http, 
+        $http,
+        $anchorScroll,
+        $location,
         $tagtypes, 
         BreadcrumbsService, 
-        $specs, 
-        $mdBottomSheet) {
+        $specs) {
             
        var self = this;
        
@@ -40,10 +41,23 @@ module.component('spec', {
         
         };
         
+        self.toggleAddChildren = function(spec) {
+            spec.addChildren = true;
+            spec.showEditButtons = false;
+            
+            $location.hash('addChildren');
+            $anchorScroll();
+        };
+        
+        self.cancelAdd = function(spec) {
+            spec.addChildren = false;  
+        };
+        
         function toggleEditOn(spec, editingSpec){
             if(editingSpec && editingSpec.spec && !angular.equals(editingSpec.spec, spec)){
                 editingSpec.spec.showEditButtons = false;
                 toggleEditOff(editingSpec.spec, editingSpec.copy);
+                self.cancelAdd(editingSpec.spec);
             }
             self.parent.setEditingSpec(spec);
             self.getAvailableTagTypes(spec);
