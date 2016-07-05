@@ -16,7 +16,7 @@ module.component('specs', {
         self.addChildren;
         
         self.toggleExport = function(spec){
-            spec.exported = !spec.exported || true;
+            // spec.exported = !spec.exported || true;
             console.log(spec.exported);
             
             var id = spec.id;
@@ -28,6 +28,7 @@ module.component('specs', {
             else {
                 recursiveCheck(spec, true);
             }
+            console.log(spec.exported);
         };
         
         function recursiveCheck(spec, checked){
