@@ -8,7 +8,8 @@ module.component('menu', {
          $location, 
          $mdDialog, 
          $http, 
-         $tagtypes) {
+         $tagtypes,
+         MenuService) {
              
         var self = this;
         self.isOpen = false;
@@ -22,6 +23,10 @@ module.component('menu', {
         self.scrollToTop = function(){
             $location.hash('top');
             $anchorScroll();
+        };
+        
+        self.addChildren = function() {
+            MenuService.toggleAddChildren();
         };
         
         self.showTagTypesModal = function(ev){

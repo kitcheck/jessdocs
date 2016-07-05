@@ -1,10 +1,10 @@
 var module = angular.module('app');
 module.component('addSpec', {
     require: {
-        parent: '^^spec'
+        parent: '^^specs'
     },
     bindings: {
-        spec: '<'
+        spec: '<?'
     },
     templateUrl: 'specs/add-spec/add-spec.template.html',
     controller: function() {

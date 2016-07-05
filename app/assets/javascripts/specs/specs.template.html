@@ -1,7 +1,8 @@
 
   <a id="top"></a>
   <div ui-tree
-       id="tree-root">
+       id="tree-root"
+       style="width:70%; margin-left:150px">
     <ol ui-tree-nodes ng-model="$ctrl.spec">
       <li ng-repeat="spec in $ctrl.spec track by spec.id" ui-tree-node>
         <spec 
@@ -10,5 +11,11 @@
             tag="::$ctrl.getTags(spec)"
             ticket="::$ctrl.getTickets(spec)"></spec>
       </li>
+      <li
+          ng-if="$ctrl.addChildren"
+          id="addChildren">
+          <add-spec></add-spec>
+      </li>
     </ol>
+    <a id="bottom"></a>
   </div>

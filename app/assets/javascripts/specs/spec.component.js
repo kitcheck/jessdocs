@@ -23,6 +23,10 @@ module.component('spec', {
        
        $scope.$callbacks = self.uiTreeCallbacks;
        
+        self.openSpecMenu = function($mdOpenMenu, ev) {
+            $mdOpenMenu(ev);
+        };
+       
         self.toggleEditButtons = function(spec) {
             spec.userMouseover=false;
             //previously edited spec
@@ -49,8 +53,8 @@ module.component('spec', {
             $anchorScroll();
         };
         
-        self.cancelAdd = function(spec) {
-            spec.addChildren = false;  
+        self.toggleExport = function() {
+            self.parent.toggleExport(self.spec);
         };
         
         function toggleEditOn(spec, editingSpec){
