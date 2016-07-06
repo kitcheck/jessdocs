@@ -3,7 +3,8 @@ var app = angular.module('app', [
   'ngMaterial',
   'ngAnimate',
   'ui.tree',
-  'color.picker'
+  'color.picker',
+  'ngclipboard'
 ], function($rootScopeProvider) {
   $rootScopeProvider.digestTtl(100);
 });

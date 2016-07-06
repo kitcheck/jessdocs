@@ -9,13 +9,16 @@
       </div>
     </md-toolbar>
     <md-dialog-content layout-padding>
-        <pre ng-bind="exportData"></pre>
+        <pre ng-bind="exportData" id="exportPre"></pre>
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span flex></span>
         <md-button
-            class="md-raised md-accent">
-            <md-icon class="material-icons">content_copy</md-icon>
+            class="md-raised md-accent"
+            ngclipboard 
+            data-clipboard-target="#exportPre">
+            <md-icon 
+              class="material-icons">content_copy</md-icon>
             copy to clipboard
         </md-button>
     </md-dialog-actions>

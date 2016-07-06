@@ -8,4 +8,8 @@ module.controller('ExportController', function($scope, $mdDialog, $http, exportH
         $mdDialog.hide();
     };
     
+    $scope.stuff = function(){
+        alert('hey')
+    }
+    
 });
