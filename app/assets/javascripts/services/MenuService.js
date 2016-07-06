@@ -3,8 +3,11 @@ var module = angular.module('app');
 module.service('MenuService', function() {
     var self = this;
     var callbacks = [];
+    var exportCallbacks = [];
     
     self.addChildren = false;
+    self.export = false;
+    self.exportSpecs = [];
     
     self.addCallback = function(callback) {
         callbacks.push(callback);
@@ -12,11 +15,20 @@ module.service('MenuService', function() {
     
     self.toggleAddChildren = function() {
         self.addChildren = !self.addChildren;
-        updateAll();
+        updateAll(callbacks);
     };
     
-    function updateAll() {
-        callbacks.forEach(function(callback) {
+    self.addExportCallback = function(callback) {
+        exportCallbacks.push(callback);  
+    };
+    
+    self.exporting = function(value){
+        self.export = value;
+        updateAll(exportCallbacks);
+    };
+    
+    function updateAll(callbackArray) {
+        callbackArray.forEach(function(callback) {
             callback();
         });
     }

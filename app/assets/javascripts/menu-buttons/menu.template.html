@@ -5,8 +5,9 @@
     ng-mouseleave="$ctrl.togglePageUp(false)"
     class="angular-animate md-fab-bottom-right md-fling"
     ng-cloak>
-  <md-fab-trigger >
+  <md-fab-trigger>
     <md-button 
+        ng-if="!$ctrl.exporting"
         class="md-fab" 
         aria-label="menu"
         ng-click="$ctrl.scrollToTop()">
@@ -19,18 +20,32 @@
         </md-icon>
     </md-button>
     
+    <md-button 
+        ng-if="$ctrl.exporting"
+        class="md-fab" 
+        aria-label="done exporting"
+        ng-click="$ctrl.toggleExportModal($event)">
+        
+        <md-icon class="material-icons">
+            done
+        </md-icon>
+        
+    </md-button>
+    
   </md-fab-trigger>
-  <md-fab-actions>
+  <md-fab-actions
+    ng-if="!$ctrl.exporting">
+    
     <md-button 
         class="md-fab md-raised md-mini md-accent"
-        aria-label="mass add specs"
-        ng-click="$ctrl.addChildren()">
+        aria-label="export"
+        ng-click="$ctrl.export()">
         
         <md-tooltip 
-            md-direction="bottom">
-              add specs
+            md-direction="bottom" >
+              export
         </md-tooltip>
-      <md-icon class="material-icons">add</md-icon>
+      <md-icon class="material-icons">publish</md-icon>
     </md-button>
     
     <md-button 
@@ -47,13 +62,14 @@
     
     <md-button 
         class="md-fab md-raised md-mini md-accent"
-        aria-label="export">
+        aria-label="mass add specs"
+        ng-click="$ctrl.addChildren()">
         
         <md-tooltip 
-            md-direction="bottom" >
-              export
+            md-direction="bottom">
+              add specs
         </md-tooltip>
-      <md-icon class="material-icons">publish</md-icon>
+      <md-icon class="material-icons">add</md-icon>
     </md-button>
     
   </md-fab-actions>

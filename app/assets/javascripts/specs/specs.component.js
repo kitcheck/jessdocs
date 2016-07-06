@@ -13,7 +13,8 @@ module.component('specs', {
         var editingSpec;
         var editingCopy;
         self.exportSpecs = [];
-        self.addChildren;
+        self.addChildren = false;
+        self.export = false;
         
         self.toggleExport = function(spec){
             var id = spec.id;
@@ -62,6 +63,14 @@ module.component('specs', {
                 self.addChildren = MenuService.addChildren;
                 $location.hash('bottom');
                 $anchorScroll();
+           });
+           
+           MenuService.addExportCallback( function(){
+               self.export = MenuService.export;
+               if( self.export === false ){
+                   MenuService.exportSpecs = self.exportSpecs;
+                   self.exportSpecs = [];
+               }
            });
            
             var promises = {

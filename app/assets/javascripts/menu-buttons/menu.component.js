@@ -14,6 +14,13 @@ module.component('menu', {
         var self = this;
         self.isOpen = false;
         self.pageUp = false;
+        self.exporting = false;
+        
+        self.$onInit = function(){
+            MenuService.addExportCallback( function(){
+                self.exporting = MenuService.export;
+            });
+        };
         
         self.togglePageUp = function(value){
              self.isOpen = value;
@@ -25,6 +32,35 @@ module.component('menu', {
             $anchorScroll();
         };
         
+        self.export = function() {
+            MenuService.exporting(true);
+        };
+        
+        self.toggleExportModal = function(ev) {
+            MenuService.exporting(false);
+            $mdDialog.show({
+                controller: 'ExportController',
+                templateUrl: 'modals/export.template.html',
+                targetEvent: ev,
+                resolve: {
+                    exportHtml: function($http){
+                        var promise = $http({
+                            url: '/specs/export', 
+                            method: "GET",
+                            params: {
+                                "spec_ids[]": MenuService.exportSpecs
+                            }
+                        }).then (function (response){
+                            return response.data.export;
+                        });
+                        
+                        return promise;
+                    }
+                },
+                clickOutsideToClose:true
+            });
+        };
+        
         self.addChildren = function() {
             MenuService.toggleAddChildren();
         };
@@ -33,7 +69,6 @@ module.component('menu', {
             $mdDialog.show({
               controller: 'TagTypesController',
               templateUrl: 'tagtypes/tag-types.template.html',
-              parent: angular.element(document.body),
               targetEvent: ev,
               clickOutsideToClose:true
             }).then(function(refresh) {

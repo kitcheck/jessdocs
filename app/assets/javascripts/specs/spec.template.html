@@ -7,6 +7,7 @@
     class="spec">
     
     <md-checkbox
+        ng-if="$ctrl.parent.export"
         class="export"
         aria-label="export spec"
         ng-model="$ctrl.spec.exported"
@@ -26,6 +27,7 @@
     </span>
     <span
       style="float:right"
+      ng-if="!$ctrl.parent.export"
       ng-style="{'visibility': $ctrl.spec.userMouseover?'visible':'hidden'}">
         <a ui-tree-handle
           class='btn-flat btn-square'>
