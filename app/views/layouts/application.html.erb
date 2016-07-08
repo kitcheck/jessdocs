@@ -10,28 +10,14 @@
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body layout="column">
-<toolbar></toolbar>
 
-<md-content layout="row">
-   
-         <sidebar></sidebar>
-    
-  
-  <section layout="column" flex role="main">
-    
-      
-      <breadcrumbs></breadcrumbs>
-      <md-content layout-padding>
-        
-        <specs></specs>
-         
-      </md-content>
-      
-     <menu ng-cloak></menu>
-  </section>
-  
-</md-content>
-  <bookmarks></bookmarks>
+<jessdocs
+  ng-if="Auth.isAuthenticated()">
+</jessdocs>
+
+<login
+  ng-if="!Auth.isAuthenticated()">
+</login>
   
 </body>
 </html>

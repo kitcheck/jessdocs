@@ -17,5 +17,31 @@
                 bookmark
             </md-icon>
         </md-button>
+            
+        <md-menu
+            md-position-mode="target-right target">
+            <md-button 
+                aria-label="user menu" 
+                ng-click="$ctrl.openUserMenu($mdOpenMenu, $event)">
+                <span 
+                    ng-bind="$ctrl.name"
+                    class="md-body-1"></span>
+                <md-icon 
+                    md-menu-origin 
+                    class="material-icons">person</md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-click="$ctrl.logout()">
+                        log out
+                        <span flex></span>
+                        <md-icon 
+                            md-menu-align-target
+                            class="material-icons">person_outline</md-icon>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    
     </div>
 </md-toolbar>

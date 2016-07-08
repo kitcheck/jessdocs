@@ -21,6 +21,7 @@
 //= require angular-aria/angular-aria
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
+//= require AngularDevise/lib/devise-min
 //= require ngclipboard/dist/ngclipboard
 //= require materialize-sprockets
 //= require tinycolor/tinycolor

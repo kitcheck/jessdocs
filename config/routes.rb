@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   
   root 'specs#index'
   
+  get "/users/current_user_info"
+  
   scope "/admin" do
     resources :users
   end

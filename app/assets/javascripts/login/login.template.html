@@ -1,0 +1,26 @@
+<div class="login">
+    <md-content layout-padding>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">jessdocs 3.0</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-input-container>
+                    <label>email</label>
+                    <input ng-model="$ctrl.user.email" />
+                </md-input-container>
+                <md-input-container>
+                    <label>password</label>
+                    <input 
+                        ng-model="$ctrl.user.password" 
+                        type="password" />
+                </md-input-container>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>log in</md-button>
+            </md-card-actions>
+        </md-card>
+    </md-content>
+</div>

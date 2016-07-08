@@ -7,6 +7,12 @@ class UsersController < ApplicationController
         end
     end
     
+    def current_user_info
+        @user = current_user
+        
+        render :json => @user
+    end
+    
     def edit
         @roles = Role.all
     end

@@ -14,6 +14,13 @@ specs md-content {
     background-color: #FAFAFA;
 }
 
+.angular-ui-tree-handle {
+    cursor: default;
+    font-weight: normal;
+    min-height: 0px;
+    line-height: inherit;
+}
+
 .angular-ui-tree-placeholder {
     background: #f0f9ff;
     border: 2px dashed #bed2db;
